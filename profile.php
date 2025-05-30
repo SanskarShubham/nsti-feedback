@@ -1,10 +1,10 @@
-<?php require_once 'header.php'; ?>
+<?php include 'header.php'; ?>
 
 <?php
 // Assuming $conn is your mysqli connection object
 $userData = $_SESSION['admin_data'];
 // print_r($userData);
-$query = "SELECT id,name, email, mobile FROM admin WHERE id = " . $userData['id'];
+$query = "SELECT id,name, email, mobile, dp_path FROM admin WHERE id = " . $userData['id'];
 $result = $conn->query($query);
 
 if (!$result) {
@@ -14,12 +14,14 @@ $id = 0;
 $name = '';
 $email = '';
 $mobile = 0;
+$dp_path = "";
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $id = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
         $mobile = $row['mobile'];
+        $dp_path = $row['dp_path'];
     }
 } else {
     echo "No records found.";
@@ -40,20 +42,17 @@ if ($result->num_rows > 0) {
         <div class="col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body">
+            
                     <div class="media align-items-center mb-4">
-                        <img class="mr-3" src="images/avatar/11.png" width="80" height="80" alt="">
+                        <img class="mr-3" src="<?php echo $dp_path; ?>" width="80" height="80" alt="">
                         <div class="media-body">
-                            <h3 class="mb-0">Pikamy Cha</h3>
-                            <p class="text-muted mb-0">Canada</p>
+                            <h3 class="mb-0"><?php echo $name; ?></h3>
                         </div>
                     </div>
-
-
-                    <h4>About Me</h4>
-                    <p class="text-muted">Hi, I'm Pikamy, has been the industry standard dummy text ever since the 1500s.</p>
+                    
                     <ul class="card-profile__info">
-                        <li class="mb-1"><strong class="text-dark mr-4">Mobile</strong> <span>01793931609</span></li>
-                        <li><strong class="text-dark mr-4">Email</strong> <span>name@domain.com</span></li>
+                        <li class="mb-1"><strong class="text-dark mr-4">Mobile</strong> <span><?php echo $mobile; ?></span></li>
+                        <li><strong class="text-dark mr-4">Email</strong> <span><?php echo $email; ?></span></li>
                     </ul>
                 </div>
             </div>
@@ -61,12 +60,6 @@ if ($result->num_rows > 0) {
 
 
         <!-- form starts from here -->
-
-
-
-
-
-
         <div class="col-lg-8 col-xl-9">
             <div class="card">
                 <div class="card-body">
@@ -96,6 +89,18 @@ if ($result->num_rows > 0) {
 
                                 </div>
                             </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="phone">Profile Picture<span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    
+                                    <div class="custom-file">
+                                                <input type="file" name="profile_pic" class="custom-file-input">
+                                                <label class="custom-file-label">Choose file</label>
+                                            </div>
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <div class="col-lg-8 ml-auto">
@@ -107,13 +112,7 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
-
-
 </div>
 </div>
 <?php include 'footer.php'; ?>
