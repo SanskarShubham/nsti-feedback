@@ -41,13 +41,13 @@ require_once 'connection.php';
     <!--*******************
         Preloader start
     ********************-->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
             </svg>
         </div>
-    </div>
+    </div> -->
     <!--*******************
         Preloader end
     ********************-->
@@ -87,18 +87,24 @@ require_once 'connection.php';
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                <div class="header-left">
-                  
-                </div>
+               
                 <div class="header-right">
                     <ul class="clearfix">
-                      
-                      
                        
+
+
+                    <?php
+                    $query="select dp_file_path from admin where id=".$_SESSION['admin_data']['id'];
+                    $result=$conn->query($query);
+                    $dp = $result->fetch_assoc()['dp_file_path']; 
+                
+                    ?>
+                       
+                        
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="images/user/1.png" height="40" width="40" alt="">
+                                <img src="<?php echo $dp?>" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -106,17 +112,10 @@ require_once 'connection.php';
                                         <li>
                                             <a href="profile.php"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <i class="icon-envelope-open"></i> <span>Inbox</span>
-                                                <div class="badge gradient-3 badge-pill gradient-1">3</div>
-                                            </a>
-                                        </li>
+                                       
 
                                         <hr class="my-2">
-                                        <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
-                                        </li>
+                                        
                                         <li><a href="logout.php"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
@@ -136,10 +135,31 @@ require_once 'connection.php';
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
+<<<<<<< HEAD
                     <li class="nav-label"><a href="dashboard.php">Dashboard</a></li>
                    
                
                     
+=======
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./dashboard.php">Dashboard</a></li>
+                            <li><a href="./profile.php">Profile</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a  href="./list-admin.php" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="nav-text">Admin</span>
+                        </a>
+                    </li>
+
+>>>>>>> 0f4497ff64be0a01c8d5e05ab47fb429623636ba
                 </ul>
             </div>
         </div>
