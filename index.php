@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = $conn->query($query);
 
   if ($result && $result->num_rows > 0) {
-    $_SESSION['admin_data'] = $result;
+    $_SESSION['admin_data'] = $result->fetch_assoc();
     header("Location: dashboard.php"); // redirect after login
     exit();
   } else {

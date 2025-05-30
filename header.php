@@ -1,11 +1,17 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 if (!isset($_SESSION['admin_data'])) {
     header("Location: index.php");
     exit();
 }
 // print_r($_SESSION['admin_data']);
+require_once 'connection.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
