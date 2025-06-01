@@ -1,15 +1,15 @@
 <?php
 session_start();
-require_once '../connection.php'; // Ensure $conn is your database connection
+require_once '../connection.php'; // Your DB connection
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id = $_POST["id"];
+    $id = intval($_POST["id"]);
     $name = $_POST["username"];
     $email = $_POST["email"];
     $phone = $_POST["phone"];
 
     $uploadDir = "../dp_uploads/";
-    $imagePath = ""; // new image path to be saved in DB
+    $imagePath = ""; // New image path to save in DB
 
     // STEP 1: Get old image path from DB
     $getOldImageQuery = "SELECT dp_file_path FROM admin WHERE id = ?";
@@ -20,34 +20,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmtOld->fetch();
     $stmtOld->close();
 
-    // STEP 2: If new image is uploaded
+    // STEP 2: Handle new image upload if any
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] === 0) {
         $fileName = basename($_FILES["image"]["name"]);
-        $targetPath = $uploadDir . $fileName;
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        // Create unique filename to avoid overwriting
+        $newFileName = basename($_FILES["image"]["name"]);
+
 
         // Create directory if not exists
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // DELETE OLD IMAGE from local storage
-        if (!empty($oldImagePath)) {
-            $fullOldPath = "../" . $oldImagePath; // relative to script location
-            if (file_exists($fullOldPath)) {
-                unlink($fullOldPath); // delete file
-            }
-        }
+        $targetPath = $uploadDir . $newFileName;
 
-        // MOVE new file
+        // Move uploaded file first
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath)) {
-            $imagePath = "dp_uploads/" . $fileName; // relative path to save in DB
+            // Delete old image after successful upload
+            if (!empty($oldImagePath)) {
+                $fullOldPath = "../" . $oldImagePath;
+                if (file_exists($fullOldPath)) {
+                    unlink($fullOldPath);
+                }
+            }
+
+            $imagePath = "dp_uploads/" . $newFileName; // Relative path to store in DB
         } else {
             echo "❌ Failed to upload new image.";
             exit;
         }
     }
 
-    // STEP 3: Prepare SQL for updating
+    // STEP 3: Prepare SQL update query
     if ($imagePath !== "") {
         $sql = "UPDATE admin SET name = ?, email = ?, mobile = ?, dp_file_path = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
@@ -63,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['admin_data']['name'] = $name;
         $_SESSION['admin_data']['email'] = $email;
         $_SESSION['admin_data']['mobile'] = $phone;
+
         if ($imagePath !== "") {
             $_SESSION['admin_data']['dp_file_path'] = $imagePath;
         }

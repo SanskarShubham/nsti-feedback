@@ -41,13 +41,13 @@ require_once 'connection.php';
     <!--*******************
         Preloader start
     ********************-->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
             </svg>
         </div>
-    </div>
+    </div> -->
     <!--*******************
         Preloader end
     ********************-->
@@ -94,15 +94,17 @@ require_once 'connection.php';
 
 
                     <?php
+                    $query="select dp_file_path from admin where id=".$_SESSION['admin_data']['id'];
+                    $result=$conn->query($query);
+                    $dp = $result->fetch_assoc()['dp_file_path']; 
                 
-                    $dp=$_SESSION['admin_data']['dp_file_path'];
                     ?>
                        
                         
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="<?php echo $dp; ?>" height="40" width="40" alt="">
+                                <img src="<?php echo $dp?>" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -142,9 +144,15 @@ require_once 'connection.php';
                             <li><a href="./dashboard.php">Dashboard</a></li>
                             <li><a href="./profile.php">Profile</a></li>
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+
                         </ul>
                     </li>
-                   
+                    <li>
+                        <a  href="./list-admin.php" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="nav-text">Admin</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
