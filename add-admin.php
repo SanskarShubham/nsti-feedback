@@ -1,7 +1,7 @@
 <?php include('header.php'); ?>
 
 <!-- content -->
-<div class="container-fluid">
+<div class="container-fluid">   
     <div class="card">
         <div class="card-body">
             <div class="form-validation">
