@@ -42,14 +42,14 @@ if (!$result) {
                             echo "<td>" . htmlspecialchars($row['mobile']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                             if ($row['status'] == 0) {
-                                echo "<td><span class='badge badge-pill badge-danger'>Pending</span></td>";
+                                echo "<td><span class='badge badge-pill badge-danger'>Inactive</span></td>";
                             } else {
-                                echo "<td><span class='badge badge-pill badge-success'>Success</span></td>";
+                                echo "<td><span class='badge badge-pill badge-success'>Active</span></td>";
                              } ?>
                             </td>
                             <td><span>
                             <a href="<?php echo 'edit-admin.php?id=' . $row['id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-10 "></i> </a>
-                            <a onclick=" return confirm('Are you sure?')"  href="<?php echo 'delete-admin.php?id=' . $row['id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close color-danger"></i></a>
+                            <a onclick=" return confirm('Are you sure?')"  href="<?php echo 'delete-admin.php?id=' . $row['id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close color-danger"></i></a>
                            </span></td>
 
                             </tr>

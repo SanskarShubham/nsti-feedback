@@ -26,6 +26,7 @@ $row = $result->fetch_assoc(); // existing admin data
             <div class="form-validation">
                 <form action="backend/update-admin.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                    <!-- <input type="hidden" name="dp_file_path" value="<?= $row['dp_file_path'] ?>"> -->
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Username <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
@@ -48,17 +49,36 @@ $row = $result->fetch_assoc(); // existing admin data
                     </div>
 
                     
-                   
+                    <!-- <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-password">Password <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <input type="password" value="" class="form-control" id="val-password" name="password" placeholder="Enter password.." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-cnf-password">Confirm Password <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <input type="password" value="" class="form-control" id="val-cnf-password" name="cnf_password" placeholder="Confirm password.." required>
+                        </div>
+                    </div> -->
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <label class="mr-2">
-                                   <input type="radio" value="0" name="status"> Inactive</label>
+                            <label class="mr-2"><input type="radio" value="0" name="status"> Inactive</label>
                             <label><input type="radio" value="1" name="status" checked> Active</label>
                         </div>
                     </div>
-                  
+
+
+                    <!-- <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Profile Picture</label>
+                        <div class="col-lg-6">
+                            <input type="file" name="image" class="form-control">
+                          
+                        </div>
+                    </div> -->
 
                     <div class="form-group row">
                         <div class="col-lg-8 ml-auto">

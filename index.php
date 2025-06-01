@@ -106,3 +106,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/styleSwitcher.js"></script>
 </body>
 </html>
+
