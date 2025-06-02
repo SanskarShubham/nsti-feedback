@@ -135,12 +135,6 @@ require_once 'connection.php';
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-<<<<<<< HEAD
-                    <li class="nav-label"><a href="dashboard.php">Dashboard</a></li>
-                   
-               
-                    
-=======
                     <li class="nav-label">Dashboard</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -159,7 +153,6 @@ require_once 'connection.php';
                         </a>
                     </li>
 
->>>>>>> 0f4497ff64be0a01c8d5e05ab47fb429623636ba
                 </ul>
             </div>
         </div>

@@ -54,8 +54,8 @@ $row = $result->fetch_assoc(); // existing admin data
                         <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
                             <label class="mr-2">
-                                   <input type="radio" value="0" name="status"> Inactive</label>
-                            <label><input type="radio" value="1" name="status" checked> Active</label>
+                                   <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive</label>
+                            <label><input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active</label>
                         </div>
                     </div>
                   

@@ -13,11 +13,11 @@ if (!$result) {
 ?>
 <!-- content -->
 <div class="container-fluid">
-   <div class="card-header text-right">
-            <a href="add-admin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Admin</a>
-        </div>
+    <div class="card-header text-right">
+        <a href="add-admin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Admin</a>
+    </div>
     <div class="card mb-3">
-       
+
         <div class="card-body">
             <h4 class="card-title">Admin List</h4>
             <div class="table-responsive">
@@ -45,12 +45,13 @@ if (!$result) {
                                 echo "<td><span class='badge badge-pill badge-danger'>Inactive</span></td>";
                             } else {
                                 echo "<td><span class='badge badge-pill badge-success'>Active</span></td>";
-                             } ?>
+                            } ?>
                             </td>
                             <td><span>
-                            <a href="<?php echo 'edit-admin.php?id=' . $row['id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-10 "></i> </a>
-                            <a onclick=" return confirm('Are you sure?')"  href="<?php echo 'delete-admin.php?id=' . $row['id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close color-danger"></i></a>
-                           </span></td>
+                                    &nbsp;&nbsp;
+                                    <a href="<?php echo 'edit-admin.php?id=' . $row['id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-10 "></i> </a>&nbsp;&nbsp;
+                                    <a onclick="return confirm('Are you sure?')" href="<?php echo 'backend/delete-admin.php?id=' . $row['id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close color-danger"></i></a>
+                                </span></td>
 
                             </tr>
                         <?php }

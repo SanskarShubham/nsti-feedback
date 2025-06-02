@@ -98,12 +98,7 @@
                                 $stmt->bind_param("ssssis", $name, $encrypted_password, $phone, $email, $status, $imagePath);
 
                                 if ($stmt->execute()) {
-                                    $_SESSION['admin_data'] = [
-                                        'name' => $name,
-                                        'email' => $email,
-                                        'phone' => $phone,
-                                        'dp_file_path' => $imagePath
-                                    ];
+                                  
                                     echo "<div class='text-success mt-3'>✅ User added successfully!</div>";
                                 } else {
                                     echo "<div class='text-danger mt-3'>❌ Error: " . $stmt->error . "</div>";
