@@ -1,4 +1,4 @@
-<?php require_once 'header.php'; ?>
+<?php include 'header.php'; ?>
 
 <?php
 // Assuming $conn is your mysqli connection object
@@ -40,6 +40,7 @@ if ($result->num_rows > 0) {
         <div class="col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body">
+            
                     <div class="media align-items-center mb-4">
                         <img class="mr-3" src="<?php echo $dp?>" width="80" height="80" alt="Profile Picture">
                         <div class="media-body">

@@ -1,8 +1,7 @@
-<?php include('header.php'); ?>
-
-
-<!-- content -->
 <?php
+session_start();
+include('../connection.php'); 
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -11,12 +10,10 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
-    // header("Location: list-admin.php");
-
+    header("Location: ../list-admin.php");
+    exit;
 }
 
-?>
-
-
-<!-- end content -->
-<?php include('footer.php'); ?>
+ include('footer.php'); 
+ 
+ ?>

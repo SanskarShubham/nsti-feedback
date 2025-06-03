@@ -135,21 +135,20 @@ require_once 'connection.php';
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./dashboard.php">Dashboard</a></li>
-                            <li><a href="./profile.php">Profile</a></li>
+                            <li><a href="./dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
+                            <li><a href="./profile.php"> <i class="fa fa-user"></i> Profile</a></li>
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
 
                         </ul>
                     </li>
                     <li>
                         <a  href="./list-admin.php" aria-expanded="false">
-                            <i class="fa fa-user"></i> <span class="nav-text">Admin</span>
+                            <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
                         </a>
                     </li>
 
