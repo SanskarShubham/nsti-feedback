@@ -67,7 +67,9 @@ require_once 'connection.php';
                     <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
+                        <!-- <img src="images/logo-text.png" alt=""> -->
+                        <pre style="color: white; font-size: 22px; font-weight: bold; font-family: 'Times New Roman', Times, serif; letter-spacing: 1px;  "><b>NSTI HOWRAH</b></pre>
+                        </p>
                     </span>
                 </a>
             </div>
@@ -149,6 +151,11 @@ require_once 'connection.php';
                     <li>
                         <a  href="./list-admin.php" aria-expanded="false">
                             <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="./list-trade.php" aria-expanded="false">
+                            <i class="fa fa-list-ul"></i> <span class="nav-text">Trade</span>
                         </a>
                     </li>
 
