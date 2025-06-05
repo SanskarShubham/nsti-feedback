@@ -40,9 +40,9 @@ if ($result->num_rows > 0) {
         <div class="col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body">
-            
+
                     <div class="media align-items-center mb-4">
-                        <img class="mr-3" src="<?php echo $dp?>" width="80" height="80" alt="Profile Picture">
+                        <img class="mr-3" src="<?php echo $dp ?>" width="80" height="80" alt="Profile Picture">
                         <div class="media-body">
                             <h3 class="mb-0"><?php echo htmlspecialchars($name); ?></h3>
                         </div>
@@ -82,7 +82,7 @@ if ($result->num_rows > 0) {
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label">Profile Picture</label>
                                 <div class="col-lg-6">
-                                    <input type="file" name="image" class="custom-file-input">
+                                    <input type="file" name="image" class="custom-file-input" accept=".jpg, .jpeg, .png">
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
                             </div>

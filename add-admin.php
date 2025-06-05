@@ -53,7 +53,7 @@
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Profile Picture <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="file" name="image" class="form-control" required>
+                            <input type="file" name="image" class="form-control" accept=".jpg, .jpeg, .png" required>
                         </div>
                     </div>
 
@@ -64,58 +64,62 @@
                     </div>
                 </form>
 
-                <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $name = $_POST["username"];
-                    $email = $_POST["email"];
-                    $phone = $_POST["phone"];
-                    $password = $_POST["password"];
-                    $cnf_password = $_POST["cnf_password"];
-                    $status = $_POST["status"];
-                    $imagePath = "";
+              <?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST["username"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $password = $_POST["password"];
+    $cnf_password = $_POST["cnf_password"];
+    $status = $_POST["status"];
+    $imagePath = "";
 
-                    if ($password !== $cnf_password) {
-                        echo "<div class='text-danger mt-3'>❌ Passwords do not match.</div>";
-                    } else {
-                        $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
-                        $uploadDir = "dp_uploads/";
+    if ($password !== $cnf_password) {
+        echo "<div class='text-danger mt-3'>❌ Passwords do not match.</div>";
+    } else {
+        $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
+        $uploadDir = "dp_uploads/";
 
-                        // Create folder if not exists
-                        if (!is_dir($uploadDir)) {
-                            mkdir($uploadDir, 0755, true);
-                        }
+        // Create folder if not exists
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
 
-                        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === 0) {
-                            $fileName = basename($_FILES["image"]["name"]);
-                            $targetPath = $uploadDir . $fileName;
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] === 0) {
+            $fileName = basename($_FILES["image"]["name"]);
+            $ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath)) {
-                                $imagePath = $targetPath;
+            // Generate unique file name
+            $uniqueFileName = uniqid("profile_", true) . '.' . $ext;
+            $targetPath = $uploadDir . $uniqueFileName;
 
-                                // Prepare SQL Insert
-                                $sql = "INSERT INTO admin (name, password, mobile, email, status, dp_file_path) VALUES (?, ?, ?, ?, ?, ?)";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("ssssis", $name, $encrypted_password, $phone, $email, $status, $imagePath);
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath)) {
+                $imagePath = $targetPath;
 
-                                if ($stmt->execute()) {
-                                  
-                                    echo "<div class='text-success mt-3'>✅ User added successfully!</div>";
-                                } else {
-                                    echo "<div class='text-danger mt-3'>❌ Error: " . $stmt->error . "</div>";
-                                }
+                // Prepare SQL Insert
+                $sql = "INSERT INTO admin (name, password, mobile, email, status, dp_file_path) VALUES (?, ?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssssis", $name, $encrypted_password, $phone, $email, $status, $imagePath);
 
-                                $stmt->close();
-                            } else {
-                                echo "<div class='text-danger mt-3'>❌ Failed to upload image.</div>";
-                            }
-                        } else {
-                            echo "<div class='text-danger mt-3'>❌ No image uploaded or upload error occurred.</div>";
-                        }
-                    }
-
-                    $conn->close();
+                if ($stmt->execute()) {
+                    echo "<div class='text-success mt-3'>✅ User added successfully!</div>";
+                } else {
+                    echo "<div class='text-danger mt-3'>❌ Error: " . $stmt->error . "</div>";
                 }
-                ?>
+
+                $stmt->close();
+            } else {
+                echo "<div class='text-danger mt-3'>❌ Failed to upload image.</div>";
+            }
+        } else {
+            echo "<div class='text-danger mt-3'>❌ No image uploaded or upload error occurred.</div>";
+        }
+    }
+
+    $conn->close();
+}
+?>
+
             </div>
         </div>
     </div>
