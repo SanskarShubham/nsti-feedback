@@ -7,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST["username"];
     $email = $_POST["email"];
     $phone = $_POST["phone"];
-
     $uploadDir = "../dp_uploads/";
     $imagePath = ""; // New image path to save in DB
 
@@ -26,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
         // Create unique filename to avoid overwriting
-        $newFileName = basename($_FILES["image"]["name"]);
-
+        $newFileName = uniqid("profile_", true) . '.' . $ext;
 
         // Create directory if not exists
         if (!is_dir($uploadDir)) {
@@ -52,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit;
         }
     }
+
 
     // STEP 3: Prepare SQL update query
     if ($imagePath !== "") {
@@ -85,4 +84,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } else {
     echo "Invalid request.";
 }
-?>
