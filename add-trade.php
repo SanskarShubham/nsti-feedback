@@ -17,10 +17,10 @@
                     
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
+                        <label class="col-lg-4 col-form-label">Program <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <label class="mr-2"><input type="radio" value="0" name="status"> CTS</label>
-                            <label><input type="radio" value="1" name="status" checked> CITS</label>
+                            <label class="mr-2"><input type="radio" value="CTS" name="program"> CTS</label>
+                            <label><input type="radio" value="CITS" name="program" checked> CITS</label>
                         </div>
                     </div>
 
@@ -36,13 +36,13 @@
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $name = $_POST["tradename"];
-                    $status = $_POST["status"];
+                    $program = $_POST["program"];
 
                    
                                 // Prepare SQL Insert
-                                $sql = "INSERT INTO trade (trade_name,  status) VALUES ( ?, ?)";
+                                $sql = "INSERT INTO trade (trade_name,  program) VALUES ( ?, ?)";
                                 $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("si", $name, $status);
+                                $stmt->bind_param("ss", $name, $program);
 
                                 if ($stmt->execute()) {
                                   

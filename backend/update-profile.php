@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "UPDATE admin SET name = ?, email = ?, mobile = ?, dp_file_path = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssi", $name, $email, $phone, $imagePath, $id);
-    } else {
         $sql = "UPDATE admin SET name = ?, email = ?, mobile = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssi", $name, $email, $phone, $id);

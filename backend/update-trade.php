@@ -10,17 +10,17 @@ require_once '../connection.php'; // Your DB connection
 // Handle update when form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $name = $_POST["tradename"];
-    $status = $_POST["status"];
+    $program = $_POST["program"];
 
     
     $id = $_POST["id"]; // Get the trade ID from the form
 
     
     // Update DB
-    $updateSql = "UPDATE trade SET trade_name = ?, status = ? WHERE id = ?";
+    $updateSql = "UPDATE trade SET trade_name = ?, program = ? WHERE id = ?";
     
     $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("sii", $name, $status, $id);  // "ssssi" for string, string, string, string, int
+    $updateStmt->bind_param("ssi", $name, $program, $id);  // "ssssi" for string, string, string, string, int
 
     if ($updateStmt->execute()) {
         echo "<div class='alert alert-success mt-3'>✅ trade updated successfully.</div>";

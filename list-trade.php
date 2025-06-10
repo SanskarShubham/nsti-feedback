@@ -26,7 +26,7 @@ if (!$result) {
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Trade Name</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Program</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -37,10 +37,12 @@ if (!$result) {
                             echo "<tr>";
                             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['trade_name']) . "</td>";
-                            if ($row['status'] == 0) {
+                            if ($row['program'] == "CTS") {
                                 echo "<td><span class='badge badge-pill badge-danger'>CTS</span></td>";
-                            } else {
+                            } elseif ($row['program'] == "CITS") {
                                 echo "<td><span class='badge badge-pill badge-success'>CITS</span></td>";
+                            }else{
+                                echo "<td></td>";
                             } ?>
                             </td>
                             <td><span>
