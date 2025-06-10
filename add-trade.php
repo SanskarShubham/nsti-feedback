@@ -2,6 +2,9 @@
 
 <!-- content -->
 <div class="container-fluid">   
+    <div class="card-header text-right">
+    <a href="list-trade.php" class="btn btn-primary"><i class="fa fa-eye"></i> View trade</a>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="form-validation">
@@ -22,16 +25,18 @@
                             <label class="mr-2"><input type="radio" value="CTS" name="program"> CTS</label>
                             <label><input type="radio" value="CITS" name="program" checked> CITS</label>
                         </div>
-                    </div>
-
-                  
+                    </div>                 
 
                     <div class="form-group row">
                         <div class="col-lg-8 ml-auto">
-                            <button type="submit" name="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"> </i> Add</button>
                         </div>
                     </div>
+                    
                 </form>
+                <div class="form-group row">
+                    
+                </div>
 
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
