@@ -1,5 +1,4 @@
 <?php include('header.php'); ?>
-<!-- content -->
 <div class="container-fluid">
     <div class="card">
         <div class="card-header text-right">
@@ -32,10 +31,23 @@
                             <input type="text" name="username" class="form-control" required>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Trade <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="text" name="trade" class="form-control" required>
+                            <select class="form-control" name="trade" required>
+                                <option value="">Select Trade</option>
+                                <?php
+                                include('connection.php');
+                                $sql = "SELECT trade_name FROM trade ORDER BY trade_name ASC";
+                                $result = mysqli_query($conn, $sql);
+                                if (mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        echo '<option value="'.$row['trade_name'].'">'.$row['trade_name'].'</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -75,7 +87,7 @@
                 if (isset($_POST['submit_manual'])) {
                     $attid = $_POST['Attendence_Id'];
                     $name = $_POST['username'];
-                    $trade = $_POST['trade'];
+                    $trade = $_POST['trade']; // Now holds trade name
                     $program = $_POST['program'];
 
                     $check = $conn->prepare("SELECT * FROM students WHERE attendence_id = ?");
@@ -110,7 +122,7 @@
                         while (($data = fgetcsv($file)) !== FALSE) {
                             $attid = trim($data[0]);
                             $name = trim($data[1]);
-                            $trade = trim($data[2]);
+                            $trade = trim($data[2]); // trade name
                             $program = trim($data[3]);
 
                             if ($attid == '' || $name == '' || $trade == '' || $program == '') continue;
@@ -149,5 +161,4 @@ function toggleEntry(mode) {
     document.getElementById('csvForm').style.display = mode === 'csv' ? 'block' : 'none';
 }
 </script>
-
 <?php include('footer.php'); ?>
