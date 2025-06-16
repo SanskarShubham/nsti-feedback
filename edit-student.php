@@ -30,11 +30,11 @@ $row = $result->fetch_assoc();
             <form action="backend/update-student.php" method="post">
                 <input type="hidden" name="id" value="<?= $row['id'] ?>">
 
-                <!-- Attendence ID -->
+                <!-- attendance ID -->
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label">Attendence ID <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 col-form-label">attendance ID <span class="text-danger">*</span></label>
                     <div class="col-lg-6">
-                        <input type="text" name="attendence_id" class="form-control" value="<?= htmlspecialchars($row['attendence_id']) ?>" required>
+                        <input type="text" name="attendance_id" class="form-control" value="<?= htmlspecialchars($row['attendance_id']) ?>" required>
                     </div>
                 </div>
 

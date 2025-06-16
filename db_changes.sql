@@ -15,3 +15,7 @@ INSERT INTO `subject` (`id`, `name`, `common_for_cts`, `common_for_cits`, `creat
 
 
 INSERT INTO `subject` (`id`, `name`, `common_for_cts`, `common_for_cits`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES (NULL, 'TRADE PRACTICAL', '1', '1', current_timestamp(), NULL, current_timestamp(), NULL, '1');
+
+
+-- 16/-06-2025
+ALTER TABLE `admin` ADD `role` ENUM('teacher','admin') NOT NULL DEFAULT 'teacher' AFTER `dp_file_path`;

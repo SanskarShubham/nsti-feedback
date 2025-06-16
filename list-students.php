@@ -25,7 +25,7 @@ if (!$result) {
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Attendence_Id</th>
+                            <th scope="col">attendance_Id</th>
                             <th scope="col">Name</th>
                             <th scope="col">Trade</th>
                             <th scope="col">Program</th>
@@ -38,7 +38,7 @@ if (!$result) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
                             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['attendence_id']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['attendance_id']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['trade']) . "</td>";
                             if ($row['program'] == "CTS") {

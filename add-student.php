@@ -20,9 +20,9 @@
                 <form method="post" id="manualForm" style="display:none;">
                     <input type="hidden" name="entry_type" value="manual">
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Attendence ID <span class="text-danger">*</span></label>
+                        <label class="col-lg-4 col-form-label">attendance ID <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="text" name="Attendence_Id" class="form-control" required>
+                            <input type="text" name="attendance_Id" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -85,12 +85,12 @@
 
                 // Manual Entry Processing
                 if (isset($_POST['submit_manual'])) {
-                    $attid = $_POST['Attendence_Id'];
+                    $attid = $_POST['attendance_Id'];
                     $name = $_POST['username'];
                     $trade = $_POST['trade']; // Now holds trade name
                     $program = $_POST['program'];
 
-                    $check = $conn->prepare("SELECT * FROM students WHERE attendence_id = ?");
+                    $check = $conn->prepare("SELECT * FROM students WHERE attendance_id = ?");
                     $check->bind_param("s", $attid);
                     $check->execute();
                     $result = $check->get_result();
@@ -98,7 +98,7 @@
                     if ($result->num_rows > 0) {
                         echo "<div class='text-danger'>❌ Duplicate Entry: $attid already exists.</div>";
                     } else {
-                        $stmt = $conn->prepare("INSERT INTO students (attendence_id, name, trade, program) VALUES (?, ?, ?, ?)");
+                        $stmt = $conn->prepare("INSERT INTO students (attendance_id, name, trade, program) VALUES (?, ?, ?, ?)");
                         $stmt->bind_param("ssss", $attid, $name, $trade, $program);
                         if ($stmt->execute()) {
                             echo "<div class='text-success'>✅ Student added successfully!</div>";
@@ -127,13 +127,13 @@
 
                             if ($attid == '' || $name == '' || $trade == '' || $program == '') continue;
 
-                            $check = $conn->prepare("SELECT * FROM students WHERE attendence_id = ?");
+                            $check = $conn->prepare("SELECT * FROM students WHERE attendance_id = ?");
                             $check->bind_param("s", $attid);
                             $check->execute();
                             $result = $check->get_result();
 
                             if ($result->num_rows == 0) {
-                                $stmt = $conn->prepare("INSERT INTO students (attendence_id, name, trade, program) VALUES (?, ?, ?, ?)");
+                                $stmt = $conn->prepare("INSERT INTO students (attendance_id, name, trade, program) VALUES (?, ?, ?, ?)");
                                 $stmt->bind_param("ssss", $attid, $name, $trade, $program);
                                 if ($stmt->execute()) $inserted++;
                                 $stmt->close();
