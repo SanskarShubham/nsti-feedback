@@ -168,6 +168,11 @@ require_once 'connection.php';
                             <i class="fa fa-users"></i> <span class="nav-text">Students</span>
                         </a>
                     </li>
+                    <li>
+                        <a  href="./list-feedback.php" aria-expanded="false">
+                            <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>

@@ -5,15 +5,15 @@ $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Total records and pages
-$total_query = "SELECT COUNT(*) AS total FROM students";
+// Total records and pages from feedback table
+$total_query = "SELECT COUNT(*) AS total FROM feedback";
 $total_result = mysqli_query($conn, $total_query);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_records = $total_row['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Fetch paginated records
-$sql = "SELECT * FROM students LIMIT $offset, $limit";
+// Fetch paginated feedback records
+$sql = "SELECT * FROM feedback ORDER BY created_at DESC LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -24,12 +24,13 @@ if (!$result) {
 <!-- content -->
 <div class="container-fluid">
     <div class="card-header text-right">
-        <a href="add-student.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Student</a>
+        <!-- If you want to add a button for adding feedback manually -->
+        <!-- <a href="add-feedback.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Feedback</a> -->
     </div>
     <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="card-title m-0">Students List</h4>
+                <h4 class="card-title m-0">Feedback List</h4>
                 <form method="get" id="limitForm" class="form-inline">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -52,12 +53,14 @@ if (!$result) {
                 <table class="table table-bordered table-striped verticle-middle">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Attendance ID</th>
-                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Student ID</th>
+                            <th>Teacher Name</th>
+                            <th>Subject Name</th>
                             <th>Trade</th>
-                            <th>Program</th>
-                            <th>Action</th>
+                            <th>Rating</th>
+                            <th>Remarks</th>
+                            <th>Submitted At</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,24 +68,27 @@ if (!$result) {
                             <tr>
                                 <td><?= htmlspecialchars($row['id']) ?></td>
                                 <td><?= htmlspecialchars($row['attendance_id']) ?></td>
-                                <td><?= htmlspecialchars($row['name']) ?></td>
-                                <td><?= htmlspecialchars($row['trade']) ?></td>
                                 <td>
-                                    <?php 
-                                        if ($row['program'] == "CTS") {
-                                            echo "<span class='badge badge-pill badge-danger'>CTS</span>";
-                                        } elseif ($row['program'] == "CITS") {
-                                            echo "<span class='badge badge-pill badge-success'>CITS</span>";
-                                        }
+                                    <?php
+                                    $teacher_query = "SELECT t.name AS teacher_name, tr.trade_name, s.name AS subject_name FROM teachers t
+                                                      JOIN teacher_subject_trade tst ON t.teacher_id = tst.teacher_id
+                                                      JOIN trade tr ON tst.trade_id = tr.trade_id
+                                                      JOIN subject s ON tst.subject_id = s.subject_id
+                                                      WHERE t.teacher_id = " . intval($row['teacher_id']);
+                                    $teacher_result = mysqli_query($conn, $teacher_query);
+                                    $teacher_row = mysqli_fetch_assoc($teacher_result);
                                     ?>
+                                    <?= htmlspecialchars($teacher_row['teacher_name']) ?>
                                 </td>
+                                <td><?= htmlspecialchars($teacher_row['subject_name']) ?></td>
+                                <td><?= htmlspecialchars($teacher_row['trade_name']) ?></td>
+                                <td><?= htmlspecialchars($row['rating']) ?> ⭐</td>
+                                <td><?= nl2br(htmlspecialchars($row['remarks'])) ?></td>
                                 <td>
-                                    <a href="edit-student.php?id=<?= $row['id']; ?>" data-toggle="tooltip" title="Edit">
-                                        <i class="fa fa-pencil color-muted m-r-10 "></i>
-                                    </a>
-                                    <a href="backend/delete-student.php?id=<?= $row['id']; ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete">
-                                        <i class="fa fa-close color-danger"></i>
-                                    </a>
+                                    <?php
+                                    $dt = new DateTime($row['created_at']);
+                                    echo $dt->format('d/m/y h:i:s A');
+                                    ?>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -90,7 +96,7 @@ if (!$result) {
                 </table>
             </div>
 
-            <!-- Pagination (only 5 pages around current) -->
+            <!-- Pagination -->
             <nav>
                 <ul class="pagination justify-content-center">
                     <?php if ($page > 1): ?>
