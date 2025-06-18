@@ -1,3 +1,140 @@
+<?php
+include 'connection.php';
+
+// Check if feedback already submitted for given attendance_id
+function feedbackExists($conn, $attendance_id) {
+    $attendance_id_esc = mysqli_real_escape_string($conn, $attendance_id);
+    $check_query = "SELECT COUNT(*) as cnt FROM feedback WHERE attendance_id = '$attendance_id_esc' AND status = 1";
+    $res = mysqli_query($conn, $check_query);
+    if ($res) {
+        $row = mysqli_fetch_assoc($res);
+        return ($row['cnt'] > 0);
+    }
+    return false;
+}
+
+// Handle AJAX fetch student info + teacher data
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['attendance_id']) && !isset($_POST['submit_feedback'])) {
+  $attendance_id = mysqli_real_escape_string($conn, $_POST['attendance_id']);
+
+  // Check if feedback already submitted
+  if (feedbackExists($conn, $attendance_id)) {
+    echo json_encode(['status' => 'exists', 'message' => 'Feedback already submitted for this student.']);
+    exit;
+  }
+
+  $query = "SELECT * FROM students WHERE attendance_id = '$attendance_id'";
+  $result = mysqli_query($conn, $query);
+
+  if (mysqli_num_rows($result) === 1) {
+    $student = mysqli_fetch_assoc($result);
+
+    $trade_name = $student['trade'];
+    $trade_query = "SELECT trade_id FROM trade WHERE trade_name = '$trade_name' LIMIT 1";
+    $trade_result = mysqli_query($conn, $trade_query);
+    $trade_row = mysqli_fetch_assoc($trade_result);
+    $trade_id = $trade_row['trade_id'];
+
+    $teacher_sub_trade_query = "
+      SELECT tst.id, tst.teacher_id, tst.trade_id, tst.subject_id, tst.program, t.name AS teacher_name, tr.trade_name, s.name AS subject_name
+      FROM teacher_subject_trade tst
+      LEFT JOIN teachers t ON tst.teacher_id = t.teacher_id
+      LEFT JOIN trade tr ON tst.trade_id = tr.trade_id
+      LEFT JOIN subject s ON tst.subject_id = s.subject_id
+      WHERE tst.trade_id = $trade_id";
+    $teacher_sub_trade_result = mysqli_query($conn, $teacher_sub_trade_query);
+    $teacher_sub_trade_rows = mysqli_fetch_all($teacher_sub_trade_result, MYSQLI_ASSOC);
+
+    echo json_encode([
+      'status' => 'success',
+      'data' => [
+        'name' => $student['name'],
+        'program' => $student['program'],
+        'trade' => $student['trade'],
+        'student_id' => $student['id'],
+        'attendance_id' => $student['attendance_id'],
+        'teacher_sub_trade_rows' => $teacher_sub_trade_rows
+      ]
+    ]);
+  } else {
+    echo json_encode(['status' => 'error', 'message' => 'Student details not found.']);
+  }
+  exit;
+}
+
+// Handle feedback submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_feedback'])) {
+  $student_id = intval($_POST['student_id']);
+  $attendance_id = mysqli_real_escape_string($conn, $_POST['attendance_id']);
+
+  // Check if feedback already submitted - server side validation
+  if (feedbackExists($conn, $attendance_id)) {
+    echo "<script>
+            showStatus('Feedback already submitted for this student.', 'error');
+          </script>";
+    exit;
+  }
+
+  $teacher_ids = $_POST['teacher_id'];
+  $trade_ids = $_POST['trade_id'];
+  $subject_ids = $_POST['subject_id'];
+  $programs = $_POST['program'];
+  $ratings = $_POST['rating'] ?? [];
+  $remarks_arr = $_POST['remarks'] ?? [];
+
+  // Validation: all fields must be filled
+  $errors = [];
+
+  for ($i = 0; $i < count($teacher_ids); $i++) {
+    $rating = $ratings[$i] ?? null;
+    $remarks = trim($remarks_arr[$i] ?? '');
+
+    if (empty($rating)) {
+      $errors[] = "Rating missing for teacher index $i.";
+    }
+    if ($remarks === '') {
+      $errors[] = "Remarks missing for teacher index $i.";
+    }
+  }
+
+  if (!empty($errors)) {
+    $error_str = implode("\n", $errors);
+    echo "<script>
+            showStatus('Please fill all mandatory fields:\\n$error_str', 'error');
+          </script>";
+    exit;
+  }
+
+  // Insert feedback
+  $created_by = NULL; // Adjust if needed
+
+  $insert_errors = [];
+  for ($i = 0; $i < count($teacher_ids); $i++) {
+    $teacher_id = intval($teacher_ids[$i]);
+    $trade_id = intval($trade_ids[$i]);
+    $subject_id = intval($subject_ids[$i]);
+    $program = mysqli_real_escape_string($conn, $programs[$i]);
+    $rating = intval($ratings[$i]);
+    $remarks = mysqli_real_escape_string($conn, $remarks_arr[$i]);
+
+    $insert = "INSERT INTO feedback (teacher_id, trade_id, subject_id, program, attendance_id, rating, remarks, created_at, created_by, status)
+               VALUES ('$teacher_id', '$trade_id', '$subject_id', '$program', '$attendance_id', '$rating', '$remarks', NOW(), ".($created_by ?? "NULL").", 1)";
+    if (!mysqli_query($conn, $insert)) {
+      $insert_errors[] = mysqli_error($conn);
+    }
+  }
+
+  if (empty($insert_errors)) {
+    echo "<script>window.location.reload();</script>";
+  } else {
+    $error_str = implode(", ", $insert_errors);
+    echo "<script>
+            showStatus('Error submitting feedback: $error_str', 'error');
+          </script>";
+  }
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +177,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
         .container {
@@ -52,6 +191,7 @@
             margin: 20px;
             transition: var(--transition);
             position: relative;
+            z-index: 10;
         }
 
         .container:hover {
@@ -477,11 +617,11 @@
     </div>
 
     <script>
-        // Function to show status message
+        // Function to show status message below fetch button
         function showStatus(message, type) {
             const statusEl = document.getElementById('statusMessage');
             statusEl.textContent = message;
-            statusEl.className = `status-message ${type} show`;
+            statusEl.className = `status-message ${type}-msg show`;
             
             // Auto-hide after 5 seconds
             setTimeout(() => {
@@ -489,12 +629,12 @@
             }, 5000);
         }
 
-        // Simulate fetching student info
+        // Fetch student information
         document.getElementById('fetchInfoBtn').addEventListener('click', function() {
-            const attendanceId = document.getElementById('attendance_id').value;
+            const attendanceId = document.getElementById('attendance_id').value.trim();
             
             if (!attendanceId) {
-                showStatus('Please enter Attendance ID', 'error-msg');
+                showStatus('Please enter Attendance ID', 'error');
                 return;
             }
             
@@ -504,86 +644,86 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching...';
             btn.disabled = true;
             
-            // Simulate API call delay
-            setTimeout(() => {
-                // Simulate different responses based on input
-                if (attendanceId === '123') {
-                    // Simulate "feedback already submitted"
-                    showStatus('Feedback already submitted for this student.', 'info-msg');
-                } else if (attendanceId === '456') {
-                    // Simulate "student not found"
-                    showStatus('Student details not found.', 'error-msg');
-                } else if (attendanceId === '789') {
-                    // Simulate "no teachers found"
-                    document.getElementById('feedbackForm').classList.remove('hidden');
-                    document.getElementById('name').value = 'Alex Johnson';
-                    document.getElementById('program').value = 'Computer Science';
-                    document.getElementById('trade').value = 'Software Development';
+            // Create form data
+            const formData = new FormData();
+            formData.append('attendance_id', attendanceId);
+            
+            // Send request to server
+            fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const student = data.data;
                     
-                    const container = document.getElementById('teacherCardsContainer');
-                    container.innerHTML = `
-                        <div class="no-teachers">
-                            <i class="fas fa-user-graduate"></i>
-                            <h3>No Teachers Found</h3>
-                            <p>There are currently no teachers assigned to this trade.</p>
-                        </div>
-                    `;
-                    
-                    showStatus('Student information loaded successfully', 'success-msg');
-                } else {
-                    // Simulate successful fetch with teachers
-                    document.getElementById('feedbackForm').classList.remove('hidden');
-                    document.getElementById('name').value = 'Sarah Williams';
-                    document.getElementById('program').value = 'Information Technology';
-                    document.getElementById('trade').value = 'Web Development';
+                    // Fill student info
+                    document.getElementById('student_id').value = student.student_id;
+                    document.getElementById('attendance_id_hidden').value = student.attendance_id;
+                    document.getElementById('name').value = student.name;
+                    document.getElementById('program').value = student.program;
+                    document.getElementById('trade').value = student.trade;
                     
                     const container = document.getElementById('teacherCardsContainer');
                     container.innerHTML = '';
                     
-                    // Add teacher cards
-                    const teachers = [
-                        { name: 'Dr. Robert Chen', subject: 'Advanced Algorithms' },
-                        { name: 'Prof. Emily Davis', subject: 'Web Application Security' },
-                        { name: 'Dr. James Wilson', subject: 'Cloud Computing' }
-                    ];
-                    
-                    teachers.forEach((teacher, index) => {
-                        const card = document.createElement('div');
-                        card.className = 'teacher-card';
-                        
-                        card.innerHTML = `
-                            <input type="hidden" name="teacher_id[]" value="${index + 1}">
-                            <input type="hidden" name="trade_id[]" value="1">
-                            <input type="hidden" name="subject_id[]" value="${index + 101}">
-                            <input type="hidden" name="program[]" value="Information Technology">
-                            
-                            <div class="teacher-name">${teacher.name}</div>
-                            <div class="subject-name">Subject: ${teacher.subject}</div>
-                            
-                            <label>Rating <span style="color:var(--accent)">*</span></label>
-                            <div class="stars" data-index="${index}">
-                                ${[5, 4, 3, 2, 1].map(star => `
-                                    <input type="radio" name="rating[${index}]" value="${star}" id="star${star}_${index}" required>
-                                    <label for="star${star}_${index}">&#9733;</label>
-                                `).join('')}
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Remarks <span style="color:var(--accent)">*</span></label>
-                                <textarea name="remarks[]" class="input-control" rows="3" placeholder="Write your feedback about this teacher..." required></textarea>
+                    if (student.teacher_sub_trade_rows.length === 0) {
+                        container.innerHTML = `
+                            <div class="no-teachers">
+                                <i class="fas fa-user-graduate"></i>
+                                <h3>No Teachers Found</h3>
+                                <p>There are currently no teachers assigned to this trade.</p>
                             </div>
                         `;
-                        
-                        container.appendChild(card);
-                    });
+                    } else {
+                        student.teacher_sub_trade_rows.forEach((teacher, index) => {
+                            const card = document.createElement('div');
+                            card.className = 'teacher-card';
+                            
+                            card.innerHTML = `
+                                <input type="hidden" name="teacher_id[]" value="${teacher.teacher_id}">
+                                <input type="hidden" name="trade_id[]" value="${teacher.trade_id}">
+                                <input type="hidden" name="subject_id[]" value="${teacher.subject_id}">
+                                <input type="hidden" name="program[]" value="${teacher.program}">
+                                
+                                <div class="teacher-name">${teacher.teacher_name}</div>
+                                <div class="subject-name">Subject: ${teacher.subject_name}</div>
+                                
+                                <label>Rating <span style="color:var(--accent)">*</span></label>
+                                <div class="stars" data-index="${index}">
+                                    ${[5, 4, 3, 2, 1].map(star => `
+                                        <input type="radio" name="rating[${index}]" value="${star}" id="star${star}_${index}" required>
+                                        <label for="star${star}_${index}">&#9733;</label>
+                                    `).join('')}
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Remarks <span style="color:var(--accent)">*</span></label>
+                                    <textarea name="remarks[]" class="input-control" rows="3" placeholder="Write your feedback about this teacher..." required></textarea>
+                                </div>
+                            `;
+                            
+                            container.appendChild(card);
+                        });
+                    }
                     
-                    showStatus('Student information loaded successfully', 'success-msg');
+                    document.getElementById('feedbackForm').classList.remove('hidden');
+                } else if (data.status === 'exists') {
+                    showStatus(data.message, 'info');
+                } else if (data.status === 'error') {
+                    showStatus(data.message, 'error');
+                } else {
+                    showStatus('An unexpected error occurred', 'error');
                 }
-                
-                // Reset button
+            })
+            .catch(() => {
+                showStatus('Something went wrong! Please try again.', 'error');
+            })
+            .finally(() => {
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-            }, 1500);
+            });
         });
 
         // Handle form submission
@@ -593,7 +733,7 @@
             // Check if there are teachers to submit feedback for
             const teacherCards = document.querySelectorAll('.teacher-card');
             if (teacherCards.length === 0) {
-                showStatus('No teachers available to submit feedback', 'warning-msg');
+                showStatus('No teachers available to submit feedback', 'warning');
                 return;
             }
             
@@ -609,24 +749,33 @@
             });
             
             if (!allFilled) {
-                showStatus('Please fill all ratings and remarks for teachers', 'error-msg');
+                showStatus('Please fill all ratings and remarks for teachers', 'error');
                 return;
             }
             
-            // Simulate form submission
-            showStatus('Submitting feedback...', 'info-msg');
+            // Show submitting status
+            showStatus('Submitting feedback...', 'info');
             
-            setTimeout(() => {
-                // Show success notification
-                showStatus('Feedback submitted successfully!', 'success-msg');
-                
-                // Reset form after success
-                setTimeout(() => {
-                    document.getElementById('feedbackForm').reset();
-                    document.getElementById('feedbackForm').classList.add('hidden');
-                    document.getElementById('attendance_id').value = '';
-                }, 2000);
-            }, 2000);
+            // Submit the form
+            const formData = new FormData(this);
+            formData.append('submit_feedback', 'true');
+            
+            // Send request to server
+            fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // The response will be handled by the PHP script which will output JavaScript
+                // We need to execute that JavaScript
+                const script = document.createElement('script');
+                script.textContent = data;
+                document.body.appendChild(script);
+            })
+            .catch(() => {
+                showStatus('Error submitting feedback', 'error');
+            });
         });
 
         // Initialize star ratings

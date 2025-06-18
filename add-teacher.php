@@ -52,7 +52,7 @@
                                 <select class="form-control" name="trade[]">
                                     <option value="">Select Trade</option>
                                     <?php
-                                    $sql = "SELECT id, trade_name FROM trade ORDER BY trade_name ASC";
+                                    $sql = "SELECT trade_id, trade_name FROM trade ORDER BY trade_name ASC";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while($row = mysqli_fetch_assoc($result)) {
@@ -68,7 +68,7 @@
                                 <select class="form-control" name="subject[]">
                                     <option value="">Select Subject</option>
                                     <?php
-                                    $sql = "SELECT id, name FROM subject ORDER BY name ASC";
+                                    $sql = "SELECT subject_id, name FROM subject ORDER BY name ASC";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while($row = mysqli_fetch_assoc($result)) {

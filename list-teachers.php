@@ -1,25 +1,62 @@
 <?php include('header.php');
 
+// Get filter values
+$nameFilter = isset($_GET['name']) ? trim($_GET['name']) : '';
+$mobileFilter = isset($_GET['mobile']) ? trim($_GET['mobile']) : '';
+$statusFilter = isset($_GET['status']) ? $_GET['status'] : '';
 
-// Query to fetch all rows
-$sql = "SELECT * FROM teachers";
+// Build WHERE clause
+$where = [];
+if (!empty($nameFilter)) {
+    $where[] = "name LIKE '%" . mysqli_real_escape_string($conn, $nameFilter) . "%'";
+}
+if (!empty($mobileFilter)) {
+    $where[] = "mobile_no LIKE '%" . mysqli_real_escape_string($conn, $mobileFilter) . "%'";
+}
+if ($statusFilter !== '') {
+    $where[] = "status = '" . mysqli_real_escape_string($conn, $statusFilter) . "'";
+}
+$whereClause = count($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+
+// Query
+$sql = "SELECT * FROM teachers $whereClause";
 $result = mysqli_query($conn, $sql);
-
 if (!$result) {
     die("Query Failed: " . mysqli_error($conn));
 }
-
-
 ?>
+
 <!-- content -->
 <div class="container-fluid">
     <div class="card-header text-right">
         <a href="add-teacher.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Teacher</a>
     </div>
-    <div class="card mb-3">
 
+    <div class="card mb-3">
         <div class="card-body">
             <h4 class="card-title">Teachers List</h4>
+
+            <!-- Filter Form -->
+            <form method="get" class="form-row mb-4">
+                <div class="col-md-3 mb-2">
+                    <input type="text" name="name" class="form-control" placeholder="Teacher Name" value="<?= htmlspecialchars($nameFilter) ?>">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="<?= htmlspecialchars($mobileFilter) ?>">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <select name="status" class="form-control">
+                        <option value="">-- Select Status --</option>
+                        <option value="1" <?= $statusFilter === '1' ? 'selected' : '' ?>>Active</option>
+                        <option value="0" <?= $statusFilter === '0' ? 'selected' : '' ?>>Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2 d-flex">
+                    <button type="submit" class="btn btn-success mr-2">Filter</button>
+                    <a href="list-teachers.php" class="btn btn-danger">Reset</a>
+                </div>
+            </form>
+
             <div class="table-responsive">
                 <table class="table table-bordered table-striped verticle-middle">
                     <thead>
@@ -33,40 +70,40 @@ if (!$result) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        // Loop through rows
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . htmlspecialchars($row['teacher_id']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['mobile_no']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                            if ($row['status'] == 0) {
-                                echo "<td><span class='badge badge-pill badge-danger'>Inactive</span></td>";
-                            } else {
-                                echo "<td><span class='badge badge-pill badge-success'>Active</span></td>";
-                            } ?>
-                            </td>
-                            <td><span>
-                                    &nbsp;&nbsp;
-                                    <a href="<?php echo 'edit-teacher.php?id=' . $row['teacher_id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-10 "></i> </a>&nbsp;&nbsp;
-                                    <a onclick="return confirm('Are you sure?')" href="<?php echo 'backend/delete-teacher.php?id=' . $row['teacher_id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close color-danger"></i></a>
-                                </span></td>
-
-                            </tr>
-                        <?php }
-
-
-                        ?>
-
+                        <?php if (mysqli_num_rows($result) > 0): ?>
+                            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['teacher_id']) ?></td>
+                                    <td><?= htmlspecialchars($row['name']) ?></td>
+                                    <td><?= htmlspecialchars($row['mobile_no']) ?></td>
+                                    <td><?= htmlspecialchars($row['email']) ?></td>
+                                    <td>
+                                        <?php if ($row['status'] == 0): ?>
+                                            <span class='badge badge-pill badge-danger'>Inactive</span>
+                                        <?php else: ?>
+                                            <span class='badge badge-pill badge-success'>Active</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="edit-teacher.php?id=<?= $row['teacher_id']; ?>" data-toggle="tooltip" title="Edit">
+                                            <i class="fa fa-pencil color-muted m-r-10"></i>
+                                        </a>
+                                        <a onclick="return confirm('Are you sure?')" href="backend/delete-teacher.php?id=<?= $row['teacher_id']; ?>" data-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-close color-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php else: ?>
+                            <tr><td colspan="6" class="text-center text-danger">No records found</td></tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
-
-
-
 <!-- end content -->
+
 <?php include('footer.php'); ?>
