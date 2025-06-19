@@ -158,6 +158,21 @@ require_once 'connection.php';
                             <i class="fa fa-list-ul"></i> <span class="nav-text">Trade</span>
                         </a>
                     </li>
+                    <li>
+                        <a  href="./list-teachers.php" aria-expanded="false">
+                            <i class="fa fa-users"></i> <span class="nav-text">Teachers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="./list-students.php" aria-expanded="false">
+                            <i class="fa fa-users"></i> <span class="nav-text">Students</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="./list-feedback.php" aria-expanded="false">
+                            <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>

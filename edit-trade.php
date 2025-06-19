@@ -35,11 +35,11 @@ $row = $result->fetch_assoc(); // existing trade data
                    
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
+                        <label class="col-lg-4 col-form-label">PROGRAM <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
                             <label class="mr-2">
-                                   <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive</label>
-                            <label><input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active</label>
+                                   <input type="radio" value="CTS" name="program" <?= $row['program'] == "CTS" ? 'checked' : ''; ?>> CTS</label>
+                            <label><input type="radio" value="CITS" name="program" <?= $row['program'] == "CITS" ? 'checked' : ''; ?>> CITS</label>
                         </div>
                     </div>
                   

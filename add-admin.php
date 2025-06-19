@@ -59,7 +59,7 @@
 
                     <div class="form-group row">
                         <div class="col-lg-8 ml-auto">
-                            <button type="submit" name="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-plus"> </i> Add</button>
                         </div>
                     </div>
                 </form>
