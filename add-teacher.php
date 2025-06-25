@@ -27,8 +27,30 @@
                             <input type="number" maxlength="10" value="" class="form-control" id="val-phone" name="phone" placeholder="Your phone number.." required>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Designation <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <label class="mr-2"><input type="radio" value="Admin" name="designation" required> Admin</label>
+                            <label><input type="radio" value="Other" name="designation" required> Other</label>
+                        </div>
+                    </div>
 
-                    
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-password">Password <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <input type="password" value="" class="form-control" id="val-password" name="password" placeholder="Enter password.." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label" for="val-cnf-password">Confirm Password <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <input type="password" value="" class="form-control" id="val-cnf-password" name="cnf_password" placeholder="Confirm password.." required>
+                        </div>
+                    </div>
+
+
+
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
@@ -37,7 +59,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div id="subject-container">
                         <div class="form-group row subject-row">
                             <label class="col-lg-4 col-form-label">Program / Trade / Subject <span class="text-danger">*</span></label>
@@ -55,15 +77,15 @@
                                     $sql = "SELECT trade_id, trade_name FROM trade ORDER BY trade_name ASC";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
-                                        while($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['id'].'">'.$row['trade_name'].'</option>';
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="' . $row['trade_id'] . '">' . $row['trade_name'] . '</option>';
                                         }
                                     }
                                     ?>
                                 </select>
                             </div>
-                            
-                          
+
+
                             <div class="col-lg-2">
                                 <select class="form-control" name="subject[]">
                                     <option value="">Select Subject</option>
@@ -71,8 +93,8 @@
                                     $sql = "SELECT subject_id, name FROM subject ORDER BY name ASC";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
-                                        while($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="' . $row['subject_id'] . '">' . $row['name'] . '</option>';
                                         }
                                     }
                                     ?>
@@ -98,34 +120,36 @@
                     $email = $_POST["email"];
                     $phone = $_POST["phone"];
                     $status = $_POST["status"];
-                    
+                    $designation = $_POST["designation"];
+                    $password = $_POST["password"];
+
                     // Prepare SQL Insert
-                    $sql = "INSERT INTO teachers (name, mobile_no, email, status) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO teachers (name, mobile_no, email, status, designation , password) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sssi", $name, $phone, $email, $status);
+                    $stmt->bind_param("sssiss", $name, $phone, $email, $status, $designation, $password);
 
                     if ($stmt->execute()) {
                         $lastId = $stmt->insert_id; // Get last inserted ID
 
-                    // Use last inserted ID and array data to insert into teachers_trade_subject
-                    $programs = $_POST['program'];
-                    $trades = $_POST['trade'];
-                    $subjects = $_POST['subject'];
+                        // Use last inserted ID and array data to insert into teachers_trade_subject
+                        $programs = $_POST['program'];
+                        $trades = $_POST['trade'];
+                        $subjects = $_POST['subject'];
 
-                    foreach ($programs as $index => $program) {
-                        $trade = $trades[$index];
-                        $subject = $subjects[$index];
+                        foreach ($programs as $index => $program) {
+                            $trade = $trades[$index];
+                            $subject = $subjects[$index];
 
-                        $sql = "INSERT INTO teacher_subject_trade (teacher_id, program, trade_id, subject_id) VALUES (?, ?, ?, ?)";
-                        $stmt2 = $conn->prepare($sql);
-                        $stmt2->bind_param("isii", $lastId, $program, $trade, $subject);
+                            $sql = "INSERT INTO teacher_subject_trade (teacher_id, program, trade_id, subject_id) VALUES (?, ?, ?, ?)";
+                            $stmt2 = $conn->prepare($sql);
+                            $stmt2->bind_param("isii", $lastId, $program, $trade, $subject);
 
-                        if (!$stmt2->execute()) {
-                            echo "<div class='text-danger mt-3'>❌ Error: " . $stmt2->error . "</div>";
+                            if (!$stmt2->execute()) {
+                                echo "<div class='text-danger mt-3'>❌ Error: " . $stmt2->error . "</div>";
+                            }
+
+                            $stmt2->close();
                         }
-
-                        $stmt2->close();
-                    }
 
                         echo "<div class='text-success mt-3'>✅ User added successfully!</div>";
                     } else {

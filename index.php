@@ -11,7 +11,7 @@ if (isset($_SESSION['admin_data'])) {
 
 // Login check
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli("localhost", "root", "", "nsti_feedback");
+    $conn = new mysqli("localhost", "root", "", "nsti_feedback_db");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
