@@ -49,9 +49,27 @@
     <script src="./plugins/chartist/js/chartist.min.js"></script>
     <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
+   
+   
 
 
-    <script src="./js/dashboard/dashboard-1.js"></script>
+
+
+
+
+
+    <!-- <script src="./js/dashboard/dashboard-1.js"></script> -->
+
+
+
+
+    </div> <!-- Close main container div if any -->
+
+<!-- Footer -->
+<footer class="footer text-center">
+    All Rights Reserved © <?= date('Y') ?>
+</footer>
+
 
 </body>
 

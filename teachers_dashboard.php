@@ -43,7 +43,7 @@ $suggestedMax = ceil(($maxCount + 50) / 100) * 100; // round to nearest 100
         <div class="col-lg-3 col-sm-6">
             <div class="card gradient-1">
                 <div class="card-body">
-                    <h3 class="card-title text-white">Total Feedback</h3>
+                    <h3 class="card-title text-white">Total Feedback of hii</h3>
                     <div class="d-inline-block">
                         <h2 class="text-white"><?php echo mysqli_num_rows($result); ?></h2>
                     </div>

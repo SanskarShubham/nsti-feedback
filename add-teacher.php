@@ -17,14 +17,14 @@
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-email">Email <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="email" class="form-control" id="val-email" name="email" value="" placeholder="Your valid email.." required>
+                            <input type="email" class="form-control" id="val-email" name="email" value="" placeholder="Your valid email.." >
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-phone">Mobile No. <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="number" maxlength="10" value="" class="form-control" id="val-phone" name="phone" placeholder="Your phone number.." required>
+                            <input type="number" maxlength="10" value="" class="form-control" id="val-phone" name="phone" placeholder="Your phone number.." >
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['id'].'">'.$row['trade_name'].'</option>';
+                                            echo '<option value="'.$row['trade_id'].'">'.$row['trade_name'].'</option>';
                                         }
                                     }
                                     ?>
@@ -72,7 +72,7 @@
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                         while($row = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+                                            echo '<option value="'.$row['subject_id'].'">'.$row['name'].'</option>';
                                         }
                                     }
                                     ?>

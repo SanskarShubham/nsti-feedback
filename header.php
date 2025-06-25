@@ -142,12 +142,19 @@ require_once 'connection.php';
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
+                              <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
                             <li><a href="./dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
+                            <?php }else{ ?>
+                                
+                                <li><a href="./teachers_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
+                            <?php } ?>
                             <li><a href="./profile.php"> <i class="fa fa-user"></i> Profile</a></li>
+
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
 
                         </ul>
                     </li>
+                    <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
                     <li>
                         <a  href="./list-admin.php" aria-expanded="false">
                             <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
@@ -168,10 +175,18 @@ require_once 'connection.php';
                             <i class="fa fa-users"></i> <span class="nav-text">Students</span>
                         </a>
                     </li>
+                    <?php }?>
+
                     <li>
+                        <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
                         <a  href="./list-feedback.php" aria-expanded="false">
                             <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
                         </a>
+                        <?php }else{ ?>
+                        <a  href="./list-feedback1.php" aria-expanded="false">
+                            <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
+                        </a>
+                        <?php } ?>
                     </li>
 
                 </ul>

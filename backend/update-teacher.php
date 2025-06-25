@@ -19,14 +19,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
     
     // Update DB
-    $updateSql = "UPDATE teacher SET name = ?, email = ?, mobile = ?, status = ? WHERE id = ?";
+    $updateSql = "UPDATE teachers SET name = ?, email = ?, mobile_no = ?, status = ? WHERE teacher_id = ?";
     
     $updateStmt = $conn->prepare($updateSql);
     $updateStmt->bind_param("ssssi", $name, $email, $mobile, $status, $id);  // "ssssi" for string, string, string, string, int
 
     if ($updateStmt->execute()) {
         echo "<div class='alert alert-success mt-3'>✅ Profile updated successfully.</div>";
-        header("Location: ../list-teacher.php");
+        header("Location: ../list-teachers.php");
     } else {
         echo "<div class='alert alert-danger'>❌ Failed to update profile.</div>";
     }

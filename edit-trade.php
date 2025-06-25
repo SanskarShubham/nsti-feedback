@@ -8,7 +8,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $id = intval($_GET['id']); // Securely get ID
 
 // Fetch trade details from DB
-$sql = "SELECT * FROM trade WHERE id = ?";
+$sql = "SELECT * FROM trade WHERE trade_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -25,7 +25,7 @@ $row = $result->fetch_assoc(); // existing trade data
         <div class="card-body">
             <div class="form-validation">
                 <form action="backend/update-trade.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                    <input type="hidden" name="id" value="<?= $row['trade_id'] ?>">
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Trade Name <span class="text-danger">*</span></label>
                         <div class="col-lg-6">

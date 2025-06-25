@@ -19,8 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password']; // plain password from form
+    
 
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ? and status = 1");
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?   and status = 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -31,8 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check hashed password
         if (password_verify($password, $user['password'])) {
             $_SESSION['admin_data'] = $user;
-            header("Location: dashboard.php");
-            exit();
+            if ($user['designation'] == 'admin') {
+                header("Location: dashboard.php");
+                exit();
+            }else{
+                header("Location: teachers_dashboard.php");
+                exit();
+            }
+                
         } else {
             $error = "❌ Invalid email or password.";
         }
