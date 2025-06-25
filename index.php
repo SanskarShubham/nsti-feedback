@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password']; // plain password from form
 
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ? and status = 1");
+    $stmt = $conn->prepare("SELECT * FROM teachers WHERE email = ? and status = 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();

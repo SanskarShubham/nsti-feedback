@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
 }
 
 // Fetch current image
-$result = $conn->query("SELECT dp_fil_epath FROM admin WHERE id = $admin_id");
+$result = $conn->query("SELECT dp_fil_epath FROM teahcers WHERE teacher_id = $admin_id");
 $row = $result->fetch_assoc();
 $currentPic = !empty($row['filepath']) ? $row['filepath'] : 'dp/default.png';
 $conn->close();

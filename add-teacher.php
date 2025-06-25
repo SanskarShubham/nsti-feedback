@@ -122,11 +122,11 @@
                     $status = $_POST["status"];
                     $designation = $_POST["designation"];
                     $password = $_POST["password"];
-
+                    $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
                     // Prepare SQL Insert
                     $sql = "INSERT INTO teachers (name, mobile_no, email, status, designation , password) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sssiss", $name, $phone, $email, $status, $designation, $password);
+                    $stmt->bind_param("sssiss", $name, $phone, $email, $status, $designation, $encrypted_password);
 
                     if ($stmt->execute()) {
                         $lastId = $stmt->insert_id; // Get last inserted ID

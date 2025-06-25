@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $imagePath = ""; // New image path to save in DB
 
     // STEP 1: Get old image path from DB
-    $getOldImageQuery = "SELECT dp_file_path FROM admin WHERE id = ?";
+    $getOldImageQuery = "SELECT dp_file_path FROM teachers WHERE teacher_id = ?";
     $stmtOld = $conn->prepare($getOldImageQuery);
     $stmtOld->bind_param("i", $id);
     $stmtOld->execute();
@@ -54,19 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // STEP 3: Prepare SQL update query
     if ($imagePath !== "") {
-        $sql = "UPDATE admin SET name = ?, email = ?, mobile = ?, dp_file_path = ? WHERE id = ?";
+        $sql = "UPDATE teachers SET name = ?, email = ?, mobile_no = ?, dp_file_path = ? WHERE teacher_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssi", $name, $email, $phone, $imagePath, $id);
-        $sql = "UPDATE admin SET name = ?, email = ?, mobile = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssi", $name, $email, $phone, $id);
+      
     }
 
     // STEP 4: Execute and update session
     if ($stmt->execute()) {
         $_SESSION['admin_data']['name'] = $name;
         $_SESSION['admin_data']['email'] = $email;
-        $_SESSION['admin_data']['mobile'] = $phone;
+        $_SESSION['admin_data']['mobile_no'] = $phone;
 
         if ($imagePath !== "") {
             $_SESSION['admin_data']['dp_file_path'] = $imagePath;

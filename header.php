@@ -96,7 +96,8 @@ require_once 'connection.php';
 
 
                     <?php
-                    $query="select dp_file_path from admin where id=".$_SESSION['admin_data']['id'];
+                    // print_r($_SESSION['admin_data']);exit;
+                    $query="select dp_file_path from teachers where teacher_id=".$_SESSION['admin_data']['teacher_id'];
                     $result=$conn->query($query);
                     $dp = $result->fetch_assoc()['dp_file_path']; 
                 
@@ -106,7 +107,7 @@ require_once 'connection.php';
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="<?php echo $dp?>" height="40" width="40" alt="">
+                                <img src="<?php echo $dp??"images/user/form-user.png";?>" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
