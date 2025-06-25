@@ -3,7 +3,7 @@
 <?php
 // Assuming $conn is your mysqli connection object
 $userData = $_SESSION['admin_data'];
-$query = "SELECT id, name, email, mobile, dp_file_path FROM admin WHERE id = " . $userData['id'];
+$query = "SELECT teacher_id, name, email, mobile_no, dp_file_path FROM teachers WHERE teacher_id = " . $userData['teacher_id'];
 $result = $conn->query($query);
 
 if (!$result) {
@@ -18,10 +18,10 @@ $dp = '';
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $id = $row['id'];
+    $id = $row['teacher_id'];
     $name = $row['name'];
     $email = $row['email'];
-    $mobile = $row['mobile'];
+    $mobile = $row['mobile_no'];
     $dp = $row['dp_file_path'];
 }
 ?>

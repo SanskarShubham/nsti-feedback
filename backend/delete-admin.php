@@ -5,7 +5,7 @@ include('../connection.php');
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $sql = "DELETE FROM admin WHERE id = ?";
+    $sql = "DELETE FROM teachers WHERE teacher_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();

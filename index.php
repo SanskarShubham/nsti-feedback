@@ -11,7 +11,7 @@ if (isset($_SESSION['admin_data'])) {
 
 // Login check
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli("localhost", "root", "", "nsti_feedback");
+    $conn = new mysqli("localhost", "root", "", "nsti_feedback_db");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password']; // plain password from form
     
 
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?   and status = 1");
+    $stmt = $conn->prepare("SELECT * FROM teachers WHERE email = ? and status = 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
