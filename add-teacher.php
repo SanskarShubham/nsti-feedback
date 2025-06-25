@@ -38,14 +38,14 @@
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-password">Password <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="password" value="" class="form-control" id="val-password" name="password" placeholder="Enter password.." required>
+                            <input type="password" class="form-control" id="val-password" name="password" placeholder="Enter password.." required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label" for="val-cnf-password">Confirm Password <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
-                            <input type="password" value="" class="form-control" id="val-cnf-password" name="cnf_password" placeholder="Confirm password.." required>
+                            <input type="password" class="form-control" id="val-cnf-password" name="cnf_password" placeholder="Confirm password.." required>
                         </div>
                     </div>
 
@@ -195,6 +195,17 @@
         let row = button.closest(".subject-row");
         row.remove();
     }
+</script>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var password = document.getElementById('val-password').value;
+        var confirmPassword = document.getElementById('val-cnf-password').value;
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert('Passwords do not match.');
+        }
+    });
 </script>
 
 
