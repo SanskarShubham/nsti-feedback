@@ -160,10 +160,15 @@ require_once 'connection.php';
                         <a  href="./list-admin.php" aria-expanded="false">
                             <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
                         </a>
-                    </li> */ ?>
+                    </li> 
                     <li>
                         <a  href="./list-trade.php" aria-expanded="false">
                             <i class="fa fa-list-ul"></i> <span class="nav-text">Trade</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  href="./list-subject.php" aria-expanded="false">
+                            <i class="fa fa-list-ul"></i> <span class="nav-text">Subject</span>
                         </a>
                     </li>
                     <li>
