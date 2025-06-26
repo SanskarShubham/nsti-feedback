@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 if (!isset($_SESSION['admin_data'])) {
-    header("Location: index.php");
+    header("Location: admin_login.php");
     exit();
 }
 // print_r($_SESSION['admin_data']);
