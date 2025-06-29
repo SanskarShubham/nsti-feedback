@@ -44,7 +44,7 @@
 
     
     <!-- Topbar Start -->
-    <div class="container-fluid bg-dark p-0">
+    <!-- <div class="container-fluid bg-dark p-0">
         <div class="row gx-0 d-none d-lg-flex">
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center me-4">
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Topbar End -->
 
 
@@ -98,8 +98,9 @@
                     </div>
                 </div>
                 <a href="contact.php" class="nav-item nav-link">Contact</a>
+                <a href="../feedback_form8.php" class="nav-item nav-link">Submit Feedback</a>
             </div>
-            <a href="../feedback_form8.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="../admin_login.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
       
     </nav>
