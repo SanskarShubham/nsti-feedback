@@ -37,9 +37,9 @@
                 <!-- Training Images -->
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training-1.jpg" alt="Electrical Training Session">
+                        <img class="img-fluid" src="img/gallery/practical.png" alt="Electrical Training Session">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/practical.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
@@ -51,9 +51,9 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training-2.jpg" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/welding.png" alt="Welding Workshop">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/welding.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
@@ -66,9 +66,9 @@
                 <!-- Student Projects -->
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/project-1.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/electronic_project.png" alt="Student Electronics Project">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/project-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/electronic_project.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
@@ -221,7 +221,7 @@
     <!-- Testimonial End -->
 
     <!-- Call to Action Start -->
-    <div class="container-xxl bg-primary my-5 py-5 text-center wow fadeInUp" data-wow-delay="0.1s">
+    <!-- <div class="container-xxl bg-primary my-5 py-5 text-center wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -231,7 +231,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Call to Action End -->
 
 <?php include 'footer.php'; ?>

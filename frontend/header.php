@@ -87,7 +87,8 @@
                 <a href="about.php" class="nav-item nav-link">About</a>
                 <a href="courses.php" class="nav-item nav-link">Courses</a>
                 <a href="gallery.php" class="nav-item nav-link">Gallery</a>
-                <div class="nav-item dropdown">
+                <a href="team.php" class="nav-item nav-link">Our Team</a>
+                <!-- <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="feature.php" class="dropdown-item">Feature</a>
@@ -96,12 +97,15 @@
                         <a href="testimonial.php" class="dropdown-item">Testimonial</a>
                         <a href="404.php" class="dropdown-item">404 Page</a>
                     </div>
-                </div>
-                <a href="contact.php" class="nav-item nav-link">Contact</a>
-                <a href="../feedback_form8.php" class="nav-item nav-link">Submit Feedback</a>
-            </div>
-            <a href="../admin_login.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+                </div> -->
+                <!-- <a href="contact.php" class="nav-item nav-link">Contact</a> -->
+                <a href="../feedback_form8.php" class="btn btn-secondary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2">Submit Feedback <i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="../admin_login.php" class="btn btn-primary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2" >Login<i class="fa fa-user ms-3"></i></a>
+                <!-- <a href="../feedback_form8.php" class="nav-item nav-link">Submit Feedback</a> -->
+            <!-- </div>
+            <div style="width:10px;"></div>
+            <a href="../admin_login.php" class="btn btn-primary rounded-2 py-3 px-lg-4 d-lg-block" >Login<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
-      
+       -->
     </nav>
     <!-- Navbar End -->

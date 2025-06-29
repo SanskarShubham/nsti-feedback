@@ -124,7 +124,7 @@
     <!-- About End -->
 
     <!-- Service Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Our Programs</h6>
@@ -211,8 +211,77 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Service End -->
+
+    
+<!-- Courses Section Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Our Courses</h6>
+            <h1 class="mb-4">Courses Offered at NSTI Howrah</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/cits.jpg" alt="">
+                    <div class="position-relative p-4 pt-5">
+                        <div class="service-icon">
+                            <i class="fa fa-cogs fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Craft Instructor Training Scheme (CITS)</h4>
+                        <p>Instructor training in Electrician, Welder, Fitter, Turner, Draughtsman Mechanical, and COPA trades.</p>
+                         <a class="small fw-medium" href="courses.php">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        <!-- <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/cts.jpg" alt="">
+                    <div class="position-relative p-4 pt-5">
+                        <div class="service-icon">
+                            <i class="fa fa-wrench fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Craftsmen Training Scheme (CTS)</h4>
+                        <p>Skill-based trade training for students in areas like Welder, Electrician, Draughtsman, and more.</p>
+                         <a class="small fw-medium" href="courses.php">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        <!-- <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/adv-diploma.jpg" alt="">
+                    <div class="position-relative p-4 pt-5">
+                        <div class="service-icon">
+                            <i class="fa fa-laptop fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Advanced Diploma in IT, Networking & Cloud</h4>
+                        <p>Offered in collaboration with IBM, this course includes 1-year training + 5-months OJT + stipend.</p>
+                         <a class="small fw-medium" href="courses.php">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        <!-- <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/iot.jpg" alt="">
+                    <div class="position-relative p-4 pt-5">
+                        <div class="service-icon">
+                            <i class="fa fa-microchip fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Short-Term Modular Courses</h4>
+                        <p>Training in IoT, Mechatronics, Robotics, CAD/CAM, and Smart Agriculture for modern skill demands.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Courses Section End -->
 
     <!-- Feature Start -->
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
@@ -389,7 +458,7 @@
     <!-- Projects End -->
 
     <!-- Quote Start -->
-    <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <!-- <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
         <div class="container quote px-lg-0">
             <div class="row g-0 mx-lg-0">
                 <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
@@ -435,7 +504,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Quote End -->
 
     <!-- Team Start -->
@@ -449,11 +518,11 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-1.jpg" alt="Dr. Amit Sharma">
-                            <div class="team-social w-25">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="Dr. Amit Sharma">
+                            <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="p-4">
                             <h5>Dr. Amit Sharma</h5>
@@ -464,11 +533,11 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-2.jpg" alt="Prof. Sanjay Gupta">
-                            <div class="team-social w-25">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="Prof. Sanjay Gupta">
+                            <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="p-4">
                             <h5>Prof. Sanjay Gupta</h5>
@@ -479,11 +548,11 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-75" src="img/team-3.jpg" alt="Ms. Priya Chatterjee">
-                            <div class="team-social w-25">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="Ms. Priya Chatterjee">
+                            <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="p-4">
                             <h5>Ms. Priya Chatterjee</h5>
