@@ -1,26 +1,23 @@
 <?php
 include('header.php');
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin_data'])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
-// Get logged-in teacher's ID
-$teacher_id = $_SESSION['admin_data']['teacher_id'];
-
 // Default values
 $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 20;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Filters (only showing date filter since others don't make sense for self-view)
-$date = $_GET['date'] ?? '';
+// Filters
+$teacher = $_GET['teacher'] ?? '';
+$subject = $_GET['subject'] ?? '';
+$trade = $_GET['trade'] ?? '';
 $rating = $_GET['rating'] ?? '';
+$date = $_GET['date'] ?? '';
 
-// Build WHERE clause - always filter by current teacher
-$where = "WHERE f.teacher_id = $teacher_id";
+// Build WHERE clause
+$where = "WHERE 1";
+if ($teacher !== '') $where .= " AND t.name LIKE '%" . mysqli_real_escape_string($conn, $teacher) . "%'";
+if ($subject !== '') $where .= " AND s.name LIKE '%" . mysqli_real_escape_string($conn, $subject) . "%'";
+if ($trade !== '') $where .= " AND tr.trade_name = '" . mysqli_real_escape_string($conn, $trade) . "'";
 if ($rating !== '') $where .= " AND f.rating = '" . mysqli_real_escape_string($conn, $rating) . "'";
 if ($date !== '') $where .= " AND DATE(f.created_at) = '" . mysqli_real_escape_string($conn, $date) . "'";
 
@@ -47,16 +44,29 @@ GROUP BY f.id
 ORDER BY f.created_at DESC
 LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
+
+// Fetch trade list for dropdown
+$trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade");
 ?>
 
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-body">
 
-            <!-- Filter Form (simplified for self-view) -->
+            <!-- Filter Form -->
             <form method="GET" class="form-inline mb-3 flex-wrap gap-2">
+                <input type="text" name="teacher" value="<?= htmlspecialchars($teacher) ?>" class="form-control form-control-m mr-3 mb-2" placeholder="Teacher Name" style="max-width:150px;">
+                <input type="text" name="subject" value="<?= htmlspecialchars($subject) ?>" class="form-control form-control-m mr-3 mb-2" placeholder="Subject Name" style="max-width:150px;">
+                <select name="trade" class="form-control form-control-m mr-3 mb-2" style="max-width:200px;">
+                    <option value="">Select Trade</option>
+                    <?php while ($t = mysqli_fetch_assoc($trade_list)): ?>
+                        <option value="<?= $t['trade_name'] ?>" <?= $trade == $t['trade_name'] ? 'selected' : '' ?>>
+                            <?= $t['trade_name'] ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
                 <select name="rating" class="form-control form-control-m mr-3 mb-2" style="max-width:120px;">
-                    <option value="">All Ratings</option>
+                    <option value="">Rating</option>
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                         <option value="<?= $i ?>" <?= $rating == $i ? 'selected' : '' ?>><?= $i ?> ⭐</option>
                     <?php endfor; ?>
@@ -66,18 +76,18 @@ $result = mysqli_query($conn, $sql);
                 <button type="submit" class="btn btn-success btn-m mr-3 mb-2">Filter</button>
                 <a href="list-feedback.php" class="btn btn-danger btn-m mb-2">Reset</a>
 
-                <!-- Show entries dropdown -->
+                <!-- Show entries dropdown to the right -->
                 <div class="ml-auto d-flex align-items-center">
                     <div class="input-group">
-                        <div class="input-group-prepend">
+                    <div class="input-group-prepend">
                             <label class="input-group-text" for="limit">Show</label>
                         </div>
-                        <select name="limit" id="limit" class="custom-select" onchange="this.form.submit()">
-                            <?php foreach ([5, 10, 20, 50, 100] as $opt): ?>
-                                <option value="<?= $opt ?>" <?= $limit == $opt ? 'selected' : '' ?>><?= $opt ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="input-group-append">
+                    <select name="limit" id="limit" class="custom-select" onchange="this.form.submit()" >
+                        <?php foreach ([5, 10, 20, 50, 100] as $opt): ?>
+                            <option value="<?= $opt ?>" <?= $limit == $opt ? 'selected' : '' ?>><?= $opt ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                     <div class="input-group-append">
                             <span class="input-group-text">entries</span>
                         </div>
                     </div>
@@ -91,6 +101,8 @@ $result = mysqli_query($conn, $sql);
                     <thead>
                         <tr>
                             <th>##</th>
+                          
+                            <th>Teacher</th>
                             <th>Subject</th>
                             <th>Trade</th>
                             <th>Rating</th>
@@ -105,20 +117,17 @@ $result = mysqli_query($conn, $sql);
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
                                     <td><?= $i++ ?></td>
+                                  
+                                    <td><?= htmlspecialchars($row['teacher_name']) ?></td>
                                     <td><?= htmlspecialchars($row['subject_name']) ?></td>
                                     <td><?= htmlspecialchars($row['trade_name']) ?></td>
-                                    <td>
-                                        <?= $row['rating'] ?> ⭐
-                                        <?php if ($row['rating'] <= 2): ?>
-                                            <span class="badge badge-danger ml-2">Needs Improvement</span>
-                                        <?php endif; ?>
-                                    </td>
+                                    <td><?= $row['rating'] ?> ⭐</td>
                                     <td><?= nl2br(htmlspecialchars($row['remarks'])) ?></td>
                                     <td><?= (new DateTime($row['created_at']))->format('d/m/y h:i A') ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
-                            <tr><td colspan="6" class="text-center">No feedback found</td></tr>
+                            <tr><td colspan="8" class="text-center">No feedback found</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

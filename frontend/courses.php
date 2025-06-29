@@ -25,7 +25,7 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-1.jpg" alt="Electrician Training">
+                        <img class="img-fluid" src="img/courses/electrician-course.png" alt="Electrician Training">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-bolt fa-3x"></i>

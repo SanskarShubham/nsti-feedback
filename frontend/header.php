@@ -99,7 +99,7 @@
                     </div>
                 </div> -->
                 <!-- <a href="contact.php" class="nav-item nav-link">Contact</a> -->
-                <a href="../feedback_form8.php" class="btn btn-secondary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2">Submit Feedback <i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="../feedback_form.php" class="btn btn-secondary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2">Submit Feedback <i class="fa fa-arrow-right ms-3"></i></a>
                 <a href="../admin_login.php" class="btn btn-primary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2" >Login<i class="fa fa-user ms-3"></i></a>
                 <!-- <a href="../feedback_form8.php" class="nav-item nav-link">Submit Feedback</a> -->
             <!-- </div>

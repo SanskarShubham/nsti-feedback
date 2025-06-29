@@ -92,14 +92,27 @@ $suggestedMax = ceil(($maxCount + 50) / 100) * 100; // round to nearest 100
         </div>
     </div>
 
-    <!-- Rating Bar Chart -->
+    <!-- Charts Row -->
     <div class="row">
+        <!-- Rating Bar Chart -->
         <div class="col-xl-6 col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Feedback Rating Overview</h4>
+                    <h4 class="card-title">Feedback Rating Distribution</h4>
                     <div style="height: 300px;">
                         <canvas id="feedbackChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Pie Chart -->
+        <div class="col-xl-6 col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Feedback Rating Proportion</h4>
+                    <div style="height: 300px;">
+                        <canvas id="feedbackPieChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -111,9 +124,19 @@ $suggestedMax = ceil(($maxCount + 50) / 100) * 100; // round to nearest 100
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const chartEl = document.getElementById('feedbackChart');
-    if (chartEl) {
-        const ctx = chartEl.getContext('2d');
+    // Color palette for charts
+    const chartColors = {
+        1: '#ff6384', // Red
+        2: '#ff9f40', // Orange
+        3: '#ffcd56', // Yellow
+        4: '#4bc0c0', // Teal
+        5: '#36a2eb'  // Blue
+    };
+    
+    // Bar Chart
+    const barChartEl = document.getElementById('feedbackChart');
+    if (barChartEl) {
+        const ctx = barChartEl.getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
@@ -127,7 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         <?= $ratingCounts[4] ?>,
                         <?= $ratingCounts[5] ?>
                     ],
-                    backgroundColor: '#4dc9f6',
+                    backgroundColor: [
+                        chartColors[1],
+                        chartColors[2],
+                        chartColors[3],
+                        chartColors[4],
+                        chartColors[5]
+                    ],
                     borderRadius: 6,
                     barThickness: 30
                 }]
@@ -161,6 +190,66 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         },
                         suggestedMax: <?= $suggestedMax ?>
+                    }
+                }
+            }
+        });
+    }
+    
+    // Pie Chart
+    const pieChartEl = document.getElementById('feedbackPieChart');
+    if (pieChartEl) {
+        const ctx = pieChartEl.getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['⭐ 1', '⭐ 2', '⭐ 3', '⭐ 4', '⭐ 5'],
+                datasets: [{
+                    data: [
+                        <?= $ratingCounts[1] ?>,
+                        <?= $ratingCounts[2] ?>,
+                        <?= $ratingCounts[3] ?>,
+                        <?= $ratingCounts[4] ?>,
+                        <?= $ratingCounts[5] ?>
+                    ],
+                    backgroundColor: [
+                        chartColors[1],
+                        chartColors[2],
+                        chartColors[3],
+                        chartColors[4],
+                        chartColors[5]
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 20,
+                            font: {
+                                size: 13
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#333',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 10,
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
                     }
                 }
             }
