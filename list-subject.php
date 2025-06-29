@@ -35,10 +35,10 @@ if (!$result) {
                                 <td><?= htmlspecialchars($row['name']) ?></td>
                                 <td>
                                     <a href="edit-subject.php?id=<?= $row['subject_id']; ?>" data-toggle="tooltip" title="Edit">
-                                        <i class="fa fa-pencil color-muted m-r-10"></i>
-                                    </a>
+                                         <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>
+                                    </a>&nbsp;&nbsp;
                                     <a href="backend/delete-subject.php?id=<?= $row['subject_id']; ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete">
-                                        <i class="fa fa-close color-danger"></i>
+                                       <button class="btn btn-danger"> <i class="fa fa-close color-danger"></i></button>
                                     </a>
                                 </td>
                             </tr>

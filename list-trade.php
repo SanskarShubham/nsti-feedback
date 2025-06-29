@@ -110,10 +110,10 @@ if (!$result) {
                                 </td>
                                 <td>
                                     <a href="edit-trade.php?id=<?= $row['trade_id']; ?>" data-toggle="tooltip" title="Edit">
-                                        <i class="fa fa-pencil color-muted m-r-10 "></i>
+                                        <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>
                                     </a>
                                     <a href="backend/delete-trade.php?id=<?= $row['trade_id']; ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete">
-                                        <i class="fa fa-close color-danger"></i>
+                                        <button class="btn btn-danger"> <i class="fa fa-close color-danger"></i></button>
                                     </a>
                                 </td>
                             </tr>

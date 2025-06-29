@@ -49,8 +49,12 @@ if (!$result) {
                             </td>
                             <td><span>
                                     &nbsp;&nbsp;
-                                    <a href="<?php echo 'edit-admin.php?id=' . $row['teacher_id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-10 "></i> </a>&nbsp;&nbsp;
-                                    <a onclick="return confirm('Are you sure?')" href="<?php echo 'backend/delete-admin.php?id=' . $row['teacher_id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close color-danger"></i></a>
+                                    <a href="<?php echo 'edit-admin.php?id=' . $row['teacher_id']; ?>" class="m-r-10" data-toggle="tooltip" data-placement="top" title="Edit">
+                                         <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>
+                                    </a>&nbsp;&nbsp;
+                                    <a onclick="return confirm('Are you sure?')" href="<?php echo 'backend/delete-admin.php?id=' . $row['teacher_id']; ?>" class="" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <button class="btn btn-danger"> <i class="fa fa-close color-danger"></i></button>
+                                    </a>
                                 </span></td>
 
                             </tr>
