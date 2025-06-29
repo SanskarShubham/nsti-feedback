@@ -8,12 +8,12 @@
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Government of India MSDE, DGT NSTI Kolkata,Dasnagar, Howrah - 711105</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>033-26531225</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>atihowrah@nic.in</p>
-                    <div class="d-flex pt-2">
+                    <!-- <div class="d-flex pt-2">
                         <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
                         <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Quick Links</h5>

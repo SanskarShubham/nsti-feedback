@@ -11,7 +11,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">NSTI</a> 2018</p>
+                <p>Designed & Developed by<a href="index.php"> CSA </a>2024-25 </p>
             </div>
         </div>
         <!--**********************************
@@ -66,9 +66,9 @@
     </div> <!-- Close main container div if any -->
 
 <!-- Footer -->
-<footer class="footer text-center">
+<!-- <footer class="footer text-center">
     All Rights Reserved © <?= date('Y') ?>
-</footer>
+</footer> -->
 
 
 </body>

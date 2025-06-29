@@ -4,13 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Solartec - Renewable Energy Website Template</title>
+    <title>NSTI HOWRAH</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/favicon.png" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/frontend_style.css" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -100,7 +101,9 @@
                 </div> -->
                 <!-- <a href="contact.php" class="nav-item nav-link">Contact</a> -->
                 <a href="../feedback_form.php" class="btn btn-secondary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2">Submit Feedback <i class="fa fa-arrow-right ms-3"></i></a>
-                <a href="../admin_login.php" class="btn btn-primary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2" >Login<i class="fa fa-user ms-3"></i></a>
+                <a href="../admin_login.php" class="btn btn-primary rounded-2 py-3 px-lg-4 d-lg-block mt-2 ms-lg-2 me-lg-2" >Login<i class="fa fa-user ms-3"></i></a>
+            </div>
+        </div>
                 <!-- <a href="../feedback_form8.php" class="nav-item nav-link">Submit Feedback</a> -->
             <!-- </div>
             <div style="width:10px;"></div>

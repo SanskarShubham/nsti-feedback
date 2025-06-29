@@ -41,7 +41,6 @@
 }
 
 
-/*** Button ***/
 .btn {
     font-weight: 500;
     transition: .5s;
@@ -85,7 +84,7 @@
 
 .navbar .navbar-brand,
 .navbar a.btn {
-    height: 75px;
+    height:57px;
 }
 
 .navbar .navbar-nav .nav-link {
