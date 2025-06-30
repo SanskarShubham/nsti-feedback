@@ -37,9 +37,9 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">100% Placement Assistance</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Strong industry connections leading to excellent placement opportunities for our trainees</p>
-                                <a href="placement.php" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Placement Details</a>
+                                <h1 class="display-2 text-white animated slideInDown">Well-equipped labs</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-3">NSTI Howrah has well-equipped labs with state-of-the-art equipment to provide hands-on training in various trades and skills.</p>
+                                <a href="gallery.php" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Gallery</a>
                             </div>
                         </div>
                     </div>
