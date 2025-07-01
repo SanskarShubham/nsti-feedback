@@ -1,8 +1,9 @@
 <?php include('header.php');
 
 
+
 // Query to fetch all rows
-$sql = "SELECT * FROM teachers";
+$sql = "SELECT * FROM teachers WHERE designation = 'admin'";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {

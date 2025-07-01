@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cnf_password = $_POST["cnf_password"];
     $status = $_POST["status"];
     $imagePath = "";
+    $designation = "Admin";
 
     if ($password !== $cnf_password) {
         echo "<div class='text-danger mt-3'>❌ Passwords do not match.</div>";
@@ -97,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $imagePath = $targetPath;
 
                 // Prepare SQL Insert
-                $sql = "INSERT INTO admin (name, password, mobile, email, status, dp_file_path) VALUES (?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO teachers (name, password, mobile_no, email, status, dp_file_path, designation) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssssis", $name, $encrypted_password, $phone, $email, $status, $imagePath);
+                $stmt->bind_param("ssssiss", $name, $encrypted_password, $phone, $email, $status, $imagePath, $designation);
 
                 if ($stmt->execute()) {
                     echo "<div class='text-success mt-3'>✅ User added successfully!</div>";

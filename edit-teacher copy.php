@@ -3,9 +3,9 @@ include('header.php');
 
 // Check if ID is passed in the URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    die("❌ Teacher ID is missing in the URL.");
+    die("❌ teacher ID is missing in the URL.");
 }
-$id = intval($_GET['id']);
+$id = intval($_GET['id']); // Securely get ID
 
 // Fetch teacher details from DB
 $sql = "SELECT * FROM teachers WHERE teacher_id = ?";
@@ -18,7 +18,7 @@ if ($result->num_rows === 0) {
     die("❌ No teacher found with this ID.");
 }
 
-$row = $result->fetch_assoc();
+$row = $result->fetch_assoc(); // existing teacher data
 ?>
 <div class="container-fluid">
     <div class="card">
@@ -26,8 +26,6 @@ $row = $result->fetch_assoc();
             <div class="form-validation">
                 <form action="backend/update-teacher.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $row['teacher_id'] ?>">
-                    
-                    <!-- Basic Info Section -->
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
@@ -49,34 +47,17 @@ $row = $result->fetch_assoc();
                         </div>
                     </div>
 
-                    <!-- Password Update Section -->
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">New Password</label>
-                        <div class="col-lg-6">
-                            <input type="password" name="new_password" class="form-control" placeholder="Leave blank to keep current password">
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Confirm Password</label>
-                        <div class="col-lg-6">
-                            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm new password">
-                        </div>
-                    </div>
+
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
                             <label class="mr-2">
-                                <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive
-                            </label>
-                            <label>
-                                <input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active
-                            </label>
+                                <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive</label>
+                            <label><input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active</label>
                         </div>
                     </div>
-
-                    <!-- Subject/Trade Section -->
                     <div id="subject-container">
                         <?php
                         // Prefill data for teacher_id
@@ -106,8 +87,9 @@ $row = $result->fetch_assoc();
                         $i = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
+                           
                             <div class="form-group row subject-row">
-                                <input type="hidden" name="teacher_subject_trade_id[]" value="<?= $row['id'] ?>">
+                                 <input type="hidden" name="teacher_subject_trade_id[]" value="<?= $row['id'] ?>">
                                 <label class="col-lg-4 col-form-label">Program / Trade / Subject <span class="text-danger">*</span></label>
                                 <div class="col-lg-2">
                                     <select class="form-control" name="program[]">
@@ -116,6 +98,7 @@ $row = $result->fetch_assoc();
                                         <option value="CITS" <?= $row['program'] == 'CITS' ? 'selected' : '' ?>>CITS</option>
                                     </select>
                                 </div>
+
                                 <div class="col-lg-2">
                                     <select class="form-control" name="trade[]">
                                         <option value="">Select Trade</option>
@@ -126,6 +109,7 @@ $row = $result->fetch_assoc();
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+
                                 <div class="col-lg-2">
                                     <select class="form-control" name="subject[]">
                                         <option value="">Select Subject</option>
@@ -136,6 +120,7 @@ $row = $result->fetch_assoc();
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+
                                 <div class="col-lg-2">
                                     <?php if ($i == 0): ?>
                                         <button type="button" class="btn btn-success" onclick="addSubjectRow(this)"><i class="fa fa-plus"></i> ADD</button>
@@ -156,6 +141,7 @@ $row = $result->fetch_assoc();
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -165,16 +151,17 @@ $row = $result->fetch_assoc();
 <script>
     function addSubjectRow(button) {
         let container = document.getElementById("subject-container");
+
         let originalRow = button.closest(".subject-row");
         let newRow = originalRow.cloneNode(true);
-        
+
         newRow.querySelectorAll("select").forEach(select => select.value = "");
-        
+
         let actionBtn = newRow.querySelector("button");
         actionBtn.innerText = "Remove";
         actionBtn.className = "btn btn-danger";
         actionBtn.setAttribute("onclick", "removeSubjectRow(this)");
-        
+
         container.appendChild(newRow);
     }
 

@@ -6,7 +6,7 @@ $mobileFilter = isset($_GET['mobile']) ? trim($_GET['mobile']) : '';
 $statusFilter = isset($_GET['status']) ? $_GET['status'] : '';
 
 // Build WHERE clause
-$where = ["designation = 'other'"]; // Base condition to only show 'other' designation
+$where = [];
 if (!empty($nameFilter)) {
     $where[] = "name LIKE '%" . mysqli_real_escape_string($conn, $nameFilter) . "%'";
 }
@@ -34,7 +34,7 @@ if (!$result) {
 
     <div class="card mb-3">
         <div class="card-body">
-            <h4 class="card-title">Teachers List (Other Designation)</h4>
+            <h4 class="card-title">Teachers List</h4>
 
             <!-- Filter Form -->
             <form method="get" class="form-row mb-4">

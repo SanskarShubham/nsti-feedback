@@ -47,33 +47,18 @@ $row = $result->fetch_assoc(); // existing admin data
                         </div>
                     </div>
 
-                    <!-- Password Update Section -->
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">New Password</label>
-                        <div class="col-lg-6">
-                            <input type="password" name="new_password" class="form-control" placeholder="Enter new password">
-                            <small class="form-text text-muted">Leave blank to keep current password</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Confirm Password</label>
-                        <div class="col-lg-6">
-                            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm new password">
-                        </div>
-                    </div>
+                    
+                   
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-6">
                             <label class="mr-2">
-                                <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive
-                            </label>
-                            <label>
-                                <input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active
-                            </label>
+                                   <input type="radio" value="0" name="status" <?= $row['status'] == 0 ? 'checked' : ''; ?>> Inactive</label>
+                            <label><input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active</label>
                         </div>
                     </div>
+                  
 
                     <div class="form-group row">
                         <div class="col-lg-8 ml-auto">
@@ -81,6 +66,7 @@ $row = $result->fetch_assoc(); // existing admin data
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

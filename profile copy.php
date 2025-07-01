@@ -1,19 +1,6 @@
 <?php include 'header.php'; ?>
 
 <?php
-if (isset($_GET['status'])) {
-    $status = $_GET['status'];
-    $message = $_GET['message'] ?? '';
-    
-    if ($status === 'success') {
-        echo '<div class="alert alert-success">Profile updated successfully!</div>';
-    } elseif ($status === 'error') {
-        echo '<div class="alert alert-danger">' . htmlspecialchars(urldecode($message)) . '</div>';
-    }
-}
-?>
-
-<?php
 // Assuming $conn is your mysqli connection object
 $userData = $_SESSION['admin_data'];
 $query = "SELECT teacher_id, name, email, mobile_no, dp_file_path FROM teachers WHERE teacher_id = " . $userData['teacher_id'];
@@ -53,6 +40,7 @@ if ($result->num_rows > 0) {
         <div class="col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body">
+
                     <div class="media align-items-center mb-4">
                         <img class="mr-3" src="<?php echo $dp ?>" width="80" height="80" alt="Profile Picture">
                         <div class="media-body">
@@ -94,25 +82,8 @@ if ($result->num_rows > 0) {
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label">Profile Picture</label>
                                 <div class="col-lg-6">
-                                    <div class="custom-file">
-                                        <input type="file" name="image" class="custom-file-input" accept=".jpg, .jpeg, .png">
-                                        <label class="custom-file-label">Choose file (max 2MB)</label>
-                                    </div>
-                                    <small class="form-text text-muted">Recommended size: 200x200 pixels</small>
-                                </div>
-                            </div>
-                            
-                            <!-- Password Update Section -->
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">New Password</label>
-                                <div class="col-lg-6">
-                                    <input type="password" class="form-control" name="new_password" placeholder="Enter new password..">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label">Confirm Password</label>
-                                <div class="col-lg-6">
-                                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm new password..">
+                                    <input type="file" name="image" class="custom-file-input" accept=".jpg, .jpeg, .png">
+                                    <label class="custom-file-label">Choose file</label>
                                 </div>
                             </div>
                             <div class="form-group row">
