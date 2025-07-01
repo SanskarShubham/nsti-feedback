@@ -24,26 +24,30 @@ $where = "WHERE f.teacher_id = $teacher_id";
 if ($rating !== '') $where .= " AND f.rating = '" . mysqli_real_escape_string($conn, $rating) . "'";
 if ($date !== '') $where .= " AND DATE(f.created_at) = '" . mysqli_real_escape_string($conn, $date) . "'";
 
-// Total count
-$total_sql = "SELECT COUNT(*) AS total FROM feedback f
+// First get the total count of DISTINCT feedback records
+$count_sql = "SELECT COUNT(DISTINCT f.id) AS total FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
 JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
 JOIN trade tr ON tst.trade_id = tr.trade_id
 JOIN subject s ON tst.subject_id = s.subject_id
 $where";
-$total_result = mysqli_query($conn, $total_sql);
-$total_row = mysqli_fetch_assoc($total_result);
-$total_records = $total_row['total'];
+$count_result = mysqli_query($conn, $count_sql);
+$count_row = mysqli_fetch_assoc($count_result);
+$total_records = $count_row['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Data fetch
-$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name FROM feedback f
+// Ensure current page is within valid range
+$page = max(1, min($page, $total_pages));
+$offset = ($page - 1) * $limit;
+
+// Data fetch with DISTINCT to avoid duplicates
+$sql = "SELECT DISTINCT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
+FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
 JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
 JOIN trade tr ON tst.trade_id = tr.trade_id
 JOIN subject s ON tst.subject_id = s.subject_id
 $where
-GROUP BY f.id
 ORDER BY f.created_at DESC
 LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
@@ -100,7 +104,7 @@ $result = mysqli_query($conn, $sql);
                     </thead>
                     <tbody>
                         <?php 
-                        $i = 1;
+                        $i = $offset + 1;
                         if (mysqli_num_rows($result) > 0): ?>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
@@ -125,21 +129,52 @@ $result = mysqli_query($conn, $sql);
             </div>
 
             <!-- Pagination -->
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <?php if ($page > 1): ?>
-                        <li class="page-item"><a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">Previous</a></li>
-                    <?php endif; ?>
-                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
+            <?php if ($total_pages > 1): ?>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <!-- Previous button -->
+                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => max(1, $page - 1)])) ?>">Previous</a>
                         </li>
-                    <?php endfor; ?>
-                    <?php if ($page < $total_pages): ?>
-                        <li class="page-item"><a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Next</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
+                        
+                        <!-- First page -->
+                        <?php if ($page > 3): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => 1])) ?>">1</a>
+                            </li>
+                            <?php if ($page > 4): ?>
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        
+                        <!-- Page numbers around current page -->
+                        <?php for ($i = max(1, $page - 2); $i <= min($total_pages, $page + 2); $i++): ?>
+                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
+                        
+                        <!-- Last page -->
+                        <?php if ($page < $total_pages - 2): ?>
+                            <?php if ($page < $total_pages - 3): ?>
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            <?php endif; ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $total_pages])) ?>"><?= $total_pages ?></a>
+                            </li>
+                        <?php endif; ?>
+                        
+                        <!-- Next button -->
+                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => min($total_pages, $page + 1)])) ?>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            <?php endif; ?>
 
         </div>
     </div>

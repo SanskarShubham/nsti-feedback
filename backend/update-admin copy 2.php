@@ -10,12 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         $email = trim($_POST["email"]);
         $mobile = trim($_POST["mobile"]);
         $status = intval($_POST["status"]);
-        $designation = trim($_POST["designation"] ?? 'other'); // Default to 'other'
         $new_password = $_POST["new_password"] ?? '';
         $confirm_password = $_POST["confirm_password"] ?? '';
 
         // Basic validation
-        if (empty($name) || empty($email) || empty($mobile) || empty($designation)) {
+        if (empty($name) || empty($email) || empty($mobile)) {
             throw new Exception("All fields are required");
         }
 
@@ -23,16 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             throw new Exception("Invalid email format");
         }
 
-        // Validate designation
-        $allowed_designations = ['admin', 'other'];
-        if (!in_array($designation, $allowed_designations)) {
-            throw new Exception("Invalid designation selected");
-        }
-
         // Initialize query and parameters
-        $query = "UPDATE teachers SET name = ?, email = ?, mobile_no = ?, status = ?, designation = ?";
-        $types = "sssis";
-        $params = [$name, $email, $mobile, $status, $designation];
+        $query = "UPDATE teachers SET name = ?, email = ?, mobile_no = ?, status = ?";
+        $types = "sssi";
+        $params = [$name, $email, $mobile, $status];
 
         // Handle password update if provided
         if (!empty($new_password)) {
@@ -40,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                 throw new Exception("Passwords do not match");
             }
             if (strlen($new_password) < 4) {
-                throw new Exception("Password must be at least 4 characters");
+                throw new Exception("Password must be at least 8 characters");
             }
 
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);

@@ -26,7 +26,7 @@ $row = $result->fetch_assoc();
             <div class="form-validation">
                 <form action="backend/update-teacher.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $row['teacher_id'] ?>">
-                    
+
                     <!-- Basic Info Section -->
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Name <span class="text-danger">*</span></label>
@@ -72,6 +72,19 @@ $row = $result->fetch_assoc();
                             </label>
                             <label>
                                 <input type="radio" value="1" name="status" <?= $row['status'] == 1 ? 'checked' : ''; ?>> Active
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Designation <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <label class="mr-2">
+                                <input type="radio" value="admin" name="designation" <?= $row['designation'] == 'admin' ? 'checked' : ''; ?>> Admin
+                            </label>
+                            
+                            <label>
+                                <input type="radio" value="other" name="designation" <?= $row['designation'] == 'other' ? 'checked' : ''; ?>> Teacher
                             </label>
                         </div>
                     </div>
@@ -167,14 +180,14 @@ $row = $result->fetch_assoc();
         let container = document.getElementById("subject-container");
         let originalRow = button.closest(".subject-row");
         let newRow = originalRow.cloneNode(true);
-        
+
         newRow.querySelectorAll("select").forEach(select => select.value = "");
-        
+
         let actionBtn = newRow.querySelector("button");
         actionBtn.innerText = "Remove";
         actionBtn.className = "btn btn-danger";
         actionBtn.setAttribute("onclick", "removeSubjectRow(this)");
-        
+
         container.appendChild(newRow);
     }
 

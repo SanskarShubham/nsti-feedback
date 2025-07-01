@@ -186,11 +186,14 @@ require_once 'connection.php';
                     <li>
                         <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
                         <a  href="./list-feedback.php" aria-expanded="false">
-                            <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
+                            <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
+                        </a>
+                        <a  href="./list-feedback-specific.php" aria-expanded="false">
+                            <i class="fa fa-commenting"></i> <span class="nav-text">Specific Feedback</span>
                         </a>
                         <?php }else{ ?>
                         <a  href="./list-feedback1.php" aria-expanded="false">
-                            <i class="fa fa-users"></i> <span class="nav-text">Feedback</span>
+                            <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                         </a>
                         <?php } ?>
                     </li>

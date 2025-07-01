@@ -10,12 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = trim($_POST['email']);
         $mobile = trim($_POST['mobile']);
         $status = isset($_POST['status']) ? intval($_POST['status']) : 0;
+        $designation = trim($_POST['designation'] ?? 'other'); // Default to 'other' if not set
         $new_password = $_POST['new_password'] ?? '';
         $confirm_password = $_POST['confirm_password'] ?? '';
 
         // Basic validation
-        if (empty($name) || empty($email) || empty($mobile)) {
+        if (empty($name) || empty($email) || empty($mobile) || empty($designation)) {
             throw new Exception("All required fields must be filled");
+        }
+
+        // Validate designation
+        $allowed_designations = ['admin', 'other'];
+        if (!in_array($designation, $allowed_designations)) {
+            throw new Exception("Invalid designation selected");
         }
 
         // Password validation if provided
@@ -24,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("Password and confirmation do not match");
             }
             if (strlen($new_password) < 4) {
-                throw new Exception("Password must be at least 8 characters");
+                throw new Exception("Password must be at least 4 characters");
             }
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
         }
@@ -35,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Update teacher info (with or without password)
             if (!empty($new_password)) {
-                $stmt = $conn->prepare("UPDATE teachers SET name=?, email=?, mobile_no=?, status=?, password=? WHERE teacher_id=?");
-                $stmt->bind_param("sssisi", $name, $email, $mobile, $status, $hashed_password, $id);
+                $stmt = $conn->prepare("UPDATE teachers SET name=?, email=?, mobile_no=?, status=?, designation=?, password=? WHERE teacher_id=?");
+                $stmt->bind_param("sssissi", $name, $email, $mobile, $status, $designation, $hashed_password, $id);
             } else {
-                $stmt = $conn->prepare("UPDATE teachers SET name=?, email=?, mobile_no=?, status=? WHERE teacher_id=?");
-                $stmt->bind_param("sssii", $name, $email, $mobile, $status, $id);
+                $stmt = $conn->prepare("UPDATE teachers SET name=?, email=?, mobile_no=?, status=?, designation=? WHERE teacher_id=?");
+                $stmt->bind_param("sssisi", $name, $email, $mobile, $status, $designation, $id);
             }
             
             if (!$stmt->execute()) {

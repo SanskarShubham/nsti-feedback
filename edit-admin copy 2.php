@@ -76,18 +76,6 @@ $row = $result->fetch_assoc(); // existing admin data
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Designation <span class="text-danger">*</span></label>
-                        <div class="col-lg-6">
-                            <label class="mr-2">
-                                <input type="radio" value="admin" name="designation" <?= $row['designation'] == 'admin' ? 'checked' : ''; ?>> Admin
-                            </label>
-                            <label>
-                                <input type="radio" value="other" name="designation" <?= $row['designation'] == 'other' ? 'checked' : ''; ?>> Teacher
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <div class="col-lg-8 ml-auto">
                             <button type="submit" name="submit" class="btn btn-primary">Update</button>
                         </div>
