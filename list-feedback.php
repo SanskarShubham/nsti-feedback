@@ -15,18 +15,17 @@ $date = $_GET['date'] ?? '';
 
 // Build WHERE clause
 $where = "WHERE 1";
-if ($teacher !== '') $where .= " AND t.name LIKE '%" . mysqli_real_escape_string($conn, $teacher) . "%'";
-if ($subject !== '') $where .= " AND s.name LIKE '%" . mysqli_real_escape_string($conn, $subject) . "%'";
+if ($teacher !== '') $where .= " AND t.teacher_id = '" . mysqli_real_escape_string($conn, $teacher) . "'";
+if ($subject !== '') $where .= " AND s.subject_id = '" . mysqli_real_escape_string($conn, $subject) . "'";
 if ($trade !== '') $where .= " AND tr.trade_name = '" . mysqli_real_escape_string($conn, $trade) . "'";
 if ($rating !== '') $where .= " AND f.rating = '" . mysqli_real_escape_string($conn, $rating) . "'";
 if ($date !== '') $where .= " AND DATE(f.created_at) = '" . mysqli_real_escape_string($conn, $date) . "'";
 
-// First get the total count of DISTINCT feedback records
-$count_sql = "SELECT COUNT(DISTINCT f.id) AS total FROM feedback f
+// First get the total count of feedback records
+$count_sql = "SELECT COUNT(f.id) AS total FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
-JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
-JOIN trade tr ON tst.trade_id = tr.trade_id
-JOIN subject s ON tst.subject_id = s.subject_id
+JOIN trade tr ON tr.trade_id = f.trade_id
+JOIN subject s ON s.subject_id = f.subject_id
 $where";
 $count_result = mysqli_query($conn, $count_sql);
 $count_row = mysqli_fetch_assoc($count_result);
@@ -37,20 +36,21 @@ $total_pages = ceil($total_records / $limit);
 $page = max(1, min($page, $total_pages));
 $offset = ($page - 1) * $limit;
 
-// Data fetch with DISTINCT to avoid duplicates
-$sql = "SELECT DISTINCT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
+// Data fetch
+$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
 FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
-JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
-JOIN trade tr ON tst.trade_id = tr.trade_id
-JOIN subject s ON tst.subject_id = s.subject_id
+JOIN trade tr ON tr.trade_id = f.trade_id
+JOIN subject s ON s.subject_id = f.subject_id
 $where
 ORDER BY f.created_at DESC
 LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
 
-// Fetch trade list for dropdown
-$trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade");
+// Fetch lists for dropdowns
+$trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade ORDER BY trade_name");
+$teacher_list = mysqli_query($conn, "SELECT teacher_id, name FROM teachers ORDER BY name");
+$subject_list = mysqli_query($conn, "SELECT subject_id, name FROM subject ORDER BY name");
 ?>
 
 <div class="container-fluid">
@@ -59,22 +59,45 @@ $trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade");
 
             <!-- Filter Form -->
             <form method="GET" class="form-inline mb-3 flex-wrap gap-2">
-                <input type="text" name="teacher" value="<?= htmlspecialchars($teacher) ?>" class="form-control form-control-m mr-3 mb-2" placeholder="Teacher Name" style="max-width:150px;">
-                <input type="text" name="subject" value="<?= htmlspecialchars($subject) ?>" class="form-control form-control-m mr-3 mb-2" placeholder="Subject Name" style="max-width:150px;">
+                <!-- Teacher Dropdown -->
+                <select name="teacher" class="form-control form-control-m mr-3 mb-2" style="max-width:200px;">
+                    <option value="">Select Teacher</option>
+                    <?php while ($tch = mysqli_fetch_assoc($teacher_list)): ?>
+                        <option value="<?= $tch['teacher_id'] ?>" <?= $teacher == $tch['teacher_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($tch['name']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+                
+                <!-- Subject Dropdown -->
+                <select name="subject" class="form-control form-control-m mr-3 mb-2" style="max-width:200px;">
+                    <option value="">Select Subject</option>
+                    <?php while ($sub = mysqli_fetch_assoc($subject_list)): ?>
+                        <option value="<?= $sub['subject_id'] ?>" <?= $subject == $sub['subject_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($sub['name']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+                
+                <!-- Trade Dropdown -->
                 <select name="trade" class="form-control form-control-m mr-3 mb-2" style="max-width:200px;">
                     <option value="">Select Trade</option>
                     <?php while ($t = mysqli_fetch_assoc($trade_list)): ?>
                         <option value="<?= $t['trade_name'] ?>" <?= $trade == $t['trade_name'] ? 'selected' : '' ?>>
-                            <?= $t['trade_name'] ?>
+                            <?= htmlspecialchars($t['trade_name']) ?>
                         </option>
                     <?php endwhile; ?>
                 </select>
+                
+                <!-- Rating Dropdown -->
                 <select name="rating" class="form-control form-control-m mr-3 mb-2" style="max-width:120px;">
                     <option value="">Rating</option>
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                         <option value="<?= $i ?>" <?= $rating == $i ? 'selected' : '' ?>><?= $i ?> ⭐</option>
                     <?php endfor; ?>
                 </select>
+                
+                <!-- Date Input -->
                 <input type="date" name="date" value="<?= htmlspecialchars($date) ?>" class="form-control form-control-m mr-3 mb-2" style="max-width:150px;">
 
                 <button type="submit" class="btn btn-success btn-m mr-3 mb-2">Filter</button>

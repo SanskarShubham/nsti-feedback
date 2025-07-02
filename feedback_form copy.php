@@ -1,8 +1,6 @@
 <?php
 session_start();
-date_default_timezone_set('Asia/Kolkata'); // Add this line
 include 'connection.php';
-$conn->query("SET time_zone = '+05:30'"); // For India/Kolkata (UTC+5:30)
 
 function feedbackExists($conn, $attendance_id) {
     $stmt = $conn->prepare("SELECT COUNT(*) as cnt FROM feedback WHERE attendance_id = ? AND status = 1");

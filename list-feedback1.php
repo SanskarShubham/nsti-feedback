@@ -24,29 +24,23 @@ $where = "WHERE f.teacher_id = $teacher_id";
 if ($rating !== '') $where .= " AND f.rating = '" . mysqli_real_escape_string($conn, $rating) . "'";
 if ($date !== '') $where .= " AND DATE(f.created_at) = '" . mysqli_real_escape_string($conn, $date) . "'";
 
-// First get the total count of DISTINCT feedback records
-$count_sql = "SELECT COUNT(DISTINCT f.id) AS total FROM feedback f
+// Total count - fixed joins to match feedback with actual teacher assignments
+$total_sql = "SELECT COUNT(DISTINCT f.id) AS total FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
-JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
-JOIN trade tr ON tst.trade_id = tr.trade_id
-JOIN subject s ON tst.subject_id = s.subject_id
+JOIN trade tr ON tr.trade_id = f.trade_id
+JOIN subject s ON s.subject_id = f.subject_id
 $where";
 $count_result = mysqli_query($conn, $count_sql);
 $count_row = mysqli_fetch_assoc($count_result);
 $total_records = $count_row['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Ensure current page is within valid range
-$page = max(1, min($page, $total_pages));
-$offset = ($page - 1) * $limit;
-
-// Data fetch with DISTINCT to avoid duplicates
-$sql = "SELECT DISTINCT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
+// Data fetch - fixed joins to use the trade and subject IDs stored in feedback table
+$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
 FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
-JOIN teacher_subject_trade tst ON tst.teacher_id = t.teacher_id
-JOIN trade tr ON tst.trade_id = tr.trade_id
-JOIN subject s ON tst.subject_id = s.subject_id
+JOIN trade tr ON tr.trade_id = f.trade_id
+JOIN subject s ON s.subject_id = f.subject_id
 $where
 ORDER BY f.created_at DESC
 LIMIT $offset, $limit";
@@ -55,6 +49,9 @@ $result = mysqli_query($conn, $sql);
 
 <div class="container-fluid">
     <div class="card mb-3">
+        <div class="card-header">
+            <h4><i class="fas fa-comments"></i> Feedback Received</h4>
+        </div>
         <div class="card-body">
 
             <!-- Filter Form (simplified for self-view) -->
@@ -104,7 +101,7 @@ $result = mysqli_query($conn, $sql);
                     </thead>
                     <tbody>
                         <?php 
-                        $i = $offset + 1;
+                        $i = 1 + $offset; // Start numbering from correct position for pagination
                         if (mysqli_num_rows($result) > 0): ?>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
@@ -112,10 +109,12 @@ $result = mysqli_query($conn, $sql);
                                     <td><?= htmlspecialchars($row['subject_name']) ?></td>
                                     <td><?= htmlspecialchars($row['trade_name']) ?></td>
                                     <td>
-                                        <?= $row['rating'] ?> ⭐
-                                        <?php if ($row['rating'] <= 2): ?>
-                                            <span class="badge badge-danger ml-2">Needs Improvement</span>
-                                        <?php endif; ?>
+                                        <div class="d-flex align-items-center">
+                                            <?= str_repeat('⭐', $row['rating']) ?>
+                                            <?php if ($row['rating'] <= 2): ?>
+                                                <span class="badge badge-danger ml-2">Needs Improvement</span>
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
                                     <td><?= nl2br(htmlspecialchars($row['remarks'])) ?></td>
                                     <td><?= (new DateTime($row['created_at']))->format('d/m/y h:i A') ?></td>
@@ -132,46 +131,23 @@ $result = mysqli_query($conn, $sql);
             <?php if ($total_pages > 1): ?>
                 <nav>
                     <ul class="pagination justify-content-center">
-                        <!-- Previous button -->
-                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => max(1, $page - 1)])) ?>">Previous</a>
-                        </li>
-                        
-                        <!-- First page -->
-                        <?php if ($page > 3): ?>
+                        <?php if ($page > 1): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => 1])) ?>">1</a>
+                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">Previous</a>
                             </li>
-                            <?php if ($page > 4): ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">...</span>
-                                </li>
-                            <?php endif; ?>
                         <?php endif; ?>
                         
-                        <!-- Page numbers around current page -->
-                        <?php for ($i = max(1, $page - 2); $i <= min($total_pages, $page + 2); $i++): ?>
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                             <li class="page-item <?= $i == $page ? 'active' : '' ?>">
                                 <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                         
-                        <!-- Last page -->
-                        <?php if ($page < $total_pages - 2): ?>
-                            <?php if ($page < $total_pages - 3): ?>
-                                <li class="page-item disabled">
-                                    <span class="page-link">...</span>
-                                </li>
-                            <?php endif; ?>
+                        <?php if ($page < $total_pages): ?>
                             <li class="page-item">
-                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $total_pages])) ?>"><?= $total_pages ?></a>
+                                <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Next</a>
                             </li>
                         <?php endif; ?>
-                        
-                        <!-- Next button -->
-                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => min($total_pages, $page + 1)])) ?>">Next</a>
-                        </li>
                     </ul>
                 </nav>
             <?php endif; ?>
