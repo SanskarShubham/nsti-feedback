@@ -3,8 +3,8 @@
     <!-- Carousel Start -->
     <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-1.jpg'>">
-                <img class="img-fluid" src="img/carousel-1.jpg" alt="NSTI Howrah Campus">
+            <div class="owl-carousel-item position-relative" data-dot="<img src='img/nsti.png'>">
+                <img class="img-fluid" src="img/nsti.jpg" alt="NSTI Howrah Campus">
                 <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -17,8 +17,8 @@
                     </div>
                 </div>
             </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-2.jpg'>">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="Skill Training at NSTI">
+            <div class="owl-carousel-item position-relative" data-dot="<img src='img/nsti_front.png'>">
+                <img class="img-fluid" src="img/nsti_front.png" alt="Skill Training at NSTI">
                 <div class="owl-carousel-inner">
                     <div class="container">
                         <div class="row justify-content-start">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>">
+            <!-- <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>">
                 <img class="img-fluid" src="img/carousel-3.jpg" alt="Placement Opportunities">
                 <div class="owl-carousel-inner">
                     <div class="container">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Carousel End -->
@@ -342,7 +342,7 @@
                 </div>
                 <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/feature.jpg" style="object-fit: cover;" alt="NSTI Howrah Facilities">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/feature.png" style="object-fit: cover;" alt="NSTI Howrah Facilities">
                     </div>
                 </div>
             </div>
@@ -508,7 +508,7 @@
     <!-- Quote End -->
 
     <!-- Team Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Our Faculty</h6>
@@ -518,12 +518,12 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="Dr. Amit Sharma">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="Dr. Amit Sharma"> -->
                             <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
                             </div> -->
-                        </div>
+                        <!-- </div>
                         <div class="p-4">
                             <h5>Dr. Amit Sharma</h5>
                             <span>Principal & Head of Institute</span>
@@ -533,12 +533,12 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="Prof. Sanjay Gupta">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="Prof. Sanjay Gupta"> -->
                             <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
                             </div> -->
-                        </div>
+                        <!-- </div>
                         <div class="p-4">
                             <h5>Prof. Sanjay Gupta</h5>
                             <span>Senior Instructor - Electrical</span>
@@ -548,12 +548,12 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="Ms. Priya Chatterjee">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="Ms. Priya Chatterjee"> -->
                             <!-- <div class="team-social w-25">
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-linkedin-in"></i></a>
                             </div> -->
-                        </div>
+                        <!-- </div>
                         <div class="p-4">
                             <h5>Ms. Priya Chatterjee</h5>
                             <span>IT & Computer Training Head</span>
@@ -562,11 +562,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Team End -->
 
     <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Testimonial</h6>
@@ -614,7 +614,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Testimonial End -->
 
 <?php include 'footer.php'; ?>

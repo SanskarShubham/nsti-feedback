@@ -85,7 +85,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.php" class="nav-item nav-link active">Home</a>
-                <a href="about.php" class="nav-item nav-link">About</a>
+                <!-- <a href="about.php" class="nav-item nav-link">About</a> -->
                 <a href="courses.php" class="nav-item nav-link">Courses</a>
                 <a href="gallery.php" class="nav-item nav-link">Gallery</a>
                 <a href="team.php" class="nav-item nav-link">Our Team</a>

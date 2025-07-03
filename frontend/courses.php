@@ -23,32 +23,6 @@
                 <h1 class="mb-4">Vocational Training Courses</h1>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/electrician-course.png" alt="Electrician Training">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-bolt fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Electrician</h4>
-                            <p>Comprehensive training in electrical systems, wiring, and maintenance for industrial and domestic applications.</p>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-2.jpg" alt="Fitter Training">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-cog fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3">Fitter</h4>
-                            <p>Training in fitting, assembly, and maintenance of mechanical systems and industrial equipment.</p>
-                           
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded overflow-hidden">
                         <img class="img-fluid" src="img/img-600x400-3.jpg" alt="IT Training">
@@ -64,7 +38,33 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-4.jpg" alt="Welding Training">
+                        <img class="img-fluid" src="img/courses/electrician.jpg" alt="Electrician Training">
+                        <div class="position-relative p-4 pt-0">
+                            <div class="service-icon">
+                                <i class="fa fa-bolt fa-3x"></i>
+                            </div>
+                            <h4 class="mb-3">Electrician</h4>
+                            <p>Comprehensive training in electrical systems, wiring, and maintenance for industrial and domestic applications.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item rounded overflow-hidden">
+                        <img class="img-fluid" src="img/courses/fitter.jpg" alt="Fitter Training">
+                        <div class="position-relative p-4 pt-0">
+                            <div class="service-icon">
+                                <i class="fa fa-cog fa-3x"></i>
+                            </div>
+                            <h4 class="mb-3">Fitter</h4>
+                            <p>Training in fitting, assembly, and maintenance of mechanical systems and industrial equipment.</p>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item rounded overflow-hidden">
+                        <img class="img-fluid" src="img/courses/welder.jpg" alt="Welding Training">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-fire fa-3x"></i>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-5.jpg" alt="Mechanic Training">
+                        <img class="img-fluid" src="img/courses/mmv.jpg" alt="Mechanic Training">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-car fa-3x"></i>
@@ -90,14 +90,13 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-6.jpg" alt="Electronics Training">
+                        <img class="img-fluid" src="img/courses/carpenter.jpg" alt="Electronics Training">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-microchip fa-3x"></i>
                             </div>
-                            <h4 class="mb-3">Electronics Mechanic</h4>
-                            <p>Training in assembly, maintenance and repair of electronic equipment and systems.</p>
-                           
+                            <h4 class="mb-3">Carpenter</h4>
+                            <p>Training in the art of carpentry, covering woodwork, joinery, and furniture making.</p>                           
                         </div>
                     </div>
                 </div>
@@ -167,7 +166,7 @@
             </div>
             <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                 <div class="position-relative h-100">
-                    <img class="position-absolute img-fluid w-100 h-100" src="img/feature.jpg" style="object-fit: cover;" alt="">
+                    <img class="position-absolute img-fluid w-100 h-100" src="img/nsti.jpg" style="object-fit: cover;" alt="">
                 </div>
             </div>
         </div>
