@@ -26,7 +26,7 @@
                 <div class="col-12 text-center">
                     <ul class="list-inline mb-5" id="portfolio-flters">
                         <li class="mx-2 active" data-filter="*">All</li>
-                        <li class="mx-2" data-filter=".training">Training </li>
+                        <li class="mx-2" data-filter=".training">Workshop Training & Machinery </li>
                         <li class="mx-2" data-filter=".projects">Student Projects</li>
                         <li class="mx-2" data-filter=".campus">Campus</li>
                         <li class="mx-2" data-filter=".events">Events</li>
@@ -34,50 +34,95 @@
                 </div>
             </div>
             <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
-                <!-- Training Images -->
+              
+            
+            
+            <!-- Training Images -->
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/practical.png" alt="Electrical Training Session">
+                        <img class="img-fluid" src="img/gallery/training/carpenter.jpg" alt="Electrical Training Session">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/practical.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/carpenter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Practical Training</p>
+                        <p class="text-primary mb-0">Practical Training Of Carpenter</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Students learning electrical wiring techniques</h5>
+                        <!-- <h5 class="lh-base">Students learning electrical wiring techniques</h5> -->
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/welding.png" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/training/fitter.jpg" alt="Welding Workshop">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/welding.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Workshop Session</p>
+                        <p class="text-primary mb-0">Practical Training Of Fitter</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Hands-on welding training under expert guidance</h5>
+                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item training">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/training/foundryman.jpg" alt="Welding Workshop">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/foundryman.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Practical Training Of Foundryman</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item training">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/training/machinist.jpg" alt="Welding Workshop">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/machinist.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Practical Training Of Machinist</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item training">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/training/mmv.jpg" alt="Welding Workshop">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/mmv.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Practical Training Of MMV</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
                     </div>
                 </div>
                 
                 <!-- Student Projects -->
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/electronic_project.png" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/project/bridge.jpg" alt="Student Electronics Project">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/electronic_project.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/project/bridge.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
                         <p class="text-primary mb-0">Innovation</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Electronics students showcasing their project</h5>
+                        <h5 class="lh-base">Carpenter students showcasing their project</h5>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 portfolio-item projects">
+                <!-- <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/gallery/innovation.jpg" alt="Student Electronics Project">
                         <div class="portfolio-btn">
@@ -103,12 +148,12 @@
                         <hr class="text-primary w-25 my-2">
                         <h5 class="lh-base">IT students demonstrating their software project</h5>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Campus Images -->
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus-1.jpg" alt="NSTI Howrah Campus">
+                        <img class="img-fluid" src="img/gallery/campus/campus.jpg" alt="NSTI Howrah Campus">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -116,73 +161,117 @@
                     <div class="pt-3">
                         <p class="text-primary mb-0">Our Campus</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">View of NSTI Howrah's main building</h5>
+                        <!-- <h5 class="lh-base">View of NSTI Howrah's main building</h5> -->
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus-2.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/campus/ground.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/ground.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Playground</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Playground</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/campus/commitee_room.jpg" alt="Computer Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Modern Facilities</p>
+                        <p class="text-primary mb-0">Committee Room</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Well-equipped computer laboratory</h5>
+                        <!-- <h5 class="lh-base">Committee room</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/campus/lecture_hall.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Lecture Hall</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Well-equipped Lecture Hall</h5> -->
                     </div>
                 </div>
                 
                 <!-- Events -->
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event-1.jpg" alt="Industry Visit">
+                        <img class="img-fluid" src="img/gallery/event/youth_skill.jpg" alt="Industry Visit">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Industry Exposure</p>
+                        <p class="text-primary mb-0">World Youth Skill Day</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Students during an industrial visit</h5>
+                        <!-- <h5 class="lh-base">Students during an industrial visit</h5> -->
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event-2.jpg" alt="Award Ceremony">
+                        <img class="img-fluid" src="img/gallery/event/vishwakarma.jpg" alt="Award Ceremony">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Achievements</p>
+                        <p class="text-primary mb-0">Vishwakarma Puja</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Students receiving awards at annual function</h5>
+                        <!-- <h5 class="lh-base">Students receiving awards at annual function</h5> -->
                     </div>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event-3.jpg" alt="Placement Drive">
+                        <img class="img-fluid" src="img/gallery/event/womens_day.jpg" alt="Placement Drive">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Career Opportunities</p>
+                        <p class="text-primary mb-0">womens Day</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Campus placement drive in progress</h5>
+                        <!-- <h5 class="lh-base">Campus placement drive in progress</h5> -->
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-6 portfolio-item events">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/womens_day1.jpg" alt="Placement Drive">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">womens Day</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Campus placement drive in progress</h5> -->
+                    </div>
+                </div>
+            </div>
+
+                
             </div>
         </div>
     </div>
     <!-- Gallery End -->
 
     <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Success Stories</h6>
@@ -230,7 +319,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Testimonial End -->
 
     <!-- Call to Action Start -->

@@ -23,11 +23,11 @@
                     <a class="btn btn-link" href="gallery.php">Gallery</a>
                     <a class="btn btn-link" href="../feedback_form8.php">Feedback</a>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <!-- <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Gallery</h5>
                     <div class="row g-2">
                         <div class="col-4">
-                            <img class="img-fluid rounded" src="img/gallery-1.jpg" alt="">
+                            <img class="img-fluid rounded" src="img/gallery/campus/campus.jpg" alt="">
                         </div>
                         <div class="col-4">
                             <img class="img-fluid rounded" src="img/gallery-2.jpg" alt="">
@@ -45,7 +45,7 @@
                             <img class="img-fluid rounded" src="img/gallery-6.jpg" alt="">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Newsletter</h5>
                     <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>

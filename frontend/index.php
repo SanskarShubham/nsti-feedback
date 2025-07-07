@@ -3,7 +3,7 @@
     <!-- Carousel Start -->
     <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative" data-dot="<img src='img/nsti.png'>">
+            <div class="owl-carousel-item position-relative" data-dot="<img src='img/nsti.jpg'>">
                 <img class="img-fluid" src="img/nsti.jpg" alt="NSTI Howrah Campus">
                 <div class="owl-carousel-inner">
                     <div class="container">
@@ -342,7 +342,7 @@
                 </div>
                 <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/feature.png" style="object-fit: cover;" alt="NSTI Howrah Facilities">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/drone.jpg" style="object-fit: cover;" alt="NSTI Howrah Facilities">
                     </div>
                 </div>
             </div>
@@ -370,16 +370,16 @@
             <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-6.jpg" alt="Electrical Workshop">
+                        <img class="img-fluid" src="img/workshop/fitter.jpg" alt="Electrical Workshop">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/workshop/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Electrical Workshop</p>
+                        <p class="text-primary mb-0">Fitter Workshop</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Fully equipped with modern tools and testing equipment</h5>
+                        <!-- <h5 class="lh-base">Fully equipped with modern tools and testing equipment</h5> -->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 portfolio-item second">
@@ -393,10 +393,10 @@
                     <div class="pt-3">
                         <p class="text-primary mb-0">Computer Lab</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Latest hardware and software for IT training programs</h5>
+                        <!-- <h5 class="lh-base">Latest hardware and software for IT training programs</h5> -->
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 portfolio-item third">
+                <!-- <div class="col-lg-4 col-md-6 portfolio-item third">
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/img-600x400-4.jpg" alt="Smart Classroom">
                         <div class="portfolio-btn">
@@ -409,47 +409,97 @@
                         <hr class="text-primary w-25 my-2">
                         <h5 class="lh-base">Digital learning environment with audio-visual aids</h5>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-4 col-md-6 portfolio-item first">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-3.jpg" alt="Mechanical Workshop">
+                        <img class="img-fluid" src="img/mmv.jpg" alt="Mechanical Workshop">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Mechanical Workshop</p>
+                        <p class="text-primary mb-0">Motor Mechanic Workshop</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Training in fitting, turning, and machine operations</h5>
+                        <!-- <h5 class="lh-base">Training in fitting, turning, and machine operations</h5> -->
                     </div>
                 </div>
+                
+                
                 <div class="col-lg-4 col-md-6 portfolio-item second">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-2.jpg" alt="Electronics Lab">
+                        <img class="img-fluid" src="img/labs/electrical.jpg" alt="Electronics Lab">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/electrical.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
                         <p class="text-primary mb-0">Electronics Lab</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Hands-on training in electronic circuits and systems</h5>
+                        <!-- <h5 class="lh-base">Hands-on training in electronic circuits and systems</h5> -->
                     </div>
                 </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item second">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/labs/electrical1.jpg" alt="Electronics Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/electrical1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Electronics Lab</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on training in electronic circuits and systems</h5> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item second">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/labs/cnc.jpg" alt="Electronics Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/cnc.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">CNC Lab</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on training in electronic circuits and systems</h5> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item second">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/labs/hydraulic.jpg" alt="Electronics Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/hydraulic.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Hydraulic Lab</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on training in electronic circuits and systems</h5> -->
+                    </div>
+                </div>
+
+
+
                 <div class="col-lg-4 col-md-6 portfolio-item third">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-1.jpg" alt="Library">
+                        <img class="img-fluid" src="img/class/library.jpg" alt="Library">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/class/library.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
                         <p class="text-primary mb-0">Library</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Extensive collection of technical books and journals</h5>
+                        <!-- <h5 class="lh-base">Extensive collection of technical books and journals</h5> -->
                     </div>
                 </div>
             </div>
