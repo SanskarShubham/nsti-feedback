@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header py-5 mb-5">
+<div class="container-fluid page-header py-5 mb-5" style= "height: 400px; background-image: url(img/courses.webp); background-size: cover; background-position: 70% 94%;">
     <div class="container py-5">
         <h1 class="display-3 text-white mb-3 animated slideInDown">Courses</h1>
         <nav aria-label="breadcrumb animated slideInDown">

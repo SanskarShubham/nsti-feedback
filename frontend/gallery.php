@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5">
+    <div class="container-fluid page-header py-5 mb-5" style= "height: 400px; background-image: url(img/gallery.png); background-size: cover; background-position: 70% 30%;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown">Our Gallery</h1>
             <nav aria-label="breadcrumb animated slideInDown">
@@ -119,7 +119,7 @@
                     <div class="pt-3">
                         <p class="text-primary mb-0">Innovation</p>
                         <hr class="text-primary w-25 my-2">
-                        <h5 class="lh-base">Carpenter students showcasing their project</h5>
+                        <!-- <h5 class="lh-base">Carpenter students showcasing their project</h5> -->
                     </div>
                 </div>
                 <!-- <div class="col-lg-4 col-md-6 portfolio-item projects">
@@ -181,6 +181,62 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/sport.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/sport.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Sports Day</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Playground</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/sport1.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/ground.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Sports Day</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Playground</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/sport2.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/ground.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Sports Day</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Playground</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/sport3.jpg" alt="Computer Lab">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/ground.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Sports Day</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Playground</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item campus">
+                    <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/gallery/campus/commitee_room.jpg" alt="Computer Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
@@ -231,6 +287,34 @@
                     </div>
                     <div class="pt-3">
                         <p class="text-primary mb-0">Vishwakarma Puja</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Students receiving awards at annual function</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item events">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/saraswati.jpg" alt="Award Ceremony">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Saraswati Puja</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Students receiving awards at annual function</h5> -->
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 portfolio-item events">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/event/saraswati1.jpg" alt="Award Ceremony">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Saraswati Puja</p>
                         <hr class="text-primary w-25 my-2">
                         <!-- <h5 class="lh-base">Students receiving awards at annual function</h5> -->
                     </div>
