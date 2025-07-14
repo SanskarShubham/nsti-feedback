@@ -52,8 +52,8 @@ if (!$result) {
                     </select>
                 </div>
                 <div class="col-md-3 mb-2 d-flex">
-                    <button type="submit" class="btn btn-success mr-2">Filter</button>
-                    <a href="list-teachers.php" class="btn btn-danger">Reset</a>
+                    <button type="submit" class="btn btn-success mr-2"><i class="fa fa-filter mr-1" ></i>Filter</button>
+                    <a href="list-teachers.php" class="btn btn-danger"><i class="fa fa-refresh mr-1"></i>Reset</a>
                 </div>
             </form>
 

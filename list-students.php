@@ -86,11 +86,11 @@ while ($row = mysqli_fetch_assoc($trades_result)) {
 
                 <div class="col-md-1">
                     <label>&nbsp;</label>
-                    <button type="submit" class="btn btn-success w-100">Apply Filter</button>
+                    <button type="submit" class="btn btn-success w-100"><i class="fa fa-filter mr-1" ></i>Filter</button>
                 </div>
                 <div class="col-md-1">
                     <label>&nbsp;</label>
-                    <a href="<?= basename($_SERVER['PHP_SELF']) ?>" class="btn btn-danger w-100">Reset</a>
+                    <a href="<?= basename($_SERVER['PHP_SELF']) ?>" class="btn btn-danger w-100"><i class="fa fa-refresh mr-1"></i>Reset</a>
                 </div>
             </form>
 

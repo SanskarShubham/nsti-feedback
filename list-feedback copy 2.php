@@ -100,13 +100,8 @@ $subject_list = mysqli_query($conn, "SELECT subject_id, name FROM subject ORDER 
                 <!-- Date Input -->
                 <input type="date" name="date" value="<?= htmlspecialchars($date) ?>" class="form-control form-control-m mr-3 mb-2" style="max-width:150px;">
 
-                <button type="submit" class="btn btn-success btn-m mr-3 mb-2"><i class="fa fa-filter mr-1" ></i> Filter</button>
-                <a href="list-feedback.php" class="btn btn-danger btn-m mr-3 mb-2"><i class="fa fa-refresh mr-1"></i> Reset</a>
-
-                <!-- Download Button -->
-                <a href="download-feedback.php?<?= http_build_query($_GET) ?>" class="btn btn-primary btn-m mb-2">
-                    <i class="fa fa-download mr-1"></i> Download
-                </a>
+                <button type="submit" class="btn btn-success btn-m mr-3 mb-2">Filter</button>
+                <a href="list-feedback.php" class="btn btn-danger btn-m mb-2">Reset</a>
 
                 <!-- Show entries dropdown -->
                 <div class="ml-auto d-flex align-items-center">

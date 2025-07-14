@@ -100,8 +100,8 @@ $trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade");
                 <table class="table table-bordered table-striped verticle-middle">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Student ID</th>
+                            <th>##</th>
+                          
                             <th>Teacher</th>
                             <th>Subject</th>
                             <th>Trade</th>
@@ -111,11 +111,13 @@ $trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade");
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (mysqli_num_rows($result) > 0): ?>
+                        <?php 
+                        $i = 1;
+                        if (mysqli_num_rows($result) > 0): ?>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
-                                    <td><?= $row['id'] ?></td>
-                                    <td><?= $row['attendance_id'] ?></td>
+                                    <td><?= $i++ ?></td>
+                                  
                                     <td><?= htmlspecialchars($row['teacher_name']) ?></td>
                                     <td><?= htmlspecialchars($row['subject_name']) ?></td>
                                     <td><?= htmlspecialchars($row['trade_name']) ?></td>

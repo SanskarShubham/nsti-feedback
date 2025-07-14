@@ -123,8 +123,8 @@ $subject_list = mysqli_query($conn, "SELECT DISTINCT name FROM subject ORDER BY 
                 <input type="date" name="date" value="<?= htmlspecialchars($date) ?>" class="form-control form-control-m mr-3 mb-2" style="max-width:150px;">
 
                 <!-- Action Buttons -->
-                <button type="submit" class="btn btn-success btn-m mr-3 mb-2">Apply Filters</button>
-                <a href="dashboard.php" class="btn btn-danger btn-m mb-2">Reset Filters</a>
+                <button type="submit" class="btn btn-success btn-m mr-3 mb-2"><i class="fa fa-filter mr-1" ></i>Apply Filters</button>
+                <a href="dashboard.php" class="btn btn-danger btn-m mb-2"><i class="fa fa-refresh mr-1"></i>Reset Filters</a>
             </form>
 
             <?php if ($teacher || $subject || $trade || (isset($_GET['rating']) && $_GET['rating'] !== '') || $date): ?>

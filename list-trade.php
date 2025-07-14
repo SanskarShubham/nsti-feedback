@@ -51,8 +51,8 @@ if (!$result) {
                     <option value="CITS" <?= $filter_program == 'CITS' ? 'selected' : '' ?>>CITS</option>
                 </select>
 
-                <button type="submit" class="btn btn-success mr-2">Filter</button>
-                <a href="list-trade.php" class="btn btn-danger">Reset</a>
+                <button type="submit" class="btn btn-success mr-2"><i class="fa fa-filter mr-1" ></i>Filter</button>
+                <a href="list-trade.php" class="btn btn-danger"><i class="fa fa-refresh mr-1"></i>Reset</a>
             </form>
 
             <div class="d-flex justify-content-between align-items-center mb-3">

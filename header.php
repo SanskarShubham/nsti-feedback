@@ -188,9 +188,11 @@ require_once 'connection.php';
                         <a  href="./list-feedback.php" aria-expanded="false">
                             <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                         </a>
+                        <li>
                         <a  href="./list-feedback-specific.php" aria-expanded="false">
                             <i class="fa fa-commenting"></i> <span class="nav-text">Specific Feedback</span>
                         </a>
+                        </li>
                         <?php }else{ ?>
                         <a  href="./list-feedback1.php" aria-expanded="false">
                             <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
