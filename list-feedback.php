@@ -104,9 +104,27 @@ $subject_list = mysqli_query($conn, "SELECT subject_id, name FROM subject ORDER 
                 <a href="list-feedback.php" class="btn btn-danger btn-m mr-3 mb-2"><i class="fa fa-refresh mr-1"></i> Reset</a>
 
                 <!-- Download Button -->
-                <a href="download-feedback.php?<?= http_build_query($_GET) ?>" class="btn btn-primary btn-m mb-2">
+                <a href="download-feedback.php?<?= http_build_query($_GET) ?>" class="btn btn-primary btn-m mb-2 mr-3">
                     <i class="fa fa-download mr-1"></i> Download
                 </a>
+                
+                <!-- Truncate Button -->
+                <a href="?truncate=true" class="btn btn-danger btn-m mb-2" onclick="return confirm('Are you sure you want to truncate the feedback table?')">
+                    <i class="fa fa-trash mr-1"></i> Truncate
+                </a>
+
+                <?php
+                if (isset($_GET['truncate']) && $_GET['truncate'] === 'true') {
+                    $sql = "TRUNCATE TABLE feedback";
+                    if ($conn->query($sql) === TRUE) {
+                        echo "<script>alert('Feedback table truncated successfully.'); window.location.href='list-feedback.php';</script>";
+                        exit;
+                    } else {
+                        echo "<script>alert('Error truncating table: " . $conn->error . "');</script>";
+                    }
+                }
+                ?>           
+
 
                 <!-- Show entries dropdown -->
                 <div class="ml-auto d-flex align-items-center">
