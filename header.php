@@ -23,7 +23,7 @@ require_once 'connection.php';
     <!-- theme meta -->
     <meta name="theme-name" content="quixlab" />
 
-    <title>NSTI - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>NSTI HOWRAH Admin Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Pignose Calender -->
@@ -194,7 +194,7 @@ require_once 'connection.php';
                         </a>
                         </li>
                         <?php }else{ ?>
-                        <a  href="./list-feedback1.php" aria-expanded="false">
+                        <a  href="./list-teacher-feedback.php" aria-expanded="false">
                             <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                         </a>
                         <?php } ?>
