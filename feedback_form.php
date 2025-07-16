@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="footer">
-            <p>Made with <span class="heart">❤️</span> CSA</p>
+            <p>Made with <span class="heart">❤️</span>By CSA</p>
         </div>
     </div>
 

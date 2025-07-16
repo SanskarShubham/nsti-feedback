@@ -11,7 +11,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Designed & Developed by<a href="index.php"> CSA </a>2024-25 </p>
+                <p>Designed & Developed by<a href="frontend/team.php"> CSA </a>2024-25 </p>
             </div>
         </div>
         <!--**********************************

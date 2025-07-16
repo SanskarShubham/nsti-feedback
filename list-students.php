@@ -41,6 +41,17 @@ $available_trades = [];
 while ($row = mysqli_fetch_assoc($trades_result)) {
     $available_trades[] = $row['trade'];
 }
+
+// Handle truncate action
+if (isset($_GET['truncate']) && $_GET['truncate'] === 'true') {
+    $sql = "TRUNCATE TABLE students";
+    if ($conn->query($sql)) {
+        echo "<script>alert('Students table truncated successfully.'); window.location.href='".basename($_SERVER['PHP_SELF'])."';</script>";
+        exit;
+    } else {
+        echo "<script>alert('Error truncating table: " . $conn->error . "');</script>";
+    }
+}
 ?>
 
 <!-- content -->
@@ -92,7 +103,25 @@ while ($row = mysqli_fetch_assoc($trades_result)) {
                     <label>&nbsp;</label>
                     <a href="<?= basename($_SERVER['PHP_SELF']) ?>" class="btn btn-danger w-100"><i class="fa fa-refresh mr-1"></i>Reset</a>
                 </div>
+                
+                <!-- Download Button -->
+                <div class="col-md-1">
+                    <label>&nbsp;</label>
+                    <a href="download-students.php?<?= http_build_query($_GET) ?>" class="btn btn-primary w-100">
+                        <i class="fa fa-download mr-1"></i> Download
+                    </a>
+                </div>
+                
+                <!-- Truncate Button - Only show if you really need this functionality -->
+                <div class="col-md-1">
+                    <label>&nbsp;</label>
+                    <a href="?truncate=true" class="btn btn-danger w-100" onclick="return confirm('WARNING: This will delete ALL student records. Are you sure?')">
+                        <i class="fa fa-trash mr-1"></i> Truncate
+                    </a>
+                </div>
             </form>
+
+          
 
             <!-- Limit Dropdown -->
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -146,7 +175,7 @@ while ($row = mysqli_fetch_assoc($trades_result)) {
                                 </td>
                                 <td>
                                     <a href="edit-student.php?id=<?= $row['id']; ?>" data-toggle="tooltip" title="Edit">
-                                         <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>
+                                        <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>
                                     </a>&nbsp;&nbsp;
                                     <a href="backend/delete-student.php?id=<?= $row['id']; ?>" onclick="return confirm('Are you sure?')" data-toggle="tooltip" title="Delete">
                                         <button class="btn btn-danger"> <i class="fa fa-close color-danger"></i></button>

@@ -19,7 +19,7 @@
 
 
     <!-- Team Start -->
-    <!-- <div class="container-xxl py-5">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Team Member</h6>
@@ -29,78 +29,114 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team members</h5>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team Members</h5>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team Members</h5>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team Members</h5>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team Members</h5>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="team-item rounded overflow-hidden">
                         <div class="d-flex">
-                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
                            
                         </div>
                         <div class="p-4">
-                            <h5>Full Name</h5>
-                            <span>Designation</span>
+                            <h5>Our Team Members</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="d-flex">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
+                           
+                        </div>
+                        <div class="p-4">
+                            <h5>Our Team Members</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="d-flex">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
+                           
+                        </div>
+                        <div class="p-4">
+                            <h5>Our Team Members</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="d-flex">
+                            <img class="img-fluid w-100" src="img/drone.jpg" alt="">
+                           
+                        </div>
+                        <div class="p-4">
+                            <h5>Our Team Members</h5>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Team End -->
         
 
