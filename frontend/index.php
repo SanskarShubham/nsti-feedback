@@ -272,7 +272,7 @@
                         <img class="img-fluid" src="img/workshop/fitter.jpg" alt="Electrical Workshop">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/workshop/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -283,14 +283,14 @@
                 </div>
                 <div class="col-lg-4 col-md-6 portfolio-item second">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-5.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/labs/csa.jpg" alt="Computer Lab">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/csa.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
-                        <p class="text-primary mb-0">Computer Lab</p>
+                        <p class="text-primary mb-0">CSA Lab</p>
                         <hr class="text-primary w-25 my-2">
                         <!-- <h5 class="lh-base">Latest hardware and software for IT training programs</h5> -->
                     </div>
@@ -300,8 +300,8 @@
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/mmv.jpg" alt="Mechanical Workshop">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/mmv.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -317,7 +317,7 @@
                         <img class="img-fluid" src="img/labs/electrical.jpg" alt="Electronics Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/electrical.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -332,7 +332,7 @@
                         <img class="img-fluid" src="img/labs/electrical1.jpg" alt="Electronics Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/electrical1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -347,7 +347,7 @@
                         <img class="img-fluid" src="img/labs/cnc.jpg" alt="Electronics Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/cnc.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -362,7 +362,7 @@
                         <img class="img-fluid" src="img/labs/hydraulic.jpg" alt="Electronics Lab">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/labs/hydraulic.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">
@@ -379,7 +379,7 @@
                         <img class="img-fluid" src="img/class/library.jpg" alt="Library">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/class/library.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="facilities.php"><i class="fa fa-link"></i></a>
+                            
                         </div>
                     </div>
                     <div class="pt-3">

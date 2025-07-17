@@ -1,13 +1,13 @@
 <?php include 'header.php'; ?>
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5" style= "height: 300px; background-image: url(img/gallery.png); background-size: cover; background-position: 70% 30%;">
+    <div class="container-fluid page-header py-5 mb-5" style= "height: 350px; background-image: url(img/gallery.jpg); background-size: cover; background-position: 70% 30%;">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Gallery</h1>
+            <h1 class="display-3 text-white mb-3  animated slideInDown" style="text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;">Our Gallery</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-white" href="index.php">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Gallery</li>
+                    <li class="breadcrumb-item"><a class="text-white"  href="index.php">Home</a></li>
+                    <li class="breadcrumb-item text-white active"  aria-current="page">Gallery</li>
                 </ol>
             </nav>
         </div>
@@ -38,9 +38,9 @@
              <!-- Campus Images -->
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus/campus.jpg" alt="NSTI Howrah Campus">
+                        <img class="img-fluid" src="img/gallery/campus/campus.jpg" alt="NSTI Howrah Campus" loading="lazy">
                         <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/campus.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/campus.jpg" data-lightbox="portfolio" ><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                     <div class="pt-3">
@@ -52,7 +52,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus/ground.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/campus/ground.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/ground.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -68,7 +68,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus/commitee_room.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/campus/commitee_room.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/commitee_room.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -82,7 +82,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item campus">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/campus/lecture_hall.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/campus/lecture_hall.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/campus/lecture_hall.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -99,7 +99,7 @@
             <!-- Training Images -->
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/carpenter.jpg" alt="Electrical Training Session">
+                        <img class="img-fluid" src="img/gallery/training/carpenter.jpg" alt="Electrical Training Session" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/carpenter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -113,7 +113,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/fitter.jpg" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/training/fitter.jpg" alt="Welding Workshop" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -127,7 +127,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/foundryman.jpg" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/training/foundryman.jpg" alt="Welding Workshop" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/foundryman.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -141,7 +141,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/machinist.jpg" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/training/machinist.jpg" alt="Welding Workshop" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/machinist.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -155,7 +155,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/mmv.jpg" alt="Welding Workshop">
+                        <img class="img-fluid" src="img/gallery/training/mmv.jpg" alt="Welding Workshop" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/mmv.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -173,7 +173,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/1.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/1.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -187,7 +187,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/2.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/2.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -201,7 +201,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/3.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/3.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -215,7 +215,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/4.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/4.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -229,7 +229,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/5.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/5.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -243,7 +243,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/6.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/6.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -257,7 +257,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/7.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/7.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/7.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -271,7 +271,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/8.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/8.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/8.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -285,7 +285,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/9.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/9.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/9.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -299,7 +299,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/10.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/10.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/10.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -313,7 +313,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/11.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/11.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/11.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -327,7 +327,7 @@
                
                 <div class="col-lg-4 col-md-6 portfolio-item projects">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/projects/12.jpg" alt="Student Electronics Project">
+                        <img class="img-fluid" src="img/gallery/projects/12.jpg" alt="Student Electronics Project" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/projects/12.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -346,7 +346,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/vishwakarma.jpg" alt="Award Ceremony">
+                        <img class="img-fluid" src="img/gallery/event/vishwakarma.jpg" alt="Award Ceremony" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/vishwakarma.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -360,7 +360,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/saraswati.jpg" alt="Award Ceremony">
+                        <img class="img-fluid" src="img/gallery/event/saraswati.jpg" alt="Award Ceremony" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/saraswati.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -374,7 +374,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/saraswati1.jpg" alt="Award Ceremony">
+                        <img class="img-fluid" src="img/gallery/event/saraswati1.jpg" alt="Award Ceremony" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/saraswati1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -388,7 +388,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/womens_day.jpg" alt="Placement Drive">
+                        <img class="img-fluid" src="img/gallery/event/womens_day.jpg" alt="Placement Drive" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/womens_day.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -401,7 +401,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/womens_day1.jpg" alt="Placement Drive">
+                        <img class="img-fluid" src="img/gallery/event/womens_day1.jpg" alt="Placement Drive" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/womens_day1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -415,7 +415,7 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/sport.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/event/sport.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/sport.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -429,7 +429,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/sport1.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/event/sport1.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/sport1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -443,7 +443,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/sport2.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/event/sport2.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/sport2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
@@ -457,7 +457,7 @@
                 
                 <div class="col-lg-4 col-md-6 portfolio-item events">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/event/sport3.jpg" alt="Computer Lab">
+                        <img class="img-fluid" src="img/gallery/event/sport3.jpg" alt="Computer Lab" loading="lazy">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/event/sport3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>

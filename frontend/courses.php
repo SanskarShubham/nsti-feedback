@@ -1,13 +1,12 @@
 <?php include 'header.php'; ?>
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header py-5 mb-5" style= "height: 400px; background-image: url(img/courses.webp); background-size: cover; background-position: 70% 94%;">
+<div class="container-fluid page-header py-5 mb-5" style= "height: 375px; background-image: url(img/courses.jpg); background-size: cover; background-position: 70% 19%;">
     <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Courses</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown" style="text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;">Courses</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="index.php">Home</a></li>
                 <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
             </ol>
         </nav>
@@ -25,7 +24,7 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-3.jpg" alt="IT Training">
+                        <img class="img-fluid" src="img/courses/csa.jpg" alt="IT Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-laptop-code fa-3x"></i>
@@ -38,7 +37,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/electrician.jpg" alt="Electrician Training">
+                        <img class="img-fluid" src="img/courses/electrician.jpg" alt="Electrician Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-bolt fa-3x"></i>
@@ -51,7 +50,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/fitter.jpg" alt="Fitter Training">
+                        <img class="img-fluid" src="img/courses/fitter.jpg" alt="Fitter Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-cog fa-3x"></i>
@@ -64,7 +63,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/welder.jpg" alt="Welding Training">
+                        <img class="img-fluid" src="img/courses/welder.jpg" alt="Welding Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-fire fa-3x"></i>
@@ -77,12 +76,12 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/mmv.jpg" alt="Mechanic Training">
+                        <img class="img-fluid" src="img/courses/mmv.jpg" alt="Mechanic Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-car fa-3x"></i>
                             </div>
-                            <h4 class="mb-3">Mechanic</h4>
+                            <h4 class="mb-3">Mechanic Motor Vehicle</h4>
                             <p>Automobile and diesel mechanic training covering maintenance and repair of vehicles.</p>
                            
                         </div>
@@ -90,7 +89,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/courses/carpenter.jpg" alt="Electronics Training">
+                        <img class="img-fluid" src="img/courses/carpenter.jpg" alt="Electronics Training" loading="lazy">
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-microchip fa-3x"></i>

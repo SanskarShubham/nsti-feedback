@@ -295,6 +295,70 @@
 
 
 /*** Project Portfolio ***/
+
+/*** Fixed Portfolio Items ***/
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.portfolio-img {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Fixed height or use aspect-ratio */
+    overflow: hidden;
+}
+
+.portfolio-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.portfolio-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.portfolio-item:hover .portfolio-btn {
+    opacity: 1;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Remove or modify the dark overlay effect */
+.portfolio-img::before,
+.portfolio-img::after {
+    display: none; /* Remove completely */
+    /* OR modify to: */
+    /* background: rgba(50, 195, 108, 0.3); semi-transparent primary color */
+}
+
+
+
+
+
 #portfolio-flters li {
     display: inline-block;
     font-weight: 500;
@@ -361,6 +425,7 @@
     opacity: 1;
     transition-delay: .3s;
 }
+
 
 
 /*** Quote ***/

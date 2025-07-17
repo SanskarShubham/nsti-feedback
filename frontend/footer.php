@@ -13,9 +13,9 @@
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Quick Links</h5>
                     <a class="btn btn-link" href="index.php">Home</a>
-                    <!-- <a class="btn btn-link" href="about.php">About Us</a> -->
-                    <!-- <a class="btn btn-link" href="contact.php">Contact Us</a> -->
+                    <a class="btn btn-link" href="courses.php">Courses</a>
                     <a class="btn btn-link" href="gallery.php">Gallery</a>
+                    <a class="btn btn-link" href="team.php">Our Team</a>
                     <a class="btn btn-link" href="../feedback_form.php">Feedback</a>
                 </div>
                
@@ -43,6 +43,23 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPage = location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split("/").pop();
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+
+
 </body>
 
 </html>
