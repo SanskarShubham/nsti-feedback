@@ -3,6 +3,7 @@
     <div class="card">
         <div class="card-header text-right">
             <a href="list-students.php" class="btn btn-primary"><i class="fa fa-eye"></i> View Students</a>
+            <a href="sample_csv_format/student_data_sample.csv" class="btn btn-success" download><i class="fa fa-download"></i> Download Sample CSV File</a>
         </div>
         <div class="card-body">
             <div class="form-validation">

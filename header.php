@@ -88,9 +88,11 @@ require_once 'connection.php';
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    
                 </div>
                
                 <div class="header-right">
+                  
                     <ul class="clearfix">
                        
 
@@ -163,12 +165,12 @@ require_once 'connection.php';
                     </li> 
                     <li>
                         <a  href="./list-trade.php" aria-expanded="false">
-                            <i class="fa fa-list-ul"></i> <span class="nav-text">Trade</span>
+                            <i class="fa fa-bolt"></i> <span class="nav-text">Trade</span>
                         </a>
                     </li>
                     <li>
                         <a  href="./list-subject.php" aria-expanded="false">
-                            <i class="fa fa-list-ul"></i> <span class="nav-text">Subject</span>
+                            <i class="fa fa-book"></i> <span class="nav-text">Subject</span>
                         </a>
                     </li>
                     <li>
@@ -198,6 +200,22 @@ require_once 'connection.php';
                             <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                         </a>
                         <?php } ?>
+                    </li>
+                    
+                    <li>
+                       
+                        <a  href="./doc.php" aria-expanded="false">
+                            <i class="fa fa-book"></i> <span class="nav-text">Project documentation</span>
+                        </a>
+                      
+                    </li>    
+                     <li>
+                       
+                        <a  href="./frontend/index.php" aria-expanded="false">
+
+                            <i class="fa fa-home"></i> <span class="nav-text">front Home Page</span>
+                        </a>
+                      
                     </li>
 
                 </ul>
