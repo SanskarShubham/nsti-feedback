@@ -2,7 +2,7 @@
 include('header.php');
 
 // Fetch all records from subject table
-$sql = "SELECT * FROM subject";
+$sql = "SELECT * FROM subject ";
 $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Query Failed: " . mysqli_error($conn));
@@ -25,6 +25,7 @@ if (!$result) {
                         <tr>
                             <th>ID</th>
                             <th>Subject Name</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -33,6 +34,16 @@ if (!$result) {
                             <tr>
                                 <td><?= htmlspecialchars($row['subject_id']) ?></td>
                                 <td><?= htmlspecialchars($row['name']) ?></td>
+                                <td>
+                                    <?php
+                                    if ($row['status'] == "0") {
+                                        echo "<span class='badge badge-pill badge-danger'>Inactive</span>";
+                                    } elseif ($row['status'] == "1") {
+                                        echo "<span class='badge badge-pill badge-success'>Active</span>";
+                                    }
+                                    ?>
+                                </td>
+                            
                                 <td>
                                     <a href="edit-subject.php?id=<?= $row['subject_id']; ?>" data-toggle="tooltip" title="Edit">
                                          <button class="btn btn-success"> <i class="fa fa-pencil color-muted m-r-10 "></i></button>

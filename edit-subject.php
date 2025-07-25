@@ -32,6 +32,13 @@ $row = $result->fetch_assoc(); // existing subject data
                             <input type="text" name="subjectname" class="form-control" value="<?= htmlspecialchars($row['name']) ?>">
                         </div>
                     </div>                                   
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Status <span class="text-danger">*</span></label>
+                        <div class="col-lg-6">
+                            <label class="mr-2"><input type="radio" value="0" name="status" <?= $row['status'] == '0' ? 'checked' : ''; ?>> Inactive</label>
+                            <label class="mr-2"><input type="radio" value="1" name="status"<?= $row['status'] == '1' ? 'checked' : ''; ?>> Active</label>
+                        </div>
+                    </div>                                   
                    
 
                 

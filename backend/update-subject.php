@@ -9,16 +9,17 @@ require_once '../connection.php'; // Your DB connection
 // Handle update when form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $name = $_POST["subjectname"];
+    $status = $_POST["status"];
 
     
     $id = $_POST["id"]; // Get the subject ID from the form
 
     
     // Update DB
-    $updateSql = "UPDATE subject SET name = ? WHERE subject_id = ?";
+    $updateSql = "UPDATE subject SET name = ?, STATUS = ? WHERE subject_id = ?";
     
     $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("si", $name, $id);  // "ssssi" for string, string, string, string, int
+    $updateStmt->bind_param("sii", $name,$status, $id);  // "ssssi" for string, string, string, string, int
 
     if ($updateStmt->execute()) {
         echo "<div class='alert alert-success mt-3'>✅ subject updated successfully.</div>";

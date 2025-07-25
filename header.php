@@ -88,28 +88,28 @@ require_once 'connection.php';
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
-                    
+
                 </div>
-               
+
                 <div class="header-right">
-                  
+
                     <ul class="clearfix">
-                       
 
 
-                    <?php
-                    // print_r($_SESSION['admin_data']);exit;
-                    $query="select dp_file_path from teachers where teacher_id=".$_SESSION['admin_data']['teacher_id'];
-                    $result=$conn->query($query);
-                    $dp = $result->fetch_assoc()['dp_file_path']; 
-                
-                    ?>
-                       
-                        
+
+                        <?php
+                        // print_r($_SESSION['admin_data']);exit;
+                        $query = "select dp_file_path from teachers where teacher_id=" . $_SESSION['admin_data']['teacher_id'];
+                        $result = $conn->query($query);
+                        $dp = $result->fetch_assoc()['dp_file_path'];
+
+                        ?>
+
+
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="<?php echo $dp??"images/user/form-user.png";?>" height="40" width="40" alt="">
+                                <img src="<?php echo $dp ?? "images/user/form-user.png"; ?>" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -117,10 +117,10 @@ require_once 'connection.php';
                                         <li>
                                             <a href="profile.php"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
-                                       
+
 
                                         <hr class="my-2">
-                                        
+
                                         <li><a href="logout.php"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
@@ -141,14 +141,19 @@ require_once 'connection.php';
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
+                        <a href="./frontend/index.php" aria-expanded="false">
+                            <i class="fa fa-home"></i> <span class="nav-text">Front Home Page</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                              <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
-                            <li><a href="./dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
-                            <?php }else{ ?>
-                                
+                            <?php if ($_SESSION['admin_data']['designation'] == 'admin') { ?>
+                                <li><a href="./dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
+                            <?php } else { ?>
+
                                 <li><a href="./teachers_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard </a></li>
                             <?php } ?>
                             <li><a href="./profile.php"> <i class="fa fa-user"></i> Profile</a></li>
@@ -157,66 +162,59 @@ require_once 'connection.php';
 
                         </ul>
                     </li>
-                    <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
-                    <li>
-                        <a  href="./list-admin.php" aria-expanded="false">
-                            <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a  href="./list-trade.php" aria-expanded="false">
-                            <i class="fa fa-bolt"></i> <span class="nav-text">Trade</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a  href="./list-subject.php" aria-expanded="false">
-                            <i class="fa fa-book"></i> <span class="nav-text">Subject</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a  href="./list-teachers.php" aria-expanded="false">
-                            <i class="fa fa-users"></i> <span class="nav-text">Teachers</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a  href="./list-students.php" aria-expanded="false">
-                            <i class="fa fa-users"></i> <span class="nav-text">Students</span>
-                        </a>
-                    </li>
-                    <?php }?>
+                    <?php if ($_SESSION['admin_data']['designation'] == 'admin') { ?>
+                        <li>
+                            <a href="./list-admin.php" aria-expanded="false">
+                                <i class="fa fa-user-o"></i> <span class="nav-text">Admin</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./list-trade.php" aria-expanded="false">
+                                <i class="fa fa-bolt"></i> <span class="nav-text">Trade</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./list-subject.php" aria-expanded="false">
+                                <i class="fa fa-book"></i> <span class="nav-text">Subject</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./list-teachers.php" aria-expanded="false">
+                                <i class="fa fa-users"></i> <span class="nav-text">Teachers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./list-students.php" aria-expanded="false">
+                                <i class="fa fa-users"></i> <span class="nav-text">Students</span>
+                            </a>
+                        </li>
+                    <?php } ?>
 
                     <li>
-                        <?php if ($_SESSION['admin_data']['designation'] == 'admin'){ ?>
-                        <a  href="./list-feedback.php" aria-expanded="false">
-                            <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
-                        </a>
-                        <li>
-                        <a  href="./list-feedback-specific.php" aria-expanded="false">
+                        <?php if ($_SESSION['admin_data']['designation'] == 'admin') { ?>
+                            <a href="./list-feedback.php" aria-expanded="false">
+                                <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
+                            </a>
+                    <li>
+                        <a href="./list-feedback-specific.php" aria-expanded="false">
                             <i class="fa fa-commenting"></i> <span class="nav-text">Specific Feedback</span>
                         </a>
-                        </li>
-                        <?php }else{ ?>
-                        <a  href="./list-teacher-feedback.php" aria-expanded="false">
-                            <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
-                        </a>
-                        <?php } ?>
                     </li>
-                    
-                    <li>
-                       
-                        <a  href="./doc.php" aria-expanded="false">
-                            <i class="fa fa-book"></i> <span class="nav-text">Project documentation</span>
-                        </a>
-                      
-                    </li>    
-                     <li>
-                       
-                        <a  href="./frontend/index.php" aria-expanded="false">
+                <?php } else { ?>
+                    <a href="./list-teacher-feedback.php" aria-expanded="false">
+                        <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
+                    </a>
+                <?php } ?>
+                </li>
 
-                            <i class="fa fa-home"></i> <span class="nav-text">front Home Page</span>
-                        </a>
-                      
-                    </li>
+                <li>
+
+                    <a href="./doc.php" aria-expanded="false">
+                        <i class="fa fa-book"></i> <span class="nav-text">Project Documentation</span>
+                    </a>
+
+                </li>
+
 
                 </ul>
             </div>
