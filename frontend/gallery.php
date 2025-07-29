@@ -97,6 +97,20 @@
             
             
             <!-- Training Images -->
+             <div class="col-lg-4 col-md-6 portfolio-item training">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/gallery/training/fitter.jpg" alt="Welding Workshop" loading="lazy">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0">Students Of Fitter</p>
+                        <hr class="text-primary w-25 my-2">
+                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
+                    </div>
+                </div>
+
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/gallery/training/carpenter.jpg" alt="Electrical Training Session" loading="lazy">
@@ -111,19 +125,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-md-6 portfolio-item training">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/gallery/training/fitter.jpg" alt="Welding Workshop" loading="lazy">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/gallery/training/fitter.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <p class="text-primary mb-0">Practical Training Of Fitter</p>
-                        <hr class="text-primary w-25 my-2">
-                        <!-- <h5 class="lh-base">Hands-on welding training under expert guidance</h5> -->
-                    </div>
-                </div>
+                
                 
                 <div class="col-lg-4 col-md-6 portfolio-item training">
                     <div class="portfolio-img rounded overflow-hidden">

@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 
-// Check if a user (teacher/admin) is logged in
+// Check if admin is logged in
 if (!isset($_SESSION['admin_data'])) {
     header("Location: admin_login.php");
     exit();
@@ -10,35 +10,29 @@ if (!isset($_SESSION['admin_data'])) {
 // Get logged-in teacher's ID with validation
 $teacher_id = (int)$_SESSION['admin_data']['teacher_id'];
 if ($teacher_id <= 0) {
-    die("Invalid teacher ID in session.");
+    die("Invalid teacher ID");
 }
 
-// Set the default timezone to Asia/Kolkata
-date_default_timezone_set('Asia/Kolkata');
-include 'connection.php';
-// Set the timezone for the database connection as well
-$conn->query("SET time_zone = '+05:30'");
-
-// --- VALIDATE AND SANITIZE INPUTS ---
-
-// Default values for pagination with validation
+// Default values with validation
 $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 20;
-$limit = max(5, min(100, $limit)); // Clamp limit between 5 and 100
+$limit = max(5, min(100, $limit)); // Ensure limit is between 5 and 100
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-$page = max(1, $page);
+$page = max(1, $page); // Ensure page is at least 1
+$offset = ($page - 1) * $limit;
 
-// Filters from GET request with basic validation
-$rating = isset($_GET['rating']) && is_numeric($_GET['rating']) ? (int)$_GET['rating'] : '';
+// Filters with validation
 $date = $_GET['date'] ?? '';
-$cycle_id = isset($_GET['cycle']) && is_numeric($_GET['cycle']) ? (int)$_GET['cycle'] : '';
-
 if ($date && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-    $date = ''; // Invalidate incorrect date format
+    $date = '';
 }
 
-// --- BUILD QUERY WITH PREPARED STATEMENTS ---
+$rating = $_GET['rating'] ?? '';
+if ($rating !== '' && (!is_numeric($rating) || $rating < 1 || $rating > 5)) {
+    $rating = '';
+}
 
-$where = "WHERE f.teacher_id = ?"; // Base query for the logged-in teacher
+// Build WHERE clause with prepared statements
+$where = "WHERE f.teacher_id = ?";
 $params = [$teacher_id];
 $types = "i";
 
@@ -47,66 +41,65 @@ if ($rating !== '') {
     $params[] = $rating;
     $types .= "i";
 }
+
 if ($date !== '') {
     $where .= " AND DATE(f.created_at) = ?";
     $params[] = $date;
     $types .= "s";
 }
-if ($cycle_id !== '') {
-    $where .= " AND f.feedback_cycle_id = ?";
-    $params[] = $cycle_id;
-    $types .= "i";
-}
 
-// Get the total count of feedback records for pagination using prepared statements
-$count_sql = "SELECT COUNT(f.id) AS total FROM feedback f
-JOIN feedback_cycle fc ON fc.cycle_id = f.feedback_cycle_id
-$where";
-
-$stmt_count = mysqli_prepare($conn, $count_sql);
-if ($stmt_count) {
-    if (!empty($params)) {
-        mysqli_stmt_bind_param($stmt_count, $types, ...$params);
-    }
-    mysqli_stmt_execute($stmt_count);
-    $count_result = mysqli_stmt_get_result($stmt_count);
-    $count_row = mysqli_fetch_assoc($count_result);
-    $total_records = $count_row['total'] ?? 0;
-} else {
-    $total_records = 0;
-}
-$total_pages = $total_records > 0 ? ceil($total_records / $limit) : 1;
-
-// Ensure current page is within valid range and calculate offset
-$page = max(1, min($page, $total_pages));
-$offset = ($page - 1) * $limit;
-
-// Fetch the filtered and paginated feedback data using prepared statements
-$sql = "SELECT f.*, s.name AS subject_name, tr.trade_name, fc.cycle_name 
-FROM feedback f
+// Total count with prepared statement
+$total_sql = "SELECT COUNT(DISTINCT f.id) AS total FROM feedback f
+JOIN teachers t ON t.teacher_id = f.teacher_id
 JOIN trade tr ON tr.trade_id = f.trade_id
 JOIN subject s ON s.subject_id = f.subject_id
-JOIN feedback_cycle fc ON fc.cycle_id = f.feedback_cycle_id
+$where";
+
+$stmt = mysqli_prepare($conn, $total_sql);
+if ($stmt === false) {
+    die("Database error: " . mysqli_error($conn));
+}
+
+if ($params) {
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+}
+
+if (!mysqli_stmt_execute($stmt)) {
+    die("Database error: " . mysqli_stmt_error($stmt));
+}
+
+$count_result = mysqli_stmt_get_result($stmt);
+$count_row = mysqli_fetch_assoc($count_result);
+$total_records = $count_row['total'] ?? 0;
+$total_pages = ceil($total_records / $limit);
+
+// Data fetch with prepared statement
+$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
+FROM feedback f
+JOIN teachers t ON t.teacher_id = f.teacher_id
+JOIN trade tr ON tr.trade_id = f.trade_id
+JOIN subject s ON s.subject_id = f.subject_id
 $where
 ORDER BY f.created_at DESC
 LIMIT ?, ?";
 
-$stmt_data = mysqli_prepare($conn, $sql);
-$data_params = $params;
-$data_params[] = $offset;
-$data_params[] = $limit;
-$data_types = $types . "ii";
-
-if ($stmt_data) {
-    mysqli_stmt_bind_param($stmt_data, $data_types, ...$data_params);
-    mysqli_stmt_execute($stmt_data);
-    $result = mysqli_stmt_get_result($stmt_data);
-} else {
-    $result = false;
+$stmt = mysqli_prepare($conn, $sql);
+if ($stmt === false) {
+    die("Database error: " . mysqli_error($conn));
 }
 
-// Fetch list of cycles for the dropdown
-$cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cycle ORDER BY start_date DESC");
+// Add limit and offset to params
+$params[] = $offset;
+$params[] = $limit;
+$types .= "ii";
+
+mysqli_stmt_bind_param($stmt, $types, ...$params);
+
+if (!mysqli_stmt_execute($stmt)) {
+    die("Database error: " . mysqli_stmt_error($stmt));
+}
+
+$result = mysqli_stmt_get_result($stmt);
 ?>
 
 <div class="container-fluid">
@@ -116,31 +109,18 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
         </div>
         <div class="card-body">
 
-            <!-- Filter Form -->
+            <!-- Filter Form (simplified for self-view) -->
             <form method="GET" class="form-inline mb-3 flex-wrap gap-2">
-                <!-- Feedback Cycle Dropdown -->
-                <select name="cycle" class="form-control form-control-m mr-3 mb-2" style="max-width:250px;">
-                    <option value="">All Cycles</option>
-                    <?php while ($cycle = mysqli_fetch_assoc($cycle_list)): ?>
-                        <option value="<?= htmlspecialchars($cycle['cycle_id']) ?>" <?= $cycle_id == $cycle['cycle_id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($cycle['cycle_name']) ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
-
-                <!-- Rating Dropdown -->
                 <select name="rating" class="form-control form-control-m mr-3 mb-2" style="max-width:120px;">
                     <option value="">All Ratings</option>
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                         <option value="<?= htmlspecialchars($i) ?>" <?= $rating == $i ? 'selected' : '' ?>><?= $i ?> ⭐</option>
                     <?php endfor; ?>
                 </select>
-                
-                <!-- Date Input -->
                 <input type="date" name="date" value="<?= htmlspecialchars($date) ?>" class="form-control form-control-m mr-3 mb-2" style="max-width:150px;">
 
                 <button type="submit" class="btn btn-success btn-m mr-3 mb-2">Filter</button>
-                <a href="list-teacher-feedback.php" class="btn btn-danger btn-m mb-2">Reset</a>
+                <a href="list-feedback.php" class="btn btn-danger btn-m mb-2">Reset</a>
 
                 <!-- Show entries dropdown -->
                 <div class="ml-auto d-flex align-items-center">
@@ -169,7 +149,6 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                             <th>##</th>
                             <th>Subject</th>
                             <th>Trade</th>
-                            <th>Cycle Name</th>
                             <th>Rating</th>
                             <th>Remarks</th>
                             <th>Submitted At</th>
@@ -178,13 +157,12 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                     <tbody>
                         <?php 
                         $i = 1 + $offset;
-                        if ($result && mysqli_num_rows($result) > 0): ?>
+                        if (mysqli_num_rows($result) > 0): ?>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($i++) ?></td>
                                     <td><?= htmlspecialchars($row['subject_name']) ?></td>
                                     <td><?= htmlspecialchars($row['trade_name']) ?></td>
-                                    <td><?= htmlspecialchars($row['cycle_name']) ?></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <?= str_repeat('⭐', (int)$row['rating']) ?>
@@ -206,7 +184,7 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
-                            <tr><td colspan="7" class="text-center">No feedback found</td></tr>
+                            <tr><td colspan="6" class="text-center">No feedback found</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -216,22 +194,23 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
             <?php if ($total_pages > 1): ?>
                 <nav>
                     <ul class="pagination justify-content-center">
-                        <!-- Previous button -->
-                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?<?= htmlspecialchars(http_build_query(array_merge($_GET, ['page' => $page - 1]))) ?>">Previous</a>
-                        </li>
+                        <?php if ($page > 1): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?<?= htmlspecialchars(http_build_query(array_merge($_GET, ['page' => $page - 1]))) ?>">Previous</a>
+                            </li>
+                        <?php endif; ?>
                         
-                        <!-- Page numbers -->
                         <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                             <li class="page-item <?= $i == $page ? 'active' : '' ?>">
                                 <a class="page-link" href="?<?= htmlspecialchars(http_build_query(array_merge($_GET, ['page' => $i]))) ?>"><?= htmlspecialchars($i) ?></a>
                             </li>
                         <?php endfor; ?>
                         
-                        <!-- Next button -->
-                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?<?= htmlspecialchars(http_build_query(array_merge($_GET, ['page' => $page + 1]))) ?>">Next</a>
-                        </li>
+                        <?php if ($page < $total_pages): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?<?= htmlspecialchars(http_build_query(array_merge($_GET, ['page' => $page + 1]))) ?>">Next</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
             <?php endif; ?>

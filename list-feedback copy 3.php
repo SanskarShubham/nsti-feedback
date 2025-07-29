@@ -1,85 +1,64 @@
 <?php
 include('header.php');
 
-// Set the default timezone to Asia/Kolkata
-date_default_timezone_set('Asia/Kolkata');
-include 'connection.php';
-// Set the timezone for the database connection as well
-$conn->query("SET time_zone = '+05:30'");
-
-// Default values for pagination
+// Default values
 $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 20;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 
-// Filters from GET request
+// Filters
 $teacher = $_GET['teacher'] ?? '';
 $subject = $_GET['subject'] ?? '';
 $trade = $_GET['trade'] ?? '';
 $rating = $_GET['rating'] ?? '';
 $date = $_GET['date'] ?? '';
-$cycle_id = $_GET['cycle'] ?? ''; // New filter for feedback cycle
 
-// Build WHERE clause for SQL query
+// Build WHERE clause
 $where = "WHERE 1";
 if ($teacher !== '') $where .= " AND t.teacher_id = '" . mysqli_real_escape_string($conn, $teacher) . "'";
 if ($subject !== '') $where .= " AND s.subject_id = '" . mysqli_real_escape_string($conn, $subject) . "'";
 if ($trade !== '') $where .= " AND tr.trade_name = '" . mysqli_real_escape_string($conn, $trade) . "'";
 if ($rating !== '') $where .= " AND f.rating = '" . mysqli_real_escape_string($conn, $rating) . "'";
 if ($date !== '') $where .= " AND DATE(f.created_at) = '" . mysqli_real_escape_string($conn, $date) . "'";
-if ($cycle_id !== '') $where .= " AND f.feedback_cycle_id = '" . mysqli_real_escape_string($conn, $cycle_id) . "'"; // Add cycle condition
 
-// Get the total count of feedback records for pagination
+// First get the total count of feedback records
 $count_sql = "SELECT COUNT(f.id) AS total FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
 JOIN trade tr ON tr.trade_id = f.trade_id
 JOIN subject s ON s.subject_id = f.subject_id
-JOIN feedback_cycle fc ON fc.cycle_id = f.feedback_cycle_id
 $where";
 $count_result = mysqli_query($conn, $count_sql);
 $count_row = mysqli_fetch_assoc($count_result);
 $total_records = $count_row['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Ensure current page is within valid range and calculate offset
+// Ensure current page is within valid range
 $page = max(1, min($page, $total_pages));
 $offset = ($page - 1) * $limit;
 
-// Fetch the filtered and paginated feedback data
-$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name, fc.cycle_name 
+// Data fetch
+$sql = "SELECT f.*, t.name AS teacher_name, s.name AS subject_name, tr.trade_name 
 FROM feedback f
 JOIN teachers t ON t.teacher_id = f.teacher_id
 JOIN trade tr ON tr.trade_id = f.trade_id
 JOIN subject s ON s.subject_id = f.subject_id
-JOIN feedback_cycle fc ON fc.cycle_id = f.feedback_cycle_id
 $where
 ORDER BY f.created_at DESC
 LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
 
-// Fetch lists for filter dropdowns
+// Fetch lists for dropdowns
 $trade_list = mysqli_query($conn, "SELECT DISTINCT trade_name FROM trade ORDER BY trade_name");
 $teacher_list = mysqli_query($conn, "SELECT teacher_id, name FROM teachers ORDER BY name");
 $subject_list = mysqli_query($conn, "SELECT subject_id, name FROM subject ORDER BY name");
-$cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cycle ORDER BY start_date DESC");
 ?>
 
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-body">
-            <h4 class="card-title text-center mb-4">Feedback Records</h4>
 
             <!-- Filter Form -->
             <form method="GET" class="form-inline mb-3 flex-wrap gap-2">
-                <!-- Feedback Cycle Dropdown -->
-                <select name="cycle" class="form-control form-control-m mr-3 mb-2" style="max-width:250px;">
-                    <option value="">Select Feedback Cycle</option>
-                    <?php while ($cycle = mysqli_fetch_assoc($cycle_list)): ?>
-                        <option value="<?= $cycle['cycle_id'] ?>" <?= $cycle_id == $cycle['cycle_id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($cycle['cycle_name']) ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
-
                 <!-- Teacher Dropdown -->
                 <select name="teacher" class="form-control form-control-m mr-3 mb-2" style="max-width:200px;">
                     <option value="">Select Teacher</option>
@@ -129,6 +108,9 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                     <i class="fa fa-download mr-1"></i> Download
                 </a>
                 
+                     
+
+
                 <!-- Show entries dropdown -->
                 <div class="ml-auto d-flex align-items-center">
                     <div class="input-group">
@@ -158,7 +140,6 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                             <th>Teacher</th>
                             <th>Subject</th>
                             <th>Trade</th>
-                            <th>Cycle Name</th>
                             <th>Rating</th>
                             <th>Remarks</th>
                             <th>Submitted At</th>
@@ -173,14 +154,13 @@ $cycle_list = mysqli_query($conn, "SELECT cycle_id, cycle_name FROM feedback_cyc
                                     <td><?= htmlspecialchars($row['teacher_name']) ?></td>
                                     <td><?= htmlspecialchars($row['subject_name']) ?></td>
                                     <td><?= htmlspecialchars($row['trade_name']) ?></td>
-                                    <td><?= htmlspecialchars($row['cycle_name']) ?></td>
                                     <td><?= $row['rating'] ?> ⭐</td>
                                     <td><?= nl2br(htmlspecialchars($row['remarks'])) ?></td>
                                     <td><?= (new DateTime($row['created_at']))->format('d/m/y h:i A') ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
-                            <tr><td colspan="9" class="text-center">No feedback found for the selected criteria.</td></tr>
+                            <tr><td colspan="8" class="text-center">No feedback found</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

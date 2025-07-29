@@ -200,13 +200,13 @@ require_once 'connection.php';
                             <i class="fa fa-commenting"></i> <span class="nav-text">Specific Feedback</span>
                         </a>
                     </li>
-                <?php } else { ?>
-                    <a href="./list-teacher-feedback.php" aria-expanded="false">
-                        <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
-                    </a>
-                <?php } ?>
-                </li>
+                             <li>
 
+                    <a href="./feedback-cycle.php" aria-expanded="false">
+                        <i class="fa fa-recycle"></i> <span class="nav-text">Feedback Cycle</span>
+                    </a>
+
+                </li>
                 <li>
 
                     <a href="./doc.php" aria-expanded="false">
@@ -214,6 +214,15 @@ require_once 'connection.php';
                     </a>
 
                 </li>
+
+                <?php } else { ?>
+                    <a href="./list-teacher-feedback.php" aria-expanded="false">
+                        <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
+                    </a>
+                <?php } ?>
+                </li>
+
+               
 
 
                 </ul>

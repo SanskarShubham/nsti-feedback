@@ -1,32 +1,12 @@
 <?php
 session_start();
-// Set the default timezone to Asia/Kolkata
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set('Asia/Kolkata'); // Add this line
 include 'connection.php';
-// Set the timezone for the database connection as well
-$conn->query("SET time_zone = '+05:30'");
+$conn->query("SET time_zone = '+05:30'"); // For India/Kolkata (UTC+5:30)
 
-// --- 1. GET THE CURRENT ACTIVE FEEDBACK CYCLE ---
-$active_cycle = null;
-$cycle_result = $conn->query("SELECT * FROM feedback_cycle WHERE is_active = 1 AND NOW() BETWEEN start_date AND end_date LIMIT 1");
-if ($cycle_result && $cycle_result->num_rows > 0) {
-    $active_cycle = $cycle_result->fetch_assoc();
-}
-
-/**
- * Checks if feedback has already been submitted by a student for a specific feedback cycle.
- * @param mysqli $conn The database connection.
- * @param string $attendance_id The student's attendance ID.
- * @param int $cycle_id The ID of the active feedback cycle.
- * @return bool True if feedback exists, false otherwise.
- */
-function feedbackExists($conn, $attendance_id, $cycle_id) {
-    // If there's no active cycle, we can't check for existence.
-    if (!$cycle_id) {
-        return false;
-    }
-    $stmt = $conn->prepare("SELECT COUNT(*) as cnt FROM feedback WHERE attendance_id = ? AND feedback_cycle_id = ? AND status = 1");
-    $stmt->bind_param("si", $attendance_id, $cycle_id);
+function feedbackExists($conn, $attendance_id) {
+    $stmt = $conn->prepare("SELECT COUNT(*) as cnt FROM feedback WHERE attendance_id = ? AND status = 1");
+    $stmt->bind_param("s", $attendance_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
@@ -34,24 +14,15 @@ function feedbackExists($conn, $attendance_id, $cycle_id) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // --- 2. HANDLE "FETCH INFO" REQUEST ---
     if (isset($_POST['attendance_id']) && !isset($_POST['submit_feedback'])) {
-        header('Content-Type: application/json');
         $attendance_id = $_POST['attendance_id'];
-
-        // First, check if a feedback cycle is active
-        if (!$active_cycle) {
-            echo json_encode(['status' => 'inactive', 'message' => 'Feedback is not active at this moment.']);
-            exit;
-        }
         
-        // Second, check if feedback was already submitted for this active cycle
-        if (feedbackExists($conn, $attendance_id, $active_cycle['cycle_id'])) {
-            echo json_encode(['status' => 'exists', 'message' => 'You have already submitted your feedback for this cycle.']);
+        if (feedbackExists($conn, $attendance_id)) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'exists', 'message' => 'Feedback already submitted']);
             exit;
         }
 
-        // If checks pass, proceed to fetch student details
         $stmt = $conn->prepare("SELECT * FROM students WHERE attendance_id = ?");
         $stmt->bind_param("s", $attendance_id);
         $stmt->execute();
@@ -70,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $trade_row = $trade_result->fetch_assoc();
             $trade_id = $trade_row['trade_id'];
 
+            // Modified query to include program filter
             $stmt = $conn->prepare("
                 SELECT tst.id, tst.teacher_id, tst.trade_id, tst.subject_id, tst.program, 
                        t.name AS teacher_name, tr.trade_name, s.name AS subject_name
@@ -88,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $teachers[] = $row;
             }
 
-            // Send success response along with the active cycle ID
+            header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'success',
                 'data' => [
@@ -97,31 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'trade' => $trade_name,
                     'student_id' => $student['id'],
                     'attendance_id' => $student['attendance_id'],
-                    'teacher_sub_trade_rows' => $teachers,
-                    'feedback_cycle_id' => $active_cycle['cycle_id'] // IMPORTANT: Send cycle ID to the form
+                    'teacher_sub_trade_rows' => $teachers
                 ]
             ]);
             exit;
         } else {
+            header('Content-Type: application/json');
             echo json_encode(['status' => 'error', 'message' => 'Student not found']);
             exit;
         }
     }
-    // --- 3. HANDLE FEEDBACK SUBMISSION ---
     elseif (isset($_POST['submit_feedback'])) {
         $attendance_id = $_POST['attendance_id'];
-        $feedback_cycle_id = $_POST['feedback_cycle_id']; // Get cycle ID from the form
-
-        // Server-side validation: re-check if feedback is active and not already submitted
-        if (!$active_cycle || $active_cycle['cycle_id'] != $feedback_cycle_id) {
-            die("<script>alert('Error: The feedback session is no longer active.'); window.location.href=window.location.href;</script>");
-        }
-        if (feedbackExists($conn, $attendance_id, $feedback_cycle_id)) {
-            die("<script>alert('Error: Feedback has already been submitted for this cycle.'); window.location.href=window.location.href;</script>");
+        
+        if (feedbackExists($conn, $attendance_id)) {
+            die("<script>showStatus('Feedback already submitted', 'error');</script>");
         }
 
         $conn->begin_transaction();
         try {
+            // First get student's trade and program for validation
             $stmt = $conn->prepare("SELECT trade, program FROM students WHERE attendance_id = ?");
             $stmt->bind_param("s", $attendance_id);
             $stmt->execute();
@@ -131,27 +98,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("Student not found");
             }
 
+            // Get trade_id for validation
+            $stmt = $conn->prepare("SELECT trade_id FROM trade WHERE trade_name = ? LIMIT 1");
+            $stmt->bind_param("s", $student['trade']);
+            $stmt->execute();
+            $trade_row = $stmt->get_result()->fetch_assoc();
+            $trade_id = $trade_row['trade_id'];
+
             foreach ($_POST['teacher_id'] as $index => $teacher_id) {
+                // Validate each teacher-subject-trade combination
+                $stmt = $conn->prepare("
+                    SELECT COUNT(*) as valid FROM teacher_subject_trade 
+                    WHERE teacher_id = ? 
+                    AND trade_id = ? 
+                    AND subject_id = ? 
+                    AND program = ?
+                ");
+                $stmt->bind_param(
+                    "iiis",
+                    $teacher_id,
+                    $_POST['trade_id'][$index],
+                    $_POST['subject_id'][$index],
+                    $student['program']
+                );
+                $stmt->execute();
+                $valid = $stmt->get_result()->fetch_assoc()['valid'];
+
+                if (!$valid) {
+                    throw new Exception("Invalid teacher-subject combination for this student");
+                }
+
+                // Only insert if validation passed
                 $rating = $_POST['rating'][$index];
                 $remarks = $_POST['remarks'][$index];
                 
-                // The INSERT query now includes `feedback_cycle_id`
                 $stmt = $conn->prepare("
                     INSERT INTO feedback 
-                    (teacher_id, trade_id, subject_id, program, attendance_id, rating, remarks, feedback_cycle_id, created_at, status)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), 1)
+                    (teacher_id, trade_id, subject_id, program, attendance_id, rating, remarks, created_at, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 1)
                 ");
-                // The bind_param now has an extra 'i' for the integer cycle_id
                 $stmt->bind_param(
-                    "iiissssi",
+                    "iiissss",
                     $teacher_id,
                     $_POST['trade_id'][$index],
                     $_POST['subject_id'][$index],
                     $student['program'],
                     $attendance_id,
                     $rating,
-                    $remarks,
-                    $feedback_cycle_id // Bind the cycle ID
+                    $remarks
                 );
                 $stmt->execute();
             }
@@ -160,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         } catch (Exception $e) {
             $conn->rollback();
-            die("<script>alert('Error: ".addslashes($e->getMessage())."'); window.location.href=window.location.href;</script>");
+            die("<script>showStatus('Error: ".addslashes($e->getMessage())."', 'error');</script>");
         }
     }
 }
@@ -198,8 +192,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" id="feedbackForm" class="hidden">
                 <input type="hidden" id="student_id" name="student_id">
                 <input type="hidden" id="attendance_id_hidden" name="attendance_id">
-                <!-- IMPORTANT: Add a hidden field for the feedback cycle ID -->
-                <input type="hidden" id="feedback_cycle_id_hidden" name="feedback_cycle_id">
                 
                 <div class="section">
                     <h2 class="section-title"><i class="fas fa-info-circle"></i> Student Details</h2>
@@ -251,8 +243,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const btn = this;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching...';
             btn.disabled = true;
-            // Hide the form whenever new info is fetched
-            document.getElementById('feedbackForm').classList.add('hidden');
 
             try {
                 const response = await fetch('', {
@@ -262,18 +252,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 });
                 const data = await response.json();
                 
-                // Handle the new statuses from the PHP script
                 if (data.status === 'success') {
                     displayStudentData(data.data);
-                    showStatus('Data loaded successfully. Please fill out the form.', 'success');
-                } else if (data.status === 'inactive' || data.status === 'exists') {
-                    showStatus(data.message, 'warning'); // Use 'warning' for these statuses
+                    showStatus('Data loaded', 'success');
                 } else {
-                    showStatus(data.message || 'An unknown error occurred.', 'error');
+                    showStatus(data.message || 'Error', 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showStatus('A network error occurred. Please try again.', 'error');
+                showStatus('Network error', 'error');
             } finally {
                 btn.innerHTML = '<i class="fas fa-search"></i> Fetch Info';
                 btn.disabled = false;
@@ -283,9 +270,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         function displayStudentData(data) {
             document.getElementById('student_id').value = data.student_id;
             document.getElementById('attendance_id_hidden').value = data.attendance_id;
-            // IMPORTANT: Set the value of the new hidden cycle ID field
-            document.getElementById('feedback_cycle_id_hidden').value = data.feedback_cycle_id;
-            
             document.getElementById('name').value = data.name;
             document.getElementById('program').value = data.program;
             document.getElementById('trade').value = data.trade;
@@ -323,7 +307,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 container.appendChild(card);
             });
 
-            // Show the form only after data is successfully loaded
             document.getElementById('feedbackForm').classList.remove('hidden');
         }
 
@@ -335,14 +318,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!rating || !remarks) {
                     invalidCards.push(index + 1);
                     card.style.border = '1px solid var(--error)';
-                } else {
-                    card.style.border = '1px solid #ccc'; // Reset border on valid cards
                 }
             });
             
             if (invalidCards.length > 0) {
                 e.preventDefault();
-                showStatus(`Please complete all fields for teacher(s): ${invalidCards.join(', ')}`, 'error');
+                showStatus(`Please complete feedback for teacher(s): ${invalidCards.join(', ')}`, 'error');
             }
         });
     </script>
