@@ -200,20 +200,27 @@ require_once 'connection.php';
                             <i class="fa fa-commenting"></i> <span class="nav-text">Specific Feedback</span>
                         </a>
                     </li>
-                             <li>
+                    <li>
 
-                    <a href="./feedback-cycle.php" aria-expanded="false">
-                        <i class="fa fa-recycle"></i> <span class="nav-text">Feedback Cycle</span>
-                    </a>
+                        <a href="./feedback-cycle.php" aria-expanded="false">
+                            <i class="fa fa-recycle"></i> <span class="nav-text">Feedback Cycle</span>
+                        </a>
 
-                </li>
-                <li>
+                    </li>
+                    <li>
 
-                    <a href="./doc.php" aria-expanded="false">
-                        <i class="fa fa-book"></i> <span class="nav-text">Project Documentation</span>
-                    </a>
+                        <a href="./add-student-activity.php" aria-expanded="false">
+                            <i class="fa fa-recycle"></i> <span class="nav-text">Add Student Activity</span>
+                        </a>
 
-                </li>
+                    </li>
+                    <li>
+
+                        <a href="./doc.php" aria-expanded="false">
+                            <i class="fa fa-book"></i> <span class="nav-text">Project Documentation</span>
+                        </a>
+
+                    </li>
 
                 <?php } else { ?>
                     <a href="./list-teacher-feedback.php" aria-expanded="false">
@@ -222,7 +229,7 @@ require_once 'connection.php';
                 <?php } ?>
                 </li>
 
-               
+
 
 
                 </ul>

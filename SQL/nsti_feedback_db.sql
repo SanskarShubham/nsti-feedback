@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2025 at 01:41 PM
+-- Generation Time: Jul 29, 2025 at 12:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,36 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `mobile` varchar(15) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `dp_file_path` varchar(100) NOT NULL,
-  `designation` enum('teacher','admin') NOT NULL DEFAULT 'teacher',
-  `created_at` datetime DEFAULT current_timestamp(),
-  `created_by` int(11) DEFAULT NULL,
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_by` int(11) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `name`, `password`, `mobile`, `email`, `dp_file_path`, `designation`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
-(1, 'karan', '$2y$10$tm35IpuHcA/ImMz8NlUaF.gaBNJG/Ovngp0iIozJ3vMblWmktrAsm', '9131478476', 'karansahu.nsti@gmail.com', 'dp_uploads/profile_68415c6792a037.42560735.jpg', 'admin', '2025-05-29 11:18:57', 0, '2025-06-19 16:48:10', 0, 1),
-(7, 'admin', '$2y$10$CPvcUClpnM/li.LCX4PQK.GB1znHwDhZr32zWkAu4aP7l1iqBXqwS', '1234567890', 'admin@gmail.com', 'dp_uploads/profile_68415ec437ed41.50398267.jpg', 'teacher', '2025-06-02 13:56:31', NULL, '2025-06-05 14:39:24', NULL, 1),
-(10, 'a', '$2y$10$9bYQyOiWyWea/GbJ5TwlCea.cH7IQrrcNvBfowPSQNBcNTnYoL.ce', '123456', 'a@gmail.com', 'dp_uploads/profile_68415e6d3ba7e9.18296620.jpg', 'teacher', '2025-06-05 14:37:57', NULL, '2025-06-05 14:37:57', NULL, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `feedback`
 --
 
@@ -66,12 +36,35 @@ CREATE TABLE `feedback` (
   `attendance_id` varchar(50) NOT NULL,
   `rating` int(1) NOT NULL CHECK (`rating` between 1 and 5),
   `remarks` text NOT NULL,
+  `feedback_cycle_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `created_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_by` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback_cycle`
+--
+
+CREATE TABLE `feedback_cycle` (
+  `cycle_id` int(11) NOT NULL,
+  `cycle_name` varchar(100) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback_cycle`
+--
+
+INSERT INTO `feedback_cycle` (`cycle_id`, `cycle_name`, `start_date`, `end_date`, `is_active`, `created_at`) VALUES
+(1, 'July ', '2025-07-01 00:00:00', '2025-07-31 23:59:59', 1, '2025-07-29 10:46:24');
 
 -- --------------------------------------------------------
 
@@ -271,101 +264,6 @@ INSERT INTO `students` (`id`, `attendance_id`, `name`, `trade`, `program`) VALUE
 (178, 18686904, 'Sweta Kumari', 'Electrician', 'CITS'),
 (179, 9714116, 'Suraj Kumar', 'Electrician', 'CITS'),
 (180, 46502604, 'Poonam Kumari', 'Electrician', 'CITS'),
-(181, 2359799, 'Pradip Biswas', 'Fitter', 'CITS'),
-(182, 9861693, 'Bajrangee Kumar Yadav', 'Fitter', 'CITS'),
-(183, 97705737, 'Md Abdul Jabbar', 'Fitter', 'CITS'),
-(184, 76767374, 'Sachin Kumar', 'Fitter', 'CITS'),
-(185, 70788130, 'Sanjukta Biswas', 'Fitter', 'CITS'),
-(186, 53118805, 'Suparna Pal', 'Fitter', 'CITS'),
-(187, 61247911, 'Aditya Gupta', 'Fitter', 'CITS'),
-(188, 52307418, 'Raj Kumar', 'Fitter', 'CITS'),
-(189, 46888896, 'Sonu Kumar', 'Fitter', 'CITS'),
-(190, 31315753, 'Kundan Kumar', 'Fitter', 'CITS'),
-(191, 63912465, 'Saurabh Kumar', 'Fitter', 'CITS'),
-(192, 27427379, 'Pramod Kumar Paswan', 'Fitter', 'CITS'),
-(193, 4545163, 'Santosh Shaw', 'Fitter', 'CITS'),
-(194, 97804153, 'Pritam Manna', 'Fitter', 'CITS'),
-(195, 51651068, 'Prem Chandra', 'Fitter', 'CITS'),
-(196, 58659629, 'Aditya Raj', 'Fitter', 'CITS'),
-(197, 92367239, 'Munna Murmu', 'Fitter', 'CITS'),
-(198, 49386972, 'Lokesh Kumar Chaubey', 'Fitter', 'CITS'),
-(199, 48951906, 'Murari Kumar Yadav', 'Fitter', 'CITS'),
-(200, 65426224, 'Hritick Kumar Rabidas', 'Fitter', 'CITS'),
-(201, 55986783, 'Rohan Kumar', 'Fitter', 'CITS'),
-(202, 42886092, 'Chhotu Kumar', 'Fitter', 'CITS'),
-(203, 56859212, 'Raviranjan Choudhary', 'Fitter', 'CITS'),
-(204, 45343500, 'Prince Kumar', 'Fitter', 'CITS'),
-(205, 30159756, 'Randhir Kumar', 'Fitter', 'CITS'),
-(206, 36876846, 'Shiv Pujan Bind', 'Fitter', 'CITS'),
-(207, 32543754, 'Sumit Kumar', 'Fitter', 'CITS'),
-(208, 91844361, 'Anjali Choudhary', 'Fitter', 'CITS'),
-(209, 30310150, 'Anshu Pandey', 'Fitter', 'CITS'),
-(210, 7916499, 'Deepak Kumar', 'Fitter', 'CITS'),
-(211, 68578292, 'Chandan Kumar', 'Fitter', 'CITS'),
-(212, 20330861, 'Manish Kumar', 'Fitter', 'CITS'),
-(213, 22148791, 'Vikash Kumar Pal', 'Fitter', 'CITS'),
-(214, 70188802, 'Bipin Kumar', 'Fitter', 'CITS'),
-(215, 15224370, 'Kumari Barkha Rani', 'Fitter', 'CITS'),
-(216, 710374, 'Prakhar Raj', 'Fitter', 'CITS'),
-(217, 80736915, 'Prity Kumari', 'Fitter', 'CITS'),
-(218, 44632193, 'Yuvraj Singh', 'Fitter', 'CITS'),
-(219, 86660137, 'Kanchan Kumari', 'Fitter', 'CITS'),
-(220, 87156932, 'Sandeep Sharma', 'Fitter', 'CITS'),
-(221, 97533508, 'Aradhana Mahato', 'Fitter', 'CITS'),
-(222, 90749115, 'Chandan Kumar Ghadai', 'Fitter', 'CITS'),
-(223, 34487294, 'Gautam Kapri', 'Fitter', 'CITS'),
-(224, 89091574, 'Dhananjoy Hansda', 'Fitter', 'CITS'),
-(225, 11470701, 'Rahul Kumar Paswan', 'Fitter', 'CITS'),
-(226, 48670049, 'Sangram Keshari Nayak', 'Fitter', 'CITS'),
-(227, 9302726, 'Bikki Prasad', 'Fitter', 'CITS'),
-(228, 29880581, 'Dazy Kumari', 'Fitter', 'CITS'),
-(229, 34703438, 'Niraj Kumar', 'Fitter', 'CITS'),
-(230, 81206833, 'Soni Kumari', 'Fitter', 'CITS'),
-(231, 12081813, 'Ajay Kumar', 'Fitter', 'CITS'),
-(232, 56786554, 'Krishnendu Shaw', 'Fitter', 'CITS'),
-(233, 89571188, 'Rupesh Kumar', 'Fitter', 'CITS'),
-(234, 39006497, 'Sayanti Tudu', 'Fitter', 'CITS'),
-(235, 54582359, 'Somnath Paramanik', 'Fitter', 'CITS'),
-(236, 80000354, 'Krishna Sah', 'Fitter', 'CITS'),
-(237, 15629585, 'Surya Prakash Verma', 'Fitter', 'CITS'),
-(238, 20614266, 'Araman', 'Fitter', 'CITS'),
-(239, 91747472, 'Ankush Kumar', 'Fitter', 'CITS'),
-(240, 56412095, 'Devendra Kumar', 'Fitter', 'CITS'),
-(241, 57822519, 'Payal Yadav', 'Fitter', 'CITS'),
-(242, 27140218, 'Shubham Kumar', 'Fitter', 'CITS'),
-(243, 47085662, 'Vipin Kumar', 'Fitter', 'CITS'),
-(244, 35066001, 'Mahanand Kumar Mandal', 'Fitter', 'CITS'),
-(245, 16377901, 'Manish Kumar', 'Fitter', 'CITS'),
-(246, 10690942, 'Pawan Kr Gupta', 'Fitter', 'CITS'),
-(247, 21047704, 'Amit Kumar', 'Fitter', 'CITS'),
-(248, 80061743, 'Jugnu Jigyasu', 'Fitter', 'CITS'),
-(249, 81178031, 'Madhab Karmakar', 'Fitter', 'CITS'),
-(250, 87436579, 'Md Akbar Ali', 'Fitter', 'CITS'),
-(251, 18043483, 'Rajesh Hembrom', 'Fitter', 'CITS'),
-(252, 92979221, 'Santu Barman', 'Fitter', 'CITS'),
-(253, 97521361, 'Sneha Rang', 'Fitter', 'CITS'),
-(254, 5837999, 'Abhishek Kumar', 'Fitter', 'CITS'),
-(255, 85679284, 'Bablu Kumar Mahto', 'Fitter', 'CITS'),
-(256, 53770962, 'Debasis Biswal', 'Fitter', 'CITS'),
-(257, 74842634, 'Shishupal Singh', 'Fitter', 'CITS'),
-(258, 20839109, 'Anarjeet Kumar', 'Fitter', 'CITS'),
-(259, 54508823, 'Manish Kumar Gupta', 'Fitter', 'CITS'),
-(260, 23163581, 'Nageshwar Bediya', 'Fitter', 'CITS'),
-(261, 62941754, 'Nandkishor Kumar', 'Fitter', 'CITS'),
-(262, 53330708, 'Tiyasa Ghosh', 'Fitter', 'CITS'),
-(263, 92074082, 'Veena Gupta', 'Fitter', 'CITS'),
-(264, 64595370, 'Vivek Kumar', 'Fitter', 'CITS'),
-(265, 44430722, 'Bhim Kumar', 'Fitter', 'CITS'),
-(266, 50853311, 'Pintu Kumar Yadav', 'Fitter', 'CITS'),
-(267, 96483935, 'Yogendra Kumar', 'Fitter', 'CITS'),
-(268, 8229395, 'Saroj Choudhary', 'Fitter', 'CITS'),
-(269, 61264557, 'Dochand Bharti', 'Fitter', 'CITS'),
-(270, 79860874, 'Pintu Bhakat', 'Fitter', 'CITS'),
-(271, 61464507, 'Vishal Kumar Singh', 'Fitter', 'CITS'),
-(272, 50901737, 'Arjun Singh', 'Fitter', 'CITS'),
-(273, 10811785, 'Goutam Giri', 'Fitter', 'CITS'),
-(274, 17536482, 'Subham Maity', 'Fitter', 'CITS'),
-(275, 21249966, 'Raj Hans', 'Fitter', 'CITS'),
 (276, 48109746, 'Amit Kumar', 'Foundryman', 'CITS'),
 (277, 1035813, 'Harsh Dev Dwivedi', 'Foundryman', 'CITS'),
 (278, 29318570, 'Km Chhaya  Verma', 'Foundryman', 'CITS'),
@@ -632,7 +530,102 @@ INSERT INTO `students` (`id`, `attendance_id`, `name`, `trade`, `program`) VALUE
 (539, 52850676, 'Subhasis Das', 'Welder', 'CITS'),
 (540, 7426659, 'Saroj Mahato', 'Welder', 'CITS'),
 (541, 39311193, 'Ashish Roy', 'Welder', 'CITS'),
-(542, 80190885, 'Ranabir Kayal', 'Welder', 'CITS');
+(542, 80190885, 'Ranabir Kayal', 'Welder', 'CITS'),
+(548, 2359799, 'Pradip Biswas', 'Fitter', 'CITS'),
+(549, 9861693, 'Bajrangee Kumar Yadav', 'Fitter 2', 'CITS'),
+(550, 97705737, 'Md Abdul Jabbar', 'Fitter 2', 'CITS'),
+(551, 76767374, 'Sachin Kumar', 'Fitter 2', 'CITS'),
+(552, 70788130, 'Sanjukta Biswas', 'Fitter 2', 'CITS'),
+(553, 53118805, 'Suparna Pal', 'Fitter 2', 'CITS'),
+(554, 61247911, 'Aditya Gupta', 'Fitter', 'CITS'),
+(555, 52307418, 'Raj Kumar', 'Fitter', 'CITS'),
+(556, 46888896, 'Sonu Kumar', 'Fitter', 'CITS'),
+(557, 31315753, 'Kundan Kumar', 'Fitter 2', 'CITS'),
+(558, 63912465, 'Saurabh Kumar', 'Fitter', 'CITS'),
+(559, 27427379, 'Pramod Kumar Paswan', 'Fitter 2', 'CITS'),
+(560, 4545163, 'Santosh Shaw', 'Fitter 2', 'CITS'),
+(561, 97804153, 'Pritam Manna', 'Fitter', 'CITS'),
+(562, 51651068, 'Prem Chandra', 'Fitter 2', 'CITS'),
+(563, 58659629, 'Aditya Raj', 'Fitter', 'CITS'),
+(564, 92367239, 'Munna Murmu', 'Fitter', 'CITS'),
+(565, 49386972, 'Lokesh Kumar Chaubey', 'Fitter 2', 'CITS'),
+(566, 48951906, 'Murari Kumar Yadav', 'Fitter 2', 'CITS'),
+(567, 65426224, 'Hritick Kumar Rabidas', 'Fitter 2', 'CITS'),
+(568, 55986783, 'Rohan Kumar', 'Fitter 2', 'CITS'),
+(569, 42886092, 'Chhotu Kumar', 'Fitter', 'CITS'),
+(570, 56859212, 'Raviranjan Choudhary', 'Fitter', 'CITS'),
+(571, 45343500, 'Prince Kumar', 'Fitter 2', 'CITS'),
+(572, 30159756, 'Randhir Kumar', 'Fitter 2', 'CITS'),
+(573, 36876846, 'Shiv Pujan Bind', 'Fitter', 'CITS'),
+(574, 32543754, 'Sumit Kumar', 'Fitter 2', 'CITS'),
+(575, 91844361, 'Anjali Choudhary', 'Fitter', 'CITS'),
+(576, 30310150, 'Anshu Pandey', 'Fitter 2', 'CITS'),
+(577, 7916499, 'Deepak Kumar', 'Fitter', 'CITS'),
+(578, 68578292, 'Chandan Kumar', 'Fitter', 'CITS'),
+(579, 20330861, 'Manish Kumar', 'Fitter 2', 'CITS'),
+(580, 22148791, 'Vikash Kumar Pal', 'Fitter', 'CITS'),
+(581, 70188802, 'Bipin Kumar', 'Fitter 2', 'CITS'),
+(582, 15224370, 'Kumari Barkha Rani', 'Fitter', 'CITS'),
+(583, 710374, 'Prakhar Raj', 'Fitter', 'CITS'),
+(584, 80736915, 'Prity Kumari', 'Fitter', 'CITS'),
+(585, 44632193, 'Yuvraj Singh', 'Fitter 2', 'CITS'),
+(586, 86660137, 'Kanchan Kumari', 'Fitter', 'CITS'),
+(587, 87156932, 'Sandeep Sharma', 'Fitter 2', 'CITS'),
+(588, 97533508, 'Aradhana Mahato', 'Fitter 2', 'CITS'),
+(589, 90749115, 'Chandan Kumar Ghadai', 'Fitter 2', 'CITS'),
+(590, 34487294, 'Gautam Kapri', 'Fitter', 'CITS'),
+(591, 89091574, 'Dhananjoy Hansda', 'Fitter 2', 'CITS'),
+(592, 11470701, 'Rahul Kumar Paswan', 'Fitter 2', 'CITS'),
+(593, 48670049, 'Sangram Keshari Nayak', 'Fitter 2', 'CITS'),
+(594, 9302726, 'Bikki Prasad', 'Fitter', 'CITS'),
+(595, 29880581, 'Dazy Kumari', 'Fitter', 'CITS'),
+(596, 34703438, 'Niraj Kumar', 'Fitter', 'CITS'),
+(597, 81206833, 'Soni Kumari', 'Fitter', 'CITS'),
+(598, 12081813, 'Ajay Kumar', 'Fitter 2', 'CITS'),
+(599, 56786554, 'Krishnendu Shaw', 'Fitter 2', 'CITS'),
+(600, 89571188, 'Rupesh Kumar', 'Fitter 2', 'CITS'),
+(601, 39006497, 'Sayanti Tudu', 'Fitter', 'CITS'),
+(602, 54582359, 'Somnath Paramanik', 'Fitter', 'CITS'),
+(603, 80000354, 'Krishna Sah', 'Fitter', 'CITS'),
+(604, 15629585, 'Surya Prakash Verma', 'Fitter 2', 'CITS'),
+(605, 20614266, 'Araman', 'Fitter', 'CITS'),
+(606, 91747472, 'Ankush Kumar', 'Fitter', 'CITS'),
+(607, 56412095, 'Devendra Kumar', 'Fitter 2', 'CITS'),
+(608, 57822519, 'Payal Yadav', 'Fitter 2', 'CITS'),
+(609, 27140218, 'Shubham Kumar', 'Fitter', 'CITS'),
+(610, 47085662, 'Vipin Kumar', 'Fitter', 'CITS'),
+(611, 35066001, 'Mahanand Kumar Mandal', 'Fitter 2', 'CITS'),
+(612, 16377901, 'Manish Kumar', 'Fitter', 'CITS'),
+(613, 10690942, 'Pawan Kr Gupta', 'Fitter', 'CITS'),
+(614, 21047704, 'Amit Kumar', 'Fitter 2', 'CITS'),
+(615, 80061743, 'Jugnu Jigyasu', 'Fitter', 'CITS'),
+(616, 81178031, 'Madhab Karmakar', 'Fitter', 'CITS'),
+(617, 87436579, 'Md Akbar Ali', 'Fitter', 'CITS'),
+(618, 18043483, 'Rajesh Hembrom', 'Fitter 2', 'CITS'),
+(619, 92979221, 'Santu Barman', 'Fitter', 'CITS'),
+(620, 97521361, 'Sneha Rang', 'Fitter', 'CITS'),
+(621, 5837999, 'Abhishek Kumar', 'Fitter', 'CITS'),
+(622, 85679284, 'Bablu Kumar Mahto', 'Fitter', 'CITS'),
+(623, 53770962, 'Debasis Biswal', 'Fitter 2', 'CITS'),
+(624, 74842634, 'Shishupal Singh', 'Fitter 2', 'CITS'),
+(625, 20839109, 'Anarjeet Kumar', 'Fitter 2', 'CITS'),
+(626, 54508823, 'Manish Kumar Gupta', 'Fitter', 'CITS'),
+(627, 23163581, 'Nageshwar Bediya', 'Fitter', 'CITS'),
+(628, 62941754, 'Nandkishor Kumar', 'Fitter 2', 'CITS'),
+(629, 53330708, 'Tiyasa Ghosh', 'Fitter', 'CITS'),
+(630, 92074082, 'Veena Gupta', 'Fitter 2', 'CITS'),
+(631, 64595370, 'Vivek Kumar', 'Fitter', 'CITS'),
+(632, 44430722, 'Bhim Kumar', 'Fitter', 'CITS'),
+(633, 50853311, 'Pintu Kumar Yadav', 'Fitter 2', 'CITS'),
+(634, 96483935, 'Yogendra Kumar', 'Fitter', 'CITS'),
+(635, 8229395, 'Saroj Choudhary', 'Fitter', 'CITS'),
+(636, 61264557, 'Dochand Bharti', 'Fitter', 'CITS'),
+(637, 79860874, 'Pintu Bhakat', 'Fitter', 'CITS'),
+(638, 61464507, 'Vishal Kumar Singh', 'Fitter', 'CITS'),
+(639, 50901737, 'Arjun Singh', 'Fitter', 'CITS'),
+(640, 10811785, 'Goutam Giri', 'Fitter', 'CITS'),
+(641, 17536482, 'Subham Maity', 'Fitter 2', 'CITS'),
+(642, 21249966, 'Raj Hans', 'Fitter', 'CITS');
 
 -- --------------------------------------------------------
 
@@ -664,7 +657,7 @@ INSERT INTO `subject` (`subject_id`, `name`, `common_for_cts`, `common_for_cits`
 (5, 'WORKSHOP CALCULATION AND SCIENCE', 1, 1, '2025-06-19 14:57:40', NULL, '2025-06-25 15:51:48', NULL, 1),
 (6, 'ENGINEERING DRAWING', 1, 1, '2025-06-19 14:58:03', NULL, '2025-06-25 15:52:00', NULL, 1),
 (7, 'SOFT SKILLS', 0, 0, '2025-06-19 14:58:17', NULL, '2025-06-19 14:58:17', NULL, 1),
-(8, 'EMPLOYABILITY SKILLS', 1, 0, '2025-06-25 15:53:13', NULL, '2025-06-25 15:53:13', NULL, 1);
+(8, 'EMPLOYABILITY SKILLS', 1, 0, '2025-06-25 15:53:13', NULL, '2025-07-25 03:27:50', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -692,33 +685,34 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `name`, `mobile_no`, `email`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`, `password`, `designation`, `dp_file_path`) VALUES
-(8, 'SARBESHWAR MAHATA', '', '', '2025-06-25 11:37:12', NULL, '2025-06-25 11:37:12', NULL, 1, NULL, 'other', NULL),
-(15, 'SUMIT BHATTACHARYA', '', '', '2025-06-25 12:30:33', NULL, '2025-06-25 12:30:33', NULL, 1, NULL, 'other', NULL),
-(16, 'ATANU GHOSH', '', '', '2025-06-25 14:04:26', NULL, '2025-06-25 14:04:26', NULL, 1, NULL, 'other', NULL),
-(17, 'BASHISTA HAZRA', '', '', '2025-06-25 14:06:19', NULL, '2025-06-25 14:06:19', NULL, 1, NULL, 'other', NULL),
-(18, 'AMIT KUMAR', '1111111111', 'hello@gmail.com', '2025-06-25 14:09:19', NULL, '2025-06-25 16:05:29', NULL, 1, NULL, 'other', NULL),
-(19, ' UTPAL KUMAR SARKAR', '', '', '2025-06-25 14:10:31', NULL, '2025-06-25 14:10:31', NULL, 1, NULL, 'other', NULL),
-(20, 'G.K. SAHU', '', '', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1, NULL, 'other', NULL),
-(21, 'PALLAB DATTA', '', '', '2025-06-25 14:14:16', NULL, '2025-06-25 14:14:16', NULL, 1, NULL, 'other', NULL),
-(22, ' PRASANT CHATTERJEE', '', '', '2025-06-25 14:15:45', NULL, '2025-06-25 14:15:45', NULL, 1, NULL, 'other', NULL),
-(23, ' NIRMALYA HAZRA', '', '', '2025-06-25 14:18:36', NULL, '2025-06-25 14:18:36', NULL, 1, NULL, 'other', NULL),
-(24, ' TAPAN KUMAR HALDER', '', '', '2025-06-25 14:20:28', NULL, '2025-06-25 14:20:28', NULL, 1, NULL, 'other', NULL),
-(25, ' PUJA MUKHARJEE', '', '', '2025-06-25 14:22:25', NULL, '2025-06-25 14:22:25', NULL, 1, NULL, 'other', NULL),
-(26, 'RUPEN KUMAR SAHA', '', '', '2025-06-25 14:24:33', NULL, '2025-06-25 14:24:33', NULL, 1, NULL, 'other', NULL),
-(27, 'BIBEK KUMAR SINGH', '', '', '2025-06-25 14:27:14', NULL, '2025-06-25 14:27:14', NULL, 1, NULL, 'other', NULL),
-(28, ' KARAN KUMAR PANDEY', '', 'kpandey@gmail.com', '2025-06-25 14:28:25', NULL, '2025-06-26 10:00:02', NULL, 1, '$2y$10$CPvcUClpnM/li.LCX4PQK.GB1znHwDhZr32zWkAu4aP7l1iqBXqwS', 'admin', 'dp_uploads/profile_685cccca000417.98665932.jpg'),
-(29, 'SUBHANKAR RANA', '', '', '2025-06-25 14:29:45', NULL, '2025-06-25 14:29:45', NULL, 1, NULL, 'other', NULL),
-(30, ' SUPRIYA RANA', '', '', '2025-06-25 14:31:48', NULL, '2025-06-25 14:31:48', NULL, 1, NULL, 'other', NULL),
-(31, 'DHIRAJ KUMAR GHOSH', '1111111111', 'hello@gmail.com', '2025-06-25 14:34:30', NULL, '2025-06-25 16:03:56', NULL, 1, NULL, 'other', NULL),
-(32, 'DEBABRATA MONDAL', '', '', '2025-06-25 14:35:44', NULL, '2025-06-25 14:35:44', NULL, 1, NULL, 'other', NULL),
-(33, 'MADHUSUDAN KARMAKAR', '1111111111', 'hello@gmail.com', '2025-06-25 14:37:16', NULL, '2025-06-25 16:01:57', NULL, 1, NULL, 'other', NULL),
-(34, 'MD TALIB', '', '', '2025-06-25 15:30:20', NULL, '2025-06-25 15:30:20', NULL, 1, NULL, 'other', NULL),
-(35, 'SAYANTI MANNA', '', '', '2025-06-25 15:31:23', NULL, '2025-06-25 15:31:23', NULL, 1, NULL, 'other', NULL),
-(36, 'TULSI KUMAR MAHATO', '', '', '2025-06-25 15:32:53', NULL, '2025-06-25 15:32:53', NULL, 1, NULL, 'other', NULL),
-(37, 'ISHITA BISWAS', '', '', '2025-06-25 15:54:25', NULL, '2025-06-25 15:54:25', NULL, 1, '$2y$10$c/rrPydlmP93n6wy9Ozdv.Zn9aN77.BewJq64q2.lgWmUdepejE3i', 'other', NULL),
-(38, 'GOUTAM SARKAR', '', '', '2025-06-25 15:58:13', NULL, '2025-06-25 15:58:13', NULL, 1, '$2y$10$4NCOIiJQex2tHrB7hGKOGOV161BzPdDzJ80uWyUgZIh/WZ9jLpM0.', 'other', NULL),
-(39, 'BANANI POREL', '', '', '2025-06-25 16:11:24', NULL, '2025-06-25 16:11:24', NULL, 1, '$2y$10$754K9Vq0onM/u9dPJs6Vy.kru3HRbjVgp8ytEXM0lZfwNs0A0Hv1u', 'other', NULL),
-(40, 'SATYAM', '1111111111', 'hello@gmail.com', '2025-06-25 16:18:46', NULL, '2025-06-26 15:41:42', NULL, 1, '$2y$10$zr6IGLILxQxJ3ICl10qYtuCHY2ysG7sIVez0uOZFC7S3mwFQDAc1u', 'other', NULL);
+(8, 'SARBESHWAR MAHATA', '1111111111', 'sarbeshwar@gmail.com', '2025-06-25 11:37:12', NULL, '2025-07-25 03:31:02', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(15, 'SUMIT BHATTACHARYA', '1111111111', 'sumit@gmail.com', '2025-06-25 12:30:33', NULL, '2025-07-14 01:36:20', NULL, 1, '$2y$10$NxTPLdlx0D.P0SkXtXtYQ.DDRupM1Bh.kPJFYmTBdnBLlJO807.iu', 'other', NULL),
+(16, 'ATANU GHOSH', '1111111111', 'atanu@gmail.com', '2025-06-25 14:04:26', NULL, '2025-07-14 01:36:37', NULL, 1, '$2y$10$jepeOACEH.37KAOo8uUaO.ftlP0UR8QWnL79nt2rihaQ.apdP8urW', 'other', NULL),
+(17, 'BASHISTA HAZRA', '1111111111', 'bashista@gmail.com', '2025-06-25 14:06:19', NULL, '2025-07-14 01:37:00', NULL, 1, '$2y$10$kBNw5CTDZ2TAo5kxKW0gZuvPT630Yl4lNaKXmVWxVOHKdiTBBXlbC', 'other', NULL),
+(18, 'AMIT KUMAR', '7777777777', 'amit@gmail.com', '2025-06-25 14:09:19', NULL, '2025-07-01 16:04:01', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(19, 'UTPAL KUMAR SARKAR', '1111111111', 'utpal@gmail.com', '2025-06-25 14:10:31', NULL, '2025-07-01 16:24:34', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(20, 'G.K. SAHU', '1111111111', 'gk@gmail.com', '2025-06-25 14:12:32', NULL, '2025-07-14 01:37:16', NULL, 1, '$2y$10$KNZyg..LGvdXMG0Cx9xLYu5Ej6/PPMrNobvZS08EKv8dhSUoixslO', 'other', NULL),
+(21, 'PALLAB DATTA', '1111111111', 'pallab@gmail.com', '2025-06-25 14:14:16', NULL, '2025-07-14 01:37:34', NULL, 1, '$2y$10$wV5UCL8fxJWGdy8DXB2.reNLoZ.Wc4jkcJOFPu2YATay37EwydI2K', 'other', NULL),
+(22, 'PRASANT CHATTERJEE', '1111111111', 'prasant@gmail.com', '2025-06-25 14:15:45', NULL, '2025-07-14 01:37:54', NULL, 1, '$2y$10$1rksMK4u2evAc03A6/6dX.PoYXU/42T8SDr4/oXCsbsQEr268s6Oy', 'other', NULL),
+(23, 'NIRMALYA HAZRA', '1111111111', 'nirmalya@gmail.com', '2025-06-25 14:18:36', NULL, '2025-07-14 01:38:08', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(24, 'TAPAN KUMAR HALDER', '1111111111', 'tapan@gmail.com', '2025-06-25 14:20:28', NULL, '2025-07-14 01:38:31', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(25, 'PUJA MUKHARJEE', '1111111111', 'puja@gmail.com', '2025-06-25 14:22:25', NULL, '2025-07-14 01:38:20', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(26, 'RUPEN KUMAR SAHA', '1111111111', 'rupen@gmail.com', '2025-06-25 14:24:33', NULL, '2025-07-14 01:38:43', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(27, 'BIBEK KUMAR SINGH', '1111111111', 'bibke@gmail.com', '2025-06-25 14:27:14', NULL, '2025-07-14 01:38:53', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(28, ' KARAN KUMAR PANDEY', '', 'kpandey@gmail.com', '2025-06-25 14:28:25', NULL, '2025-07-01 10:33:37', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'admin', 'dp_uploads/profile_685cccca000417.98665932.jpg'),
+(29, 'SUBHANKAR RANA', '1111111111', 'shubhankar@gmail.com', '2025-06-25 14:29:45', NULL, '2025-07-14 01:39:04', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(30, 'SUPRIYA RANA', '1111111111', 'supriya@gmail.com', '2025-06-25 14:31:48', NULL, '2025-07-14 01:39:19', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(31, 'DHIRAJ KUMAR GHOSH', '1111111111', 'dhiraj@gmail.com', '2025-06-25 14:34:30', NULL, '2025-07-14 01:39:41', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(32, 'DEBABRATA MONDAL', '1111111111', 'debabrata@gmail.com', '2025-06-25 14:35:44', NULL, '2025-07-14 01:39:53', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(33, 'MADHUSUDAN KARMAKAR', '1111111111', 'madhusudan@gmail.com', '2025-06-25 14:37:16', NULL, '2025-07-14 01:40:12', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(34, 'MD TALIB', '1111111111', 'md@gmail.com', '2025-06-25 15:30:20', NULL, '2025-07-14 01:40:33', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(35, 'SAYANTI MANNA', '1111111111', 'sayanti@gmail.com', '2025-06-25 15:31:23', NULL, '2025-07-14 01:40:46', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(36, 'TULSI KUMAR MAHATO', '1111111111', 'tulsi@gmail.com', '2025-06-25 15:32:53', NULL, '2025-07-14 01:40:57', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(37, 'ISHITA BISWAS', '1111111111', 'ishita@gmail.com', '2025-06-25 15:54:25', NULL, '2025-07-14 01:41:07', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(38, 'GOUTAM SARKAR', '1111111111', 'goutam@gmail.com', '2025-06-25 15:58:13', NULL, '2025-07-14 01:41:18', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(39, 'BANANI POREL', '1111111111', 'banani@gmail.com', '2025-06-25 16:11:24', NULL, '2025-07-14 01:41:30', NULL, 1, '$2y$10$izWxil30YVWSNjuO7paKCuyQ9dAda5sQs3c663blTxXp5Je68M6ge', 'other', NULL),
+(40, 'SATYAM', '1111111111', 'satyam@gmail.com', '2025-06-25 16:18:46', NULL, '2025-07-14 01:35:00', NULL, 1, '$2y$10$GZFN50pQIVxV/x8Q7yflAeIGZAjhf5iyKasFwiyyXzjaSyKT.3Vzy', 'other', NULL),
+(41, 'admin', '1111111111', 'admin@gmail.com', '2025-07-01 12:28:17', NULL, '2025-07-01 12:28:17', NULL, 1, '$2y$10$ESSwWUa9n0gmBzl7DmJQ2OdnmajOd.hbvjCI/3BavKmDVS4cxcyFS', 'admin', 'dp_uploads/profile_686387093fd082.44828660.jpg');
 
 -- --------------------------------------------------------
 
@@ -772,7 +766,6 @@ INSERT INTO `teacher_subject_trade` (`id`, `teacher_id`, `trade_id`, `subject_id
 (63, 19, 5, 6, 'CITS', '2025-06-25 14:10:31', NULL, '2025-06-25 14:10:31', NULL, 1),
 (64, 20, 6, 1, 'CITS', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
 (65, 20, 6, 2, 'CITS', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
-(66, 20, 0, 0, '', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
 (67, 20, 6, 4, 'CITS', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
 (68, 20, 6, 5, 'CITS', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
 (69, 20, 6, 6, 'CITS', '2025-06-25 14:12:32', NULL, '2025-06-25 14:12:32', NULL, 1),
@@ -918,7 +911,7 @@ CREATE TABLE `trade` (
 INSERT INTO `trade` (`trade_id`, `trade_name`, `program`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
 (1, 'Artificial Intelligence and Programming Assistant', 'CTS', '2025-06-06 11:02:15', NULL, '2025-06-12 17:07:44', NULL, 1),
 (2, 'Computer Software Applications', 'CITS', '2025-06-04 14:11:09', NULL, '2025-06-12 17:08:27', NULL, 1),
-(3, 'Fitter 1 & 2', 'CITS', '2025-06-04 14:16:51', NULL, '2025-06-25 11:48:58', NULL, 1),
+(3, 'Fitter', 'CITS', '2025-06-04 14:16:51', NULL, '2025-07-09 22:40:08', NULL, 1),
 (4, 'Machinist', 'CITS', '2025-06-06 11:08:05', NULL, '2025-06-12 17:12:24', NULL, 1),
 (5, 'Mechanic Machine Tool Maintenance (MMTM)', 'CITS', '2025-06-06 11:08:48', NULL, '2025-06-12 17:14:08', NULL, 1),
 (6, 'Turner', 'CITS', '2025-06-06 11:08:57', NULL, '2025-06-12 17:16:25', NULL, 1),
@@ -940,23 +933,23 @@ INSERT INTO `trade` (`trade_id`, `trade_name`, `program`, `created_at`, `created
 (22, 'Machinist CTS', 'CTS', '2025-06-10 12:14:59', NULL, '2025-06-25 11:50:34', NULL, 1),
 (23, 'Machinist Grinder CTS', 'CTS', '2025-06-10 12:15:18', NULL, '2025-06-25 11:50:47', NULL, 1),
 (24, 'Foundryman CTS', 'CTS', '2025-06-10 12:22:14', NULL, '2025-06-25 11:50:56', NULL, 1),
-(31, 'Fitter 3 & 4', 'CITS', '2025-06-25 11:49:17', NULL, '2025-06-25 11:49:17', NULL, 1);
+(31, 'Fitter 2', 'CITS', '2025-06-25 11:49:17', NULL, '2025-07-09 23:08:17', NULL, 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedback_cycle`
+--
+ALTER TABLE `feedback_cycle`
+  ADD PRIMARY KEY (`cycle_id`);
 
 --
 -- Indexes for table `students`
@@ -993,22 +986,22 @@ ALTER TABLE `trade`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `feedback_cycle`
+--
+ALTER TABLE `feedback_cycle`
+  MODIFY `cycle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=548;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=643;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -1020,7 +1013,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `teacher_subject_trade`

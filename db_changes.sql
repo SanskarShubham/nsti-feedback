@@ -36,3 +36,24 @@ CREATE TABLE `feedback` (
     `updated_by` INT(11) DEFAULT NULL,
     `status` TINYINT(1) DEFAULT 1
 );
+
+
+
+
+
+
+CREATE TABLE `student_activity` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `student_id` INT(11) NOT NULL,
+  `total_lesson` INT(11) DEFAULT 0,
+  `total_demo` INT(11) DEFAULT 0,
+  `total_practical` INT(11) DEFAULT 0,
+  `total_test` INT(11) DEFAULT 0,
+  `total_tmp` INT(11) DEFAULT 0,
+  `status` VARCHAR(50) NOT NULL DEFAULT 'active',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT(11) DEFAULT NULL,
+  `updated_by` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
