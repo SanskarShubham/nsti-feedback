@@ -210,7 +210,14 @@ require_once 'connection.php';
                     <li>
 
                         <a href="./add-student-activity.php" aria-expanded="false">
-                            <i class="fa fa-recycle"></i> <span class="nav-text">Add Student Activity</span>
+                            <i class="fa fa-add"></i> <span class="nav-text">Add Student Activity</span>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="./list-students-activity.php" aria-expanded="false">
+                            <i class="fa fa-eye"></i> <span class="nav-text">Show Student Activity</span>
                         </a>
 
                     </li>
@@ -226,6 +233,23 @@ require_once 'connection.php';
                     <a href="./list-teacher-feedback.php" aria-expanded="false">
                         <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                     </a>
+
+                    <li>
+
+                        <a href="./add-student-activity-teacher.php" aria-expanded="false">
+                            <i class="fa fa-plus"></i> <span class="nav-text">Add Student Activity</span>
+                        </a>
+
+                    </li>
+                    <li>
+
+                        <a href="./list-students-activity-teacher.php" aria-expanded="false">
+                            <i class="fa fa-eye"></i> <span class="nav-text">Show Student Activity</span>
+                        </a>
+
+                    </li>
+
+                    
                 <?php } ?>
                 </li>
 

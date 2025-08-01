@@ -5,13 +5,42 @@ require_once 'connection.php';
 // Include the header which contains the HTML head, nav, sidebar, and the opening <div class="content-body">
 include('header.php'); 
 
+// --- ROLE-BASED DATA FETCHING ---
+
+$user_designation = $_SESSION['admin_data']['designation'];
+$teacher_id = $_SESSION['admin_data']['teacher_id'];
+$available_trades = []; // This will hold the trades the user is allowed to see/filter
+
+// If the user is an admin, they can see all trades.
+if ($user_designation === 'admin') {
+    $trade_result = $conn->query("SELECT DISTINCT trade_name FROM trade ORDER BY trade_name ASC");
+    while ($trade_row = $trade_result->fetch_assoc()) {
+        $available_trades[] = $trade_row['trade_name'];
+    }
+} 
+// If the user is a teacher, fetch only their assigned trades.
+else {
+    $sql_trades = "SELECT DISTINCT t.trade_name 
+                   FROM teacher_subject_trade tst
+                   JOIN trade t ON tst.trade_id = t.trade_id
+                   WHERE tst.teacher_id = ?";
+    $stmt_trades = $conn->prepare($sql_trades);
+    $stmt_trades->bind_param("i", $teacher_id);
+    $stmt_trades->execute();
+    $result_trades = $stmt_trades->get_result();
+    while ($row_trade = $result_trades->fetch_assoc()) {
+        $available_trades[] = $row_trade['trade_name'];
+    }
+    $stmt_trades->close();
+}
+
+
 // --- PHP LOGIC FOR FILTERING ---
 $selected_program = '';
 $selected_trade = '';
 $activities = [];
 
-// Base SQL query with JOIN to get student names. 
-// The sa.* will automatically include the new 'remarks' column.
+// Base SQL query
 $sql = "SELECT sa.*, s.name as student_name, s.program, s.trade 
         FROM student_activity sa
         JOIN students s ON sa.student_id = s.id";
@@ -19,6 +48,20 @@ $sql = "SELECT sa.*, s.name as student_name, s.program, s.trade
 $where_clauses = [];
 $bind_params = [];
 $bind_types = '';
+
+// SECURITY: If the user is a teacher, add a clause to only show their trades.
+if ($user_designation !== 'admin') {
+    if (!empty($available_trades)) {
+        // Create a string of placeholders (?,?,?) for the IN clause
+        $placeholders = implode(',', array_fill(0, count($available_trades), '?'));
+        $where_clauses[] = "s.trade IN ($placeholders)";
+        $bind_types .= str_repeat('s', count($available_trades));
+        $bind_params = array_merge($bind_params, $available_trades);
+    } else {
+        // If teacher has no trades, add a condition that will return no results
+        $where_clauses[] = "1 = 0"; 
+    }
+}
 
 // Check if the filter form was submitted
 if (isset($_POST['filter'])) {
@@ -30,9 +73,12 @@ if (isset($_POST['filter'])) {
     }
     if (!empty($_POST['trade'])) {
         $selected_trade = $_POST['trade'];
-        $where_clauses[] = "s.trade = ?";
-        $bind_types .= 's';
-        $bind_params[] = $selected_trade;
+        // Security check: ensure the selected trade is one the user is allowed to see
+        if (in_array($selected_trade, $available_trades)) {
+            $where_clauses[] = "s.trade = ?";
+            $bind_types .= 's';
+            $bind_params[] = $selected_trade;
+        }
     }
 }
 
@@ -45,7 +91,6 @@ $sql .= " ORDER BY s.name ASC";
 
 $stmt = $conn->prepare($sql);
 
-// Bind parameters if filters are used
 if (!empty($bind_params)) {
     $stmt->bind_param($bind_types, ...$bind_params);
 }
@@ -98,10 +143,10 @@ $stmt->close();
                                 <select class="form-control" id="trade" name="trade">
                                     <option value="">All Trades</option>
                                     <?php
-                                    $trade_result = $conn->query("SELECT DISTINCT trade_name FROM trade ORDER BY trade_name ASC");
-                                    while ($trade_row = $trade_result->fetch_assoc()) {
-                                        $selected = ($trade_row['trade_name'] == $selected_trade) ? 'selected' : '';
-                                        echo "<option value='{$trade_row['trade_name']}' {$selected}>{$trade_row['trade_name']}</option>";
+                                    // MODIFICATION: The dropdown is now populated with only the trades the user is allowed to see
+                                    foreach ($available_trades as $trade_name) {
+                                        $selected = ($trade_name == $selected_trade) ? 'selected' : '';
+                                        echo "<option value='" . htmlspecialchars($trade_name) . "' {$selected}>" . htmlspecialchars($trade_name) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -127,7 +172,7 @@ $stmt->close();
                                     <th>Practical</th>
                                     <th>Test</th>
                                     <th>TMP</th>
-                                    <th>Remarks</th> <!-- MODIFICATION: Added Remarks Header -->
+                                    <th>Remarks</th>
                                     <th>Last Updated</th>
                                 </tr>
                             </thead>
@@ -144,15 +189,13 @@ $stmt->close();
                                             <td><?php echo $activity['total_practical']; ?></td>
                                             <td><?php echo $activity['total_test']; ?></td>
                                             <td><?php echo $activity['total_tmp']; ?></td>
-                                            <!-- MODIFICATION: Added Remarks Data Cell -->
                                             <td><?php echo htmlspecialchars($activity['remarks']); ?></td>
                                             <td><?php echo date('d-M-Y h:i A', strtotime($activity['updated_at'])); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <!-- MODIFICATION: Updated colspan to 11 -->
-                                        <td colspan="11" class="text-center">No activity records found.</td>
+                                        <td colspan="11" class="text-center">No activity records found for your assigned trades.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
