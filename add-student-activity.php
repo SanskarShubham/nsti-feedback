@@ -116,11 +116,11 @@ if (isset($_POST['save_activities'])) {
     if ($user_designation === 'admin') {
         $sql = "UPDATE student_activity SET 
                     total_lesson = ?, total_demo = ?, total_practical = ?, 
-                    total_test = ?, total_tmp = ?, remarks = ?, updated_by = ?, updated_at = NOW()
+                    total_test = ?, total_tmp = ?, remarks = ?, updated_by = ?, updated_at = NOW(), status = 1, teacher_id = ?  
                 WHERE student_id = ?";
     } else {
-        $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?, ?)
+        $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by,teacher_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?,?)
                 ON DUPLICATE KEY UPDATE
                 total_lesson = VALUES(total_lesson), total_demo = VALUES(total_demo), total_practical = VALUES(total_practical), 
                 total_test = VALUES(total_test), total_tmp = VALUES(total_tmp), remarks = VALUES(remarks), updated_by = VALUES(updated_by), updated_at = NOW()";
@@ -132,16 +132,16 @@ if (isset($_POST['save_activities'])) {
 
     foreach ($student_ids as $key => $student_id) {
         if ($user_designation === 'admin') {
-            $stmt->bind_param("iiiiisii", 
+            $stmt->bind_param("iiiiisiii", 
                 $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
                 $total_tests[$key], $total_tmps[$key], $remarks[$key], 
-                $current_user_id, $student_id
+                $current_user_id,  $current_user_id,$student_id
             );
         } else {
-            $stmt->bind_param("iiiiisiii", 
+            $stmt->bind_param("iiiiisiiii", 
                 $student_id, $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
                 $total_tests[$key], $total_tmps[$key], $remarks[$key], 
-                $current_user_id, $current_user_id
+                $current_user_id, $current_user_id, $current_user_id
             );
         }
 

@@ -3,13 +3,14 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+date_default_timezone_set('Asia/Kolkata');
 if (!isset($_SESSION['admin_data'])) {
     header("Location: admin_login.php");
     exit();
 }
 // print_r($_SESSION['admin_data']);
 require_once 'connection.php';
+$conn->query("SET time_zone = '+05:30'");
 ?>
 
 <!DOCTYPE html>
@@ -209,8 +210,7 @@ require_once 'connection.php';
                     </li>
                     <li>
 
-                        <a href="./add-student-activity.php" aria-expanded="false">
-                            <i class="fa fa-add"></i> <span class="nav-text">Add Student Activity</span>
+                        <a href="./add-student-activity.php" aria-expanded="false">                     <i class="fa fa-plus"></i> <span class="nav-text">Add Student Activity</span>
                         </a>
 
                     </li>
@@ -233,24 +233,28 @@ require_once 'connection.php';
                     <a href="./list-teacher-feedback.php" aria-expanded="false">
                         <i class="fa fa-commenting"></i> <span class="nav-text">Feedback</span>
                     </a>
+                    <?php
+                            $notshowactivity = [40, 39];
+                            if (array_search($_SESSION['admin_data']['teacher_id'], $notshowactivity) === false) { ?>
+                        <li>
 
-                    <li>
+                            <a href="./add-student-activity-teacher.php" aria-expanded="false">
+                                <i class="fa fa-plus"></i> <span class="nav-text">Add Student Activity</span>
+                            </a>
 
-                        <a href="./add-student-activity-teacher.php" aria-expanded="false">
-                            <i class="fa fa-plus"></i> <span class="nav-text">Add Student Activity</span>
-                        </a>
+                        </li>
+                        <li>
 
-                    </li>
-                    <li>
+                            <a href="./list-students-activity-teacher.php" aria-expanded="false">
+                                <i class="fa fa-eye"></i> <span class="nav-text">Show Student Activity</span>
+                            </a>
 
-                        <a href="./list-students-activity-teacher.php" aria-expanded="false">
-                            <i class="fa fa-eye"></i> <span class="nav-text">Show Student Activity</span>
-                        </a>
+                        </li>
 
-                    </li>
 
-                    
-                <?php } ?>
+                <?php
+                            }
+                        } ?>
                 </li>
 
 

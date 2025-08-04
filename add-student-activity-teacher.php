@@ -110,12 +110,12 @@ if (isset($_POST['save_activities'])) {
     $total_tests = $_POST['total_test'];
     $total_tmps = $_POST['total_tmp'];
     $remarks = $_POST['remarks'];
-    
+    $status = 1;
     $created_by = $_SESSION['admin_data']['teacher_id'];
     $updated_by = $_SESSION['admin_data']['teacher_id'];
-
-    $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?, ?)
+    $teacher_id= $_SESSION['admin_data']['teacher_id'];
+    $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by,teacher_id) 
+            VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?,?)
             ON DUPLICATE KEY UPDATE
             total_lesson = VALUES(total_lesson), total_demo = VALUES(total_demo), total_practical = VALUES(total_practical), 
             total_test = VALUES(total_test), total_tmp = VALUES(total_tmp), remarks = VALUES(remarks), updated_by = VALUES(updated_by), updated_at = NOW()";
@@ -126,10 +126,10 @@ if (isset($_POST['save_activities'])) {
 
     foreach ($student_ids as $key => $student_id) {
         $stmt->bind_param(
-            "iiiiisiii", 
+            "iiiiiisiiii", 
             $student_id, $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
-            $total_tests[$key], $total_tmps[$key], $remarks[$key], 
-            $created_by, $updated_by
+            $total_tests[$key], $total_tmps[$key], $remarks[$key], $status,
+            $created_by, $updated_by,$teacher_id
         );
 
         if (!$stmt->execute()) {
