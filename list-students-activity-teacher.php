@@ -153,7 +153,7 @@ $stmt->close();
                             </div>
                             <div class="col-md-4">
                                 <button type="submit" name="filter" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
-                                <a href="list-students-activity.php" class="btn btn-secondary"><i class="fa fa-undo"></i> Reset</a>
+                                <a href="list-students-activity-teacher.php" class="btn btn-secondary"><i class="fa fa-undo"></i> Reset</a>
                             </div>
                         </div>
                     </form>

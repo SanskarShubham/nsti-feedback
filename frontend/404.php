@@ -1,36 +1,103 @@
-<?php include 'header.php'; ?>
+<?php
+// Optional: Start session if needed
+// session_start();
+?>
 
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5">
-        <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">404 Error</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">404 Error</li>
-                </ol>
-            </nav>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Page Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom Green Theme -->
+    <style>
+        :root {
+            --primary-color: #28a745; /* Bootstrap success green */
+            --primary-hover: #218838;
+            --bg-color: #f4fef6;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-box {
+            text-align: center;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .error-box img {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .error-code {
+            font-size: 90px;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .btn-green {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .btn-green:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container error-container">
+    <div class="error-box">
+        <!-- Cute vector image -->
+        <img src="https://undraw.co/api/illustrations/59c1f9b1-5e8a-4d55-a03e-6f573b70e0ff" alt="404 vector">
+
+        <!-- 404 Message -->
+        <div class="error-code">404</div>
+        <h2 class="mb-3">Oops! Page Not Found</h2>
+        <p class="text-muted mb-4">
+            The page you're looking for doesn't exist or might have been moved.<br>
+            Let’s get you back to the homepage!
+        </p>
+
+        <!-- Green Home Button -->
+        <a href="index.php" class="btn btn-green">
+            <i class="bi bi-house-door-fill me-2"></i>Go to Home
+        </a>
     </div>
-    <!-- Page Header End -->
+</div>
 
+<!-- Bootstrap JS (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- 404 Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
-                    <h1 class="display-1">404</h1>
-                    <h1 class="mb-4">Page Not Found</h1>
-                    <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="">Go Back To Home</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 404 End -->
-        
-
-    <?php include 'footer.php'; ?>
+</body>
+</html>

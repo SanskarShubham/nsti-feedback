@@ -57,3 +57,10 @@ CREATE TABLE `student_activity` (
   `updated_by` INT(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+UPDATE `students` SET `trade` = 'Machinist CTS' WHERE `students`.`trade`='machinist' and `students`.`program` = 'CTS' ;
+
+UPDATE `students` SET `trade` = 'Machinist Grinder CTS' WHERE `students`.`trade`='machinist grinder' and `students`.`program` = 'CTS';

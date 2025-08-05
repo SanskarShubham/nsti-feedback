@@ -82,7 +82,7 @@ $row = $result->fetch_assoc();
                             <label class="mr-2">
                                 <input type="radio" value="admin" name="designation" <?= $row['designation'] == 'admin' ? 'checked' : ''; ?>> Admin
                             </label>
-
+                            
                             <label>
                                 <input type="radio" value="other" name="designation" <?= $row['designation'] == 'other' ? 'checked' : ''; ?>> Teacher
                             </label>
@@ -181,19 +181,15 @@ $row = $result->fetch_assoc();
         let originalRow = button.closest(".subject-row");
         let newRow = originalRow.cloneNode(true);
 
-        // Reset values
         newRow.querySelectorAll("select").forEach(select => select.value = "");
-        newRow.querySelector("input[name='teacher_subject_trade_id[]']").value = "";
 
-        // Update button
         let actionBtn = newRow.querySelector("button");
-        actionBtn.innerHTML = '<i class="fa fa-minus"></i> Remove';
+        actionBtn.innerText = "Remove";
         actionBtn.className = "btn btn-danger";
         actionBtn.setAttribute("onclick", "removeSubjectRow(this)");
 
         container.appendChild(newRow);
     }
-
 
     function removeSubjectRow(button) {
         let row = button.closest(".subject-row");

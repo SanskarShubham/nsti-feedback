@@ -11,7 +11,30 @@ if (!isset($_SESSION['admin_data'])) {
 // print_r($_SESSION['admin_data']);
 require_once 'connection.php';
 $conn->query("SET time_zone = '+05:30'");
+
+
+// Set timeout duration in seconds (30 minutes = 1800 seconds)
+$timeout_duration = 1800; 
+
+// Check for last activity
+if (isset($_SESSION['LAST_ACTIVITY']) && 
+    (time() - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+    
+    // Session expired
+    session_unset();     // Unset all session variables
+    session_destroy();   // Destroy the session
+
+    // Optional: redirect to login or timeout page
+    header("Location: login.php?message=Session+expired");
+    exit;
+}
+
+// Update last activity time
+$_SESSION['LAST_ACTIVITY'] = time();
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
