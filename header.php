@@ -25,7 +25,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) &&
     session_destroy();   // Destroy the session
 
     // Optional: redirect to login or timeout page
-    header("Location: login.php?message=Session+expired");
+    header("Location: admin_login.php");
     exit;
 }
 

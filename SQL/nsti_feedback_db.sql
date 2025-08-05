@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2025 at 12:53 PM
+-- Generation Time: Aug 05, 2025 at 12:42 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,7 +64,7 @@ CREATE TABLE `feedback_cycle` (
 --
 
 INSERT INTO `feedback_cycle` (`cycle_id`, `cycle_name`, `start_date`, `end_date`, `is_active`, `created_at`) VALUES
-(1, 'July ', '2025-07-01 00:00:00', '2025-07-31 23:59:59', 1, '2025-07-29 10:46:24');
+(1, 'AUG', '2025-08-01 00:00:00', '2025-08-31 23:59:59', 1, '2025-07-29 10:46:24');
 
 -- --------------------------------------------------------
 
@@ -268,15 +268,15 @@ INSERT INTO `students` (`id`, `attendance_id`, `name`, `trade`, `program`) VALUE
 (277, 1035813, 'Harsh Dev Dwivedi', 'Foundryman', 'CITS'),
 (278, 29318570, 'Km Chhaya  Verma', 'Foundryman', 'CITS'),
 (279, 75509039, 'Khagesh Kumar', 'Foundryman', 'CITS'),
-(280, 13498466, 'Sagnik Manna', 'Foundryman', 'CTS'),
-(281, 66927474, 'Sk Mannan Ali', 'Foundryman', 'CTS'),
-(282, 88908587, 'Deep Das', 'Foundryman', 'CTS'),
-(283, 21994860, 'Ankan Panja', 'Foundryman', 'CTS'),
-(284, 50866182, 'Vishal Singh', 'Foundryman', 'CTS'),
-(285, 66691088, 'Suman Shil', 'Foundryman', 'CTS'),
-(286, 30107360, 'Chanchal Chakraborty', 'Foundryman', 'CTS'),
-(287, 71620205, 'Pradip Kumar', 'Foundryman', 'CTS'),
-(288, 49978512, 'Puja Singh', 'Foundryman', 'CTS'),
+(280, 13498466, 'Sagnik Manna', 'foundryman CTS', 'CTS'),
+(281, 66927474, 'Sk Mannan Ali', 'foundryman CTS', 'CTS'),
+(282, 88908587, 'Deep Das', 'foundryman CTS', 'CTS'),
+(283, 21994860, 'Ankan Panja', 'foundryman CTS', 'CTS'),
+(284, 50866182, 'Vishal Singh', 'foundryman CTS', 'CTS'),
+(285, 66691088, 'Suman Shil', 'foundryman CTS', 'CTS'),
+(286, 30107360, 'Chanchal Chakraborty', 'foundryman CTS', 'CTS'),
+(287, 71620205, 'Pradip Kumar', 'foundryman CTS', 'CTS'),
+(288, 49978512, 'Puja Singh', 'foundryman CTS', 'CTS'),
 (289, 84380489, 'Khushboo Kumari', 'Instrument Mechanic', 'CITS'),
 (290, 91751586, 'Km Aradhana', 'Instrument Mechanic', 'CITS'),
 (291, 69665977, 'Rachana Pal', 'Instrument Mechanic', 'CITS'),
@@ -310,39 +310,39 @@ INSERT INTO `students` (`id`, `attendance_id`, `name`, `trade`, `program`) VALUE
 (319, 59598944, 'Nelson Beck', 'Machinist', 'CITS'),
 (320, 92194977, 'Raj Nandani Kumari', 'Machinist', 'CITS'),
 (321, 45446597, 'Ritik Agnihotry', 'Machinist', 'CITS'),
-(322, 71578346, 'Aditya Kumar', 'Machinist', 'CTS'),
-(323, 33248257, 'Anupam James Khalkho', 'Machinist', 'CTS'),
-(324, 74591848, 'Manish Kumar', 'Machinist', 'CTS'),
-(325, 18942231, 'Sumit Kumar', 'Machinist', 'CTS'),
-(326, 69454930, 'Sohom Kanrar', 'Machinist', 'CTS'),
-(327, 1076892, 'Ajoy Kumar Sharma', 'Machinist', 'CTS'),
-(328, 61764921, 'Sayan Bera', 'Machinist', 'CTS'),
-(329, 33629028, 'Sudhakar Kumar', 'Machinist', 'CTS'),
-(330, 67359583, 'Rahul Kumar', 'Machinist', 'CTS'),
-(331, 10012263, 'Prem Kerketta', 'Machinist', 'CTS'),
-(332, 50229561, 'Priyotosh Bera', 'Machinist', 'CTS'),
-(333, 24682998, 'Sudip Santra', 'Machinist', 'CTS'),
-(334, 73254928, 'Suman Das', 'Machinist', 'CTS'),
-(335, 11883509, 'Asia Khatun', 'Machinist', 'CTS'),
-(336, 2477665, 'Priyanka Das', 'Machinist', 'CTS'),
-(337, 82901664, 'Indranil Bhattacharjee', 'Machinist Grinder', 'CTS'),
-(338, 82544486, 'Sujoy Roy', 'Machinist Grinder', 'CTS'),
-(339, 97412146, 'Biplab Dolui', 'Machinist Grinder', 'CTS'),
-(340, 84143973, 'Hritesh Gupta', 'Machinist Grinder', 'CTS'),
-(341, 3310537, 'Bablu Kumar Rauth', 'Machinist Grinder', 'CTS'),
-(342, 37552615, 'Bolbam Chowdhury', 'Machinist Grinder', 'CTS'),
-(343, 95056920, 'Ritik Raaz', 'Machinist Grinder', 'CTS'),
-(344, 60323908, 'Raj Mallick', 'Machinist Grinder', 'CTS'),
-(345, 2846177, 'Chayan Dey', 'Machinist Grinder', 'CTS'),
-(346, 30439586, 'Arun Prasad', 'Machinist Grinder', 'CTS'),
-(347, 66241677, 'Ayan Das', 'Machinist Grinder', 'CTS'),
-(348, 86108777, 'Shivam Kumar', 'Machinist Grinder', 'CTS'),
-(349, 31350375, 'Pintus Kumar Shaw', 'Machinist Grinder', 'CTS'),
-(350, 50529956, 'Diptesh Khan', 'Machinist Grinder', 'CTS'),
-(351, 10454406, 'Pujan Ghosh', 'Machinist Grinder', 'CTS'),
-(352, 75993108, 'Aditya Majhi', 'Machinist Grinder', 'CTS'),
-(353, 39167043, 'Sumanta Barui', 'Machinist Grinder', 'CTS'),
-(354, 32660308, 'Biswanath Prasad', 'Machinist Grinder', 'CTS'),
+(322, 71578346, 'Aditya Kumar', 'Machinist CTS', 'CTS'),
+(323, 33248257, 'Anupam James Khalkho', 'Machinist CTS', 'CTS'),
+(324, 74591848, 'Manish Kumar', 'Machinist CTS', 'CTS'),
+(325, 18942231, 'Sumit Kumar', 'Machinist CTS', 'CTS'),
+(326, 69454930, 'Sohom Kanrar', 'Machinist CTS', 'CTS'),
+(327, 1076892, 'Ajoy Kumar Sharma', 'Machinist CTS', 'CTS'),
+(328, 61764921, 'Sayan Bera', 'Machinist CTS', 'CTS'),
+(329, 33629028, 'Sudhakar Kumar', 'Machinist CTS', 'CTS'),
+(330, 67359583, 'Rahul Kumar', 'Machinist CTS', 'CTS'),
+(331, 10012263, 'Prem Kerketta', 'Machinist CTS', 'CTS'),
+(332, 50229561, 'Priyotosh Bera', 'Machinist CTS', 'CTS'),
+(333, 24682998, 'Sudip Santra', 'Machinist CTS', 'CTS'),
+(334, 73254928, 'Suman Das', 'Machinist CTS', 'CTS'),
+(335, 11883509, 'Asia Khatun', 'Machinist CTS', 'CTS'),
+(336, 2477665, 'Priyanka Das', 'Machinist CTS', 'CTS'),
+(337, 82901664, 'Indranil Bhattacharjee', 'Machinist Grinder CTS', 'CTS'),
+(338, 82544486, 'Sujoy Roy', 'Machinist Grinder CTS', 'CTS'),
+(339, 97412146, 'Biplab Dolui', 'Machinist Grinder CTS', 'CTS'),
+(340, 84143973, 'Hritesh Gupta', 'Machinist Grinder CTS', 'CTS'),
+(341, 3310537, 'Bablu Kumar Rauth', 'Machinist Grinder CTS', 'CTS'),
+(342, 37552615, 'Bolbam Chowdhury', 'Machinist Grinder CTS', 'CTS'),
+(343, 95056920, 'Ritik Raaz', 'Machinist Grinder CTS', 'CTS'),
+(344, 60323908, 'Raj Mallick', 'Machinist Grinder CTS', 'CTS'),
+(345, 2846177, 'Chayan Dey', 'Machinist Grinder CTS', 'CTS'),
+(346, 30439586, 'Arun Prasad', 'Machinist Grinder CTS', 'CTS'),
+(347, 66241677, 'Ayan Das', 'Machinist Grinder CTS', 'CTS'),
+(348, 86108777, 'Shivam Kumar', 'Machinist Grinder CTS', 'CTS'),
+(349, 31350375, 'Pintus Kumar Shaw', 'Machinist Grinder CTS', 'CTS'),
+(350, 50529956, 'Diptesh Khan', 'Machinist Grinder CTS', 'CTS'),
+(351, 10454406, 'Pujan Ghosh', 'Machinist Grinder CTS', 'CTS'),
+(352, 75993108, 'Aditya Majhi', 'Machinist Grinder CTS', 'CTS'),
+(353, 39167043, 'Sumanta Barui', 'Machinist Grinder CTS', 'CTS'),
+(354, 32660308, 'Biswanath Prasad', 'Machinist Grinder CTS', 'CTS'),
 (355, 65744234, 'Amarnath Gupta', 'Machinist Grinder', 'CITS'),
 (356, 86922804, 'Debjoti Maji', 'Machinist Grinder', 'CITS'),
 (357, 59097050, 'Rajkumar Singh Choudhary', 'Machinist Grinder', 'CITS'),
@@ -630,6 +630,58 @@ INSERT INTO `students` (`id`, `attendance_id`, `name`, `trade`, `program`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_activity`
+--
+
+CREATE TABLE `student_activity` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `total_lesson` int(11) DEFAULT 0,
+  `total_demo` int(11) DEFAULT 0,
+  `total_practical` int(11) DEFAULT 0,
+  `total_test` int(11) DEFAULT 0,
+  `total_tmp` int(11) DEFAULT 0,
+  `remarks` text DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `teacher_id` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_activity`
+--
+
+INSERT INTO `student_activity` (`id`, `student_id`, `total_lesson`, `total_demo`, `total_practical`, `total_test`, `total_tmp`, `remarks`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `teacher_id`) VALUES
+(1, 402, 2, 2, 3, 2, 2, 'ghdg', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(2, 380, 64, 6, 4, 64, 0, 'joihib', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(3, 401, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(4, 399, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(5, 392, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(6, 389, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(7, 383, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(8, 390, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(9, 386, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(10, 398, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(11, 397, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(12, 382, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(13, 395, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(14, 384, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(15, 394, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(16, 391, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(17, 393, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(18, 381, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(19, 396, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(20, 388, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(21, 385, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(22, 387, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8),
+(23, 400, 0, 0, 0, 0, 0, '', 1, '2025-08-04 11:09:40', '2025-08-04 11:09:40', 8, 8, 8);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subject`
 --
 
@@ -826,15 +878,15 @@ INSERT INTO `teacher_subject_trade` (`id`, `teacher_id`, `trade_id`, `subject_id
 (124, 32, 3, 4, 'CITS', '2025-06-25 14:35:45', NULL, '2025-06-25 14:35:45', NULL, 1),
 (125, 32, 3, 5, 'CITS', '2025-06-25 14:35:45', NULL, '2025-06-25 14:35:45', NULL, 1),
 (126, 32, 3, 6, 'CITS', '2025-06-25 14:35:45', NULL, '2025-06-25 14:35:45', NULL, 1),
-(127, 33, 23, 6, 'CTS', '2025-06-25 14:37:17', NULL, '2025-06-25 16:01:57', NULL, 1),
+(127, 33, 23, 5, 'CTS', '2025-06-25 14:37:17', NULL, '2025-08-05 15:15:47', NULL, 1),
 (128, 33, 21, 2, 'CITS', '2025-06-25 14:37:17', NULL, '2025-06-25 14:37:17', NULL, 1),
 (129, 33, 21, 4, 'CITS', '2025-06-25 14:37:17', NULL, '2025-06-25 14:37:17', NULL, 1),
 (130, 33, 21, 5, 'CITS', '2025-06-25 14:37:17', NULL, '2025-06-25 14:37:17', NULL, 1),
 (131, 33, 21, 6, 'CITS', '2025-06-25 14:37:17', NULL, '2025-06-25 14:37:17', NULL, 1),
-(132, 34, 22, 1, 'CTS', '2025-06-25 15:30:20', NULL, '2025-06-25 15:30:20', NULL, 1),
-(133, 34, 22, 2, 'CTS', '2025-06-25 15:30:20', NULL, '2025-06-25 15:30:20', NULL, 1),
-(134, 34, 22, 5, 'CTS', '2025-06-25 15:30:20', NULL, '2025-06-25 15:30:20', NULL, 1),
-(135, 34, 22, 6, 'CTS', '2025-06-25 15:30:20', NULL, '2025-06-25 15:30:20', NULL, 1),
+(132, 34, 22, 1, 'CTS', '2025-06-25 15:30:20', NULL, '2025-08-05 14:27:32', NULL, 1),
+(133, 34, 22, 2, 'CTS', '2025-06-25 15:30:20', NULL, '2025-08-05 14:27:32', NULL, 1),
+(134, 34, 22, 5, 'CTS', '2025-06-25 15:30:20', NULL, '2025-08-05 14:27:32', NULL, 1),
+(135, 34, 22, 6, 'CTS', '2025-06-25 15:30:20', NULL, '2025-08-05 14:27:32', NULL, 1),
 (136, 35, 1, 1, 'CTS', '2025-06-25 15:31:23', NULL, '2025-06-25 15:31:23', NULL, 1),
 (137, 35, 1, 2, 'CTS', '2025-06-25 15:31:23', NULL, '2025-06-25 15:31:23', NULL, 1),
 (138, 36, 23, 2, 'CTS', '2025-06-25 15:32:53', NULL, '2025-06-25 15:32:53', NULL, 1),
@@ -885,7 +937,12 @@ INSERT INTO `teacher_subject_trade` (`id`, `teacher_id`, `trade_id`, `subject_id
 (183, 40, 24, 8, 'CTS', '2025-06-25 16:18:47', NULL, '2025-06-25 16:18:47', NULL, 1),
 (184, 40, 22, 8, 'CTS', '2025-06-25 16:18:47', NULL, '2025-06-25 16:18:47', NULL, 1),
 (185, 40, 23, 8, 'CTS', '2025-06-25 16:18:47', NULL, '2025-06-25 16:18:47', NULL, 1),
-(186, 40, 20, 8, 'CTS', '2025-06-25 16:18:47', NULL, '2025-06-25 16:18:47', NULL, 1);
+(186, 40, 20, 8, 'CTS', '2025-06-25 16:18:47', NULL, '2025-06-25 16:18:47', NULL, 1),
+(187, 33, 23, 1, 'CTS', '2025-08-05 15:22:25', NULL, '2025-08-05 15:23:05', NULL, 1),
+(188, 33, 23, 6, 'CTS', '2025-08-05 15:22:25', NULL, '2025-08-05 15:22:25', NULL, 1),
+(189, 31, 24, 1, 'CTS', '2025-08-05 15:29:48', NULL, '2025-08-05 15:29:48', NULL, 1),
+(190, 31, 24, 2, 'CTS', '2025-08-05 15:29:48', NULL, '2025-08-05 15:29:48', NULL, 1),
+(191, 31, 24, 5, 'CTS', '2025-08-05 15:29:48', NULL, '2025-08-05 15:29:48', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -912,7 +969,7 @@ INSERT INTO `trade` (`trade_id`, `trade_name`, `program`, `created_at`, `created
 (1, 'Artificial Intelligence and Programming Assistant', 'CTS', '2025-06-06 11:02:15', NULL, '2025-06-12 17:07:44', NULL, 1),
 (2, 'Computer Software Applications', 'CITS', '2025-06-04 14:11:09', NULL, '2025-06-12 17:08:27', NULL, 1),
 (3, 'Fitter', 'CITS', '2025-06-04 14:16:51', NULL, '2025-07-09 22:40:08', NULL, 1),
-(4, 'Machinist', 'CITS', '2025-06-06 11:08:05', NULL, '2025-06-12 17:12:24', NULL, 1),
+(4, 'MACHINIST', 'CITS', '2025-06-06 11:08:05', NULL, '2025-08-05 14:22:15', NULL, 1),
 (5, 'Mechanic Machine Tool Maintenance (MMTM)', 'CITS', '2025-06-06 11:08:48', NULL, '2025-06-12 17:14:08', NULL, 1),
 (6, 'Turner', 'CITS', '2025-06-06 11:08:57', NULL, '2025-06-12 17:16:25', NULL, 1),
 (7, 'Mechanic Motor Vehicle', 'CITS', '2025-06-06 11:09:03', NULL, '2025-06-12 17:14:27', NULL, 1),
@@ -955,6 +1012,12 @@ ALTER TABLE `feedback_cycle`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student_activity`
+--
+ALTER TABLE `student_activity`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1004,6 +1067,12 @@ ALTER TABLE `students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=643;
 
 --
+-- AUTO_INCREMENT for table `student_activity`
+--
+ALTER TABLE `student_activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
@@ -1019,7 +1088,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teacher_subject_trade`
 --
 ALTER TABLE `teacher_subject_trade`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 --
 -- AUTO_INCREMENT for table `trade`
