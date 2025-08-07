@@ -8,13 +8,14 @@ include('header.php');
 // --- PHP LOGIC FOR FILTERING ---
 $selected_program = '';
 $selected_trade = '';
+$selected_cycle = '';
 $activities = [];
 
-// Base SQL query with JOIN to get student names. 
-// The sa.* will automatically include the new 'remarks' column.
-$sql = "SELECT sa.*, s.name as student_name, s.program, s.trade 
+// Base SQL query with JOINs to get all necessary names.
+$sql = "SELECT sa.*, s.name as student_name, s.program, s.trade, sac.cycle_name 
         FROM student_activity sa
-        JOIN students s ON sa.student_id = s.id";
+        JOIN students s ON sa.student_id = s.id
+        JOIN student_activity_cycle sac ON sa.student_activity_cycle_id = sac.cycle_id";
 
 $where_clauses = [];
 $bind_params = [];
@@ -34,6 +35,12 @@ if (isset($_POST['filter'])) {
         $bind_types .= 's';
         $bind_params[] = $selected_trade;
     }
+    if (!empty($_POST['cycle'])) {
+        $selected_cycle = $_POST['cycle'];
+        $where_clauses[] = "sa.student_activity_cycle_id = ?";
+        $bind_types .= 'i';
+        $bind_params[] = $selected_cycle;
+    }
 }
 
 // Append WHERE clauses if any filters are active
@@ -41,7 +48,7 @@ if (!empty($where_clauses)) {
     $sql .= " WHERE " . implode(" AND ", $where_clauses);
 }
 
-$sql .= " ORDER BY s.name ASC";
+$sql .= " ORDER BY sac.start_date DESC, s.name ASC";
 
 $stmt = $conn->prepare($sql);
 
@@ -85,7 +92,20 @@ $stmt->close();
                     <!-- Filter Form -->
                     <form action="" method="POST" class="mb-4">
                         <div class="row align-items-end">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <label for="cycle">Activity Cycle</label>
+                                <select class="form-control" id="cycle" name="cycle">
+                                    <option value="">All Cycles</option>
+                                    <?php
+                                    $cycle_result = $conn->query("SELECT cycle_id, cycle_name FROM student_activity_cycle ORDER BY start_date DESC");
+                                    while ($cycle_row = $cycle_result->fetch_assoc()) {
+                                        $selected = ($cycle_row['cycle_id'] == $selected_cycle) ? 'selected' : '';
+                                        echo "<option value='{$cycle_row['cycle_id']}' {$selected}>" . htmlspecialchars($cycle_row['cycle_name']) . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
                                 <label for="program">Program</label>
                                 <select class="form-control" id="program" name="program">
                                     <option value="">All Programs</option>
@@ -93,7 +113,7 @@ $stmt->close();
                                     <option value="CITS" <?php if ($selected_program == 'CITS') echo 'selected'; ?>>CITS</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="trade">Trade</label>
                                 <select class="form-control" id="trade" name="trade">
                                     <option value="">All Trades</option>
@@ -101,12 +121,12 @@ $stmt->close();
                                     $trade_result = $conn->query("SELECT DISTINCT trade_name FROM trade ORDER BY trade_name ASC");
                                     while ($trade_row = $trade_result->fetch_assoc()) {
                                         $selected = ($trade_row['trade_name'] == $selected_trade) ? 'selected' : '';
-                                        echo "<option value='{$trade_row['trade_name']}' {$selected}>{$trade_row['trade_name']}</option>";
+                                        echo "<option value='" . htmlspecialchars($trade_row['trade_name']) . "' {$selected}>" . htmlspecialchars($trade_row['trade_name']) . "</option>";
                                     }
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <button type="submit" name="filter" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
                                 <a href="list-students-activity.php" class="btn btn-secondary"><i class="fa fa-undo"></i> Reset</a>
                             </div>
@@ -122,12 +142,13 @@ $stmt->close();
                                     <th>Student Name</th>
                                     <th>Program</th>
                                     <th>Trade</th>
+                                    <th>Cycle Name</th>
                                     <th>Lesson</th>
                                     <th>Demo</th>
                                     <th>Practical</th>
                                     <th>Test</th>
                                     <th>TMP</th>
-                                    <th>Remarks</th> <!-- MODIFICATION: Added Remarks Header -->
+                                    <th>Remarks</th>
                                     <th>Last Updated</th>
                                 </tr>
                             </thead>
@@ -139,20 +160,19 @@ $stmt->close();
                                             <td><?php echo htmlspecialchars($activity['student_name']); ?></td>
                                             <td><?php echo htmlspecialchars($activity['program']); ?></td>
                                             <td><?php echo htmlspecialchars($activity['trade']); ?></td>
+                                            <td><?php echo htmlspecialchars($activity['cycle_name']); ?></td>
                                             <td><?php echo $activity['total_lesson']; ?></td>
                                             <td><?php echo $activity['total_demo']; ?></td>
                                             <td><?php echo $activity['total_practical']; ?></td>
                                             <td><?php echo $activity['total_test']; ?></td>
                                             <td><?php echo $activity['total_tmp']; ?></td>
-                                            <!-- MODIFICATION: Added Remarks Data Cell -->
                                             <td><?php echo htmlspecialchars($activity['remarks']); ?></td>
                                             <td><?php echo date('d-M-Y h:i A', strtotime($activity['updated_at'])); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <!-- MODIFICATION: Updated colspan to 11 -->
-                                        <td colspan="11" class="text-center">No activity records found.</td>
+                                        <td colspan="12" class="text-center">No activity records found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

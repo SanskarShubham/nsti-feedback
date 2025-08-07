@@ -64,3 +64,31 @@ CREATE TABLE `student_activity` (
 UPDATE `students` SET `trade` = 'Machinist CTS' WHERE `students`.`trade`='machinist' and `students`.`program` = 'CTS' ;
 
 UPDATE `students` SET `trade` = 'Machinist Grinder CTS' WHERE `students`.`trade`='machinist grinder' and `students`.`program` = 'CTS';
+
+
+
+
+
+
+
+
+-- 19-06-2025 for adding student activity cycle
+
+CREATE TABLE `student_activity_cycle` (
+  `cycle_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cycle_name` varchar(100) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`cycle_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Also, add the new column to your student_activity table
+ALTER TABLE `student_activity` 
+ADD `student_activity_cycle_id` INT(11) NULL DEFAULT NULL AFTER `remarks`,
+ADD INDEX `idx_cycle_id` (`student_activity_cycle_id`);
+
+-- IMPORTANT: Add a unique key to prevent duplicate entries for the same student in the same cycle
+ALTER TABLE `student_activity`
+ADD UNIQUE `unique_student_cycle`(`student_id`, `student_activity_cycle_id`);

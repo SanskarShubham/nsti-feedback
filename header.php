@@ -233,6 +233,13 @@ $_SESSION['LAST_ACTIVITY'] = time();
                     </li>
                     <li>
 
+                        <a href="./student-activity-cycle.php" aria-expanded="false">
+                            <i class="fa fa-recycle"></i> <span class="nav-text">Student Activity Cycle</span>
+                        </a>
+
+                    </li>
+                    <li>
+
                         <a href="./add-student-activity.php" aria-expanded="false">                     <i class="fa fa-plus"></i> <span class="nav-text">Add Student Activity</span>
                         </a>
 

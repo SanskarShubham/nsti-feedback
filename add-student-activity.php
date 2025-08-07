@@ -1,6 +1,14 @@
 <?php 
-// Ensure you have your database connection file included.
 include('header.php'); 
+date_default_timezone_set('Asia/Kolkata');
+$conn->query("SET time_zone = '+05:30'");
+
+// --- GET ACTIVE ACTIVITY CYCLE ---
+$active_cycle = null;
+$cycle_result = $conn->query("SELECT * FROM student_activity_cycle WHERE is_active = 1 AND NOW() BETWEEN start_date AND end_date LIMIT 1");
+if ($cycle_result && $cycle_result->num_rows > 0) {
+    $active_cycle = $cycle_result->fetch_assoc();
+}
 
 // --- ROLE-BASED PERMISSIONS SETUP ---
 $user_designation = $_SESSION['admin_data']['designation'];
@@ -41,7 +49,7 @@ if (empty($assigned_trades) && $user_designation !== 'admin') {
 <style>
     .table-scrollable { max-height: 65vh; overflow-y: auto; }
     .table-scrollable thead th { position: sticky; top: 0; z-index: 2; background-color: #f8f9fa; box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); }
-    input:disabled { background-color: #e9ecef; cursor: not-allowed; }
+    input:disabled, textarea:disabled { background-color: #e9ecef; cursor: not-allowed; }
 </style>
 
 <?php
@@ -54,113 +62,128 @@ $is_readonly = false;
 
 // 1. Check if the 'Find Students' button was clicked
 if (isset($_POST['find_students'])) {
-    $selected_program = $_POST['program'];
-    $selected_trade = $_POST['trade_id'];
+    if (!$active_cycle) {
+        $message = "<div class='alert alert-warning'>⚠️ Student Activity submission is not currently active.</div>";
+    } else {
+        $selected_program = $_POST['program'];
+        $selected_trade = $_POST['trade_id'];
 
-    if (in_array($selected_trade, $assigned_trades)) {
-        if (!empty($selected_program) && !empty($selected_trade)) {
-            
-            // ** CORE LOGIC CHANGE **
-            // For Admins, use INNER JOIN to only fetch students WITH existing records.
-            // For Teachers, use LEFT JOIN to fetch all students so they can make the initial entry.
-            $join_type = ($user_designation === 'admin') ? "INNER JOIN" : "LEFT JOIN";
+        if (in_array($selected_trade, $assigned_trades)) {
+            if (!empty($selected_program) && !empty($selected_trade)) {
+                
+                $join_type = ($user_designation === 'admin') ? "INNER JOIN" : "LEFT JOIN";
+                $cycle_condition = "AND sa.student_activity_cycle_id = ?";
 
-            $sql = "SELECT s.id, s.name, sa.total_lesson, sa.total_demo, sa.total_practical, sa.total_test, sa.total_tmp, sa.remarks
-                    FROM students s
-                    {$join_type} student_activity sa ON s.id = sa.student_id
-                    WHERE s.program = ? AND s.trade = ? 
-                    ORDER BY s.name ASC";
-            
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $selected_program, $selected_trade);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            
-            while ($row = $result->fetch_assoc()) {
-                $students[] = $row;
-                // Read-only logic only applies to teachers
-                if ($user_designation !== 'admin' && $row['total_lesson'] !== null) {
-                    $is_readonly = true;
+                $sql = "SELECT s.id, s.name, sa.total_lesson, sa.total_demo, sa.total_practical, sa.total_test, sa.total_tmp, sa.remarks, sa.student_activity_cycle_id
+                        FROM students s
+                        {$join_type} student_activity sa ON s.id = sa.student_id {$cycle_condition}
+                        WHERE s.program = ? AND s.trade = ? 
+                        ORDER BY s.name ASC";
+                
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("iss", $active_cycle['cycle_id'], $selected_program, $selected_trade);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                while ($row = $result->fetch_assoc()) {
+                    $students[] = $row;
+                    if ($user_designation !== 'admin' && $row['student_activity_cycle_id'] == $active_cycle['cycle_id']) {
+                        $is_readonly = true;
+                    }
                 }
-            }
-            $stmt->close();
+                $stmt->close();
 
-            if (empty($students)) {
-                $message_text = ($user_designation === 'admin') 
-                    ? "No submitted activity records found for this selection."
-                    : "No students found for your assigned trade in the selected program.";
-                $message = "<div class='alert alert-warning'>⚠️ {$message_text}</div>";
+                if (empty($students)) {
+                    $message_text = ($user_designation === 'admin') 
+                        ? "No submitted activity records found for this selection in the current cycle."
+                        : "No students found for your assigned trade in the selected program.";
+                    $message = "<div class='alert alert-warning'>⚠️ {$message_text}</div>";
+                }
+            } else {
+                $message = "<div class='alert alert-danger'>❌ Please select both Program and Trade.</div>";
             }
         } else {
-            $message = "<div class='alert alert-danger'>❌ Please select both Program and Trade.</div>";
+            $message = "<div class='alert alert-danger'>❌ Invalid trade selected.</div>";
         }
-    } else {
-        $message = "<div class='alert alert-danger'>❌ Invalid trade selected.</div>";
     }
 }
 
 // 2. Check if the 'save_activities' button was clicked
 if (isset($_POST['save_activities'])) {
-    $student_ids = $_POST['student_id'];
-    $total_lessons = $_POST['total_lesson'];
-    $total_demos = $_POST['total_demo'];
-    $total_practicals = $_POST['total_practical'];
-    $total_tests = $_POST['total_test'];
-    $total_tmps = $_POST['total_tmp'];
-    $remarks = $_POST['remarks'];
-    
-    $current_user_id = $_SESSION['admin_data']['teacher_id'];
+    // Re-fetch the active cycle on submission to ensure we are using the most current one
+    $active_cycle_on_submit = null;
+    $cycle_result_on_submit = $conn->query("SELECT * FROM student_activity_cycle WHERE is_active = 1 AND NOW() BETWEEN start_date AND end_date LIMIT 1");
+    if ($cycle_result_on_submit && $cycle_result_on_submit->num_rows > 0) {
+        $active_cycle_on_submit = $cycle_result_on_submit->fetch_assoc();
+    }
 
-    // ** CORE LOGIC CHANGE **
-    // Admins use a strict UPDATE query. Teachers use INSERT...UPDATE.
-    if ($user_designation === 'admin') {
-        $sql = "UPDATE student_activity SET 
+    if (!$active_cycle_on_submit) {
+        $message = "<div class='alert alert-danger'>❌ Cannot save. The student activity cycle is no longer active. Please refresh the page.</div>";
+    } else {
+        $student_ids = $_POST['student_id'];
+        $total_lessons = $_POST['total_lesson'];
+        $total_demos = $_POST['total_demo'];
+        $total_practicals = $_POST['total_practical'];
+        $total_tests = $_POST['total_test'];
+        $total_tmps = $_POST['total_tmp'];
+        $remarks = $_POST['remarks'];
+        $cycle_id_to_save = $active_cycle_on_submit['cycle_id']; // **FIX: Always use the currently active cycle ID**
+        
+        $current_user_id = $_SESSION['admin_data']['teacher_id'];
+
+        if ($user_designation === 'admin') {
+            $sql = "UPDATE student_activity SET 
                     total_lesson = ?, total_demo = ?, total_practical = ?, 
                     total_test = ?, total_tmp = ?, remarks = ?, updated_by = ?, updated_at = NOW(), status = 1, teacher_id = ?  
-                WHERE student_id = ?";
-    } else {
-        $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by,teacher_id) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?,?)
-                ON DUPLICATE KEY UPDATE
-                total_lesson = VALUES(total_lesson), total_demo = VALUES(total_demo), total_practical = VALUES(total_practical), 
-                total_test = VALUES(total_test), total_tmp = VALUES(total_tmp), remarks = VALUES(remarks), updated_by = VALUES(updated_by), updated_at = NOW()";
-    }
-    
-    $stmt = $conn->prepare($sql);
-    $conn->begin_transaction();
-    $all_saved = true;
-
-    foreach ($student_ids as $key => $student_id) {
-        if ($user_designation === 'admin') {
-            $stmt->bind_param("iiiiisiii", 
-                $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
-                $total_tests[$key], $total_tmps[$key], $remarks[$key], 
-                $current_user_id,  $current_user_id,$student_id
-            );
+                    WHERE student_id = ? AND student_activity_cycle_id = ?";
         } else {
-            $stmt->bind_param("iiiiisiiii", 
-                $student_id, $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
-                $total_tests[$key], $total_tmps[$key], $remarks[$key], 
-                $current_user_id, $current_user_id, $current_user_id
-            );
+            $sql = "INSERT INTO student_activity (student_id, total_lesson, total_demo, total_practical, total_test, total_tmp, remarks, status, created_by, updated_by, teacher_id, student_activity_cycle_id) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE
+                    total_lesson = VALUES(total_lesson), total_demo = VALUES(total_demo), total_practical = VALUES(total_practical), 
+                    total_test = VALUES(total_test), total_tmp = VALUES(total_tmp), remarks = VALUES(remarks), updated_by = VALUES(updated_by), updated_at = NOW()";
+        }
+        
+        $stmt = $conn->prepare($sql);
+        $conn->begin_transaction();
+        $all_saved = true;
+
+        foreach ($student_ids as $key => $student_id) {
+            if ($user_designation === 'admin') {
+                $stmt->bind_param("iiiiisiiii", 
+                    $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
+                    $total_tests[$key], $total_tmps[$key], $remarks[$key], 
+                    $current_user_id, $current_user_id, $student_id, $cycle_id_to_save
+                );
+            } else {
+                $stmt->bind_param("iiiiisiiiii", 
+                    $student_id, $total_lessons[$key], $total_demos[$key], $total_practicals[$key], 
+                    $total_tests[$key], $total_tmps[$key], $remarks[$key], 
+                    $current_user_id, $current_user_id, $current_user_id, $cycle_id_to_save
+                );
+            }
+
+            if (!$stmt->execute()) {
+                $all_saved = false;
+                if ($conn->errno == 1062) {
+                    $message = "<div class='alert alert-danger'>❌ Error: An activity report for one or more of these students already exists in this cycle.</div>";
+                } else {
+                    $message = "<div class='alert alert-danger'>❌ Error saving data: " . $stmt->error . "</div>";
+                }
+                break;
+            }
         }
 
-        if (!$stmt->execute()) {
-            $all_saved = false;
-            $message = "<div class='alert alert-danger'>❌ Error saving data: " . $stmt->error . "</div>";
-            break;
+        if ($all_saved) {
+            $conn->commit();
+            $success_text = ($user_designation === 'admin') ? "updated" : "saved";
+            $message = "<div class='alert alert-success'>✅ Student activities have been {$success_text} successfully!</div>";
+            if ($user_designation !== 'admin') $is_readonly = true;
+        } else {
+            $conn->rollback();
         }
+        $stmt->close();
     }
-
-    if ($all_saved) {
-        $conn->commit();
-        $success_text = ($user_designation === 'admin') ? "updated" : "saved";
-        $message = "<div class='alert alert-success'>✅ Student activities have been {$success_text} successfully!</div>";
-        if ($user_designation !== 'admin') $is_readonly = true;
-    } else {
-        $conn->rollback();
-    }
-    $stmt->close();
 }
 ?>
 
@@ -169,7 +192,20 @@ if (isset($_POST['save_activities'])) {
     <div class="card">
         <div class="card-header"><h4 class="card-title">Add / Edit Student Activity</h4></div>
         <div class="card-body">
+            
             <?php if(!empty($message)) echo $message; ?>
+
+            <?php if($active_cycle): ?>
+            <div class="alert alert-info">
+                <strong>Active Cycle:</strong> <?php echo htmlspecialchars($active_cycle['cycle_name']); ?>
+                (Ends on: <?php echo (new DateTime($active_cycle['end_date']))->format('d-M-Y'); ?>)
+            </div>
+            <?php else: ?>
+            <div class="alert alert-warning">
+                <strong>Student Activity submission is not currently active.</strong> You can view previous records, but you cannot submit new ones.
+            </div>
+            <?php endif; ?>
+
             <form class="form-valide" action="" method="post" autocomplete="off">
                 <div class="row">
                     <div class="form-group col-md-4">
@@ -193,14 +229,16 @@ if (isset($_POST['save_activities'])) {
                         </select>
                     </div>
                     <div class="form-group col-md-4" style="margin-top: 28px;">
-                        <button type="submit" name="find_students" class="btn btn-info"><i class="fa fa-search"></i> Find Students</button>
+                        <button type="submit" name="find_students" class="btn btn-info" <?php if(!$active_cycle) echo 'disabled'; ?>><i class="fa fa-search"></i> Find Students</button>
                     </div>
                 </div>
                 <hr>
 
                 <?php if (!empty($students)): ?>
                     <?php if ($is_readonly): ?>
-                        <div class="alert alert-info text-center"><strong>Data Locked:</strong> Activities for this group have already been submitted and cannot be edited.</div>
+                        <div class="alert alert-info text-center">
+                            <strong>Data Locked:</strong> Activities for this group have already been submitted for the current cycle.
+                        </div>
                     <?php endif; ?>
 
                     <div class="table-responsive table-scrollable">
@@ -223,7 +261,7 @@ if (isset($_POST['save_activities'])) {
                                     <td><input type="number" class="form-control" name="total_practical[]" value="<?php echo $student['total_practical'] ?? 0; ?>" min="0" required <?php if ($is_readonly) echo 'disabled'; ?>></td>
                                     <td><input type="number" class="form-control" name="total_test[]" value="<?php echo $student['total_test'] ?? 0; ?>" min="0" required <?php if ($is_readonly) echo 'disabled'; ?>></td>
                                     <td><input type="number" class="form-control" name="total_tmp[]" value="<?php echo $student['total_tmp'] ?? 0; ?>" min="0" required <?php if ($is_readonly) echo 'disabled'; ?>></td>
-                                    <td><input type="text" class="form-control" name="remarks[]" value="<?php echo htmlspecialchars($student['remarks'] ?? ''); ?>" <?php if ($is_readonly) echo 'disabled'; ?>></td>
+                                    <td><textarea class="form-control" name="remarks[]" <?php if ($is_readonly) echo 'disabled'; ?>><?php echo htmlspecialchars($student['remarks'] ?? ''); ?></textarea></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
