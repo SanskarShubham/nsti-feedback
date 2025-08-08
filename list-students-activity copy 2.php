@@ -140,7 +140,6 @@ $stmt->close();
                                 <tr>
                                     <th>#</th>
                                     <th>Student Name</th>
-                                    <th>Teacher Name</th>
                                     <th>Program</th>
                                     <th>Trade</th>
                                     <th>Cycle Name</th>
@@ -154,17 +153,11 @@ $stmt->close();
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 <?php if (!empty($activities)): ?>
                                     <?php foreach ($activities as $index => $activity): ?>
-                                          <?php
-                                            $teacher_result = $conn->query("SELECT name FROM teachers WHERE teacher_id = '{$activity['created_by']}'");
-                                            $teacher_row = $teacher_result->fetch_assoc();
-                                            ?>
                                         <tr>
                                             <td><?php echo $index + 1; ?></td>
                                             <td><?php echo htmlspecialchars($activity['student_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($teacher_row['name']); ?></td>
                                             <td><?php echo htmlspecialchars($activity['program']); ?></td>
                                             <td><?php echo htmlspecialchars($activity['trade']); ?></td>
                                             <td><?php echo htmlspecialchars($activity['cycle_name']); ?></td>
